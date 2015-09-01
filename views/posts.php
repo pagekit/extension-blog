@@ -30,15 +30,14 @@
 </article>
 <?php endforeach ?>
 
-
 <?php
 
     $range     = 3;
     $total     = intval($total);
     $page      = intval($page);
     $pageIndex = $page - 1;
-?>
 
+?>
 
 <?php if ($total > 1) : ?>
 <ul class="uk-pagination">
