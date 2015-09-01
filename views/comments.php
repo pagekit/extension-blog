@@ -8,6 +8,8 @@
         <comments-item v-repeat="comment: tree[0]" depth="0"></comments-item>
     </ul>
 
+    <div class="uk-alert" v-repeat="message:messages">{{ message }}</div>
+
     <comments-reply v-if="config.enabled && !reply"></comments-reply>
 
     <p v-if="!config.enabled">{{ 'Comments are closed.' | trans }}</p>
@@ -42,6 +44,8 @@
                 <p v-if="showReplyButton"><a href="#" v-on="click: replyTo">{{ 'Reply' | trans }}</a></p>
 
             </div>
+
+            <div class="uk-alert" v-repeat="message:comment.messages">{{ message }}</div>
 
             <comments-reply v-if="showReply"></comments-reply>
 

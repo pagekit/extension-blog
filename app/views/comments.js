@@ -5,6 +5,7 @@ module.exports = {
             post: {},
             tree: {},
             comments: [],
+            messages: [],
             count: 0,
             reply: 0,
             error: false
@@ -116,29 +117,24 @@ module.exports = {
                             document.replyForm.reset();
                         }
 
-                        if (!this.user.skipApproval) {
-
-                            var notice = '<div class="uk-alert">'+this.$trans('Thank you! Your comment needs approval before showing up.')+'</div>';
-
-                            if (comment.parent_id) {
-                                jQuery('#comment-' + data.comment.id).append(notice);
-                            } else {
-                                jQuery(e.target).parent().before(notice);
-                            }
-                        }
-
                         this.$set('reply', 0);
                         this.$set('author', '');
                         this.$set('email', '');
                         this.$set('content', '');
                         this.$set('replyForm', {});
 
+                        if (!this.user.skipApproval) {
+
+                            var message = this.$trans('Thank you! Your comment needs approval before showing up.');
+
+                            this.messages.push(message);
+                        }
+
                         if (this.user.skipApproval) {
 
                             this.load().success(function () {
                                 window.location.hash = 'comment-' + data.comment.id;
                             });
-
                         }
 
                     }, function () {
