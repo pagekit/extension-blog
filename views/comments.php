@@ -94,7 +94,7 @@
             </div>
 
             <p>
-                <button class="uk-button uk-button-primary" type="submit" accesskey="s">{{ 'Submit comment' | trans }}</button>
+                <button class="uk-button uk-button-primary" type="submit" accesskey="s">{{ 'Submit' | trans }}</button>
             </p>
 
         </form>
