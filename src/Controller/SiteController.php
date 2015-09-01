@@ -139,7 +139,7 @@ class SiteController
                 'config' => [
                     'post' => $post->id,
                     'enabled' => $post->isCommentable(),
-                    'requireinfo' => $this->blog->config('comments.require_name_and_email'),
+                    'requireinfo' => $this->blog->config('comments.require_email'),
                     'max_depth' => $this->blog->config('comments.max_depth')
                 ],
                 'user' => [

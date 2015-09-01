@@ -18,7 +18,7 @@
 
     <li id="comment-{{ comment.id }}">
 
-        <article class="uk-comment">
+        <article class="uk-comment" v-class="uk-comment-primary:comment.special">
 
             <header class="uk-comment-header">
 
@@ -72,7 +72,7 @@
             <div class="uk-form-row" v-if="!user.isAuthenticated">
                 <label for="form-name" class="uk-form-label">{{ 'Name' | trans }}</label>
                 <div class="uk-form-controls">
-                    <input id="form-name" class="uk-form-width-large" type="text" name="author" v-model="author" v-valid="required: config.requireinfo">
+                    <input id="form-name" class="uk-form-width-large" type="text" name="author" v-model="author" v-valid="required">
                     <p class="uk-form-help-block uk-text-danger" v-show="replyForm.author.invalid">{{ 'Name cannot be blank.' | trans }}</p>
                 </div>
             </div>

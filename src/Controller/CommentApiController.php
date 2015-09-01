@@ -71,7 +71,7 @@ class CommentApiController
 
         $comments = $query->related(['post' => function ($query) {
             return $query->related('comments');
-        }])->orderBy('created', 'DESC')->get();
+        }])->related('user')->orderBy('created', 'DESC')->get();
 
         $posts = [];
 
@@ -84,8 +84,11 @@ class CommentApiController
             }
 
             $comment->content = App::content()->applyPlugins($comment->content, ['comment' => true]);
-            $posts[$p->id] = $p;
-            $comment->post = null;
+            $posts[$p->id]    = $p;
+
+            $comment->special = count(array_diff($comment->user ? $comment->user->roles:[], [0,1,2]));
+            $comment->post    = null;
+            $comment->user    = null;
         }
 
         $comments = array_values($comments);

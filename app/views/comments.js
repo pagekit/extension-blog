@@ -21,6 +21,7 @@ module.exports = {
         load: function () {
 
             return this.Comments.query({post: this.config.post}, function (data) {
+
                 this.$set('comments', data.comments);
                 this.$set('tree', _.groupBy(data.comments, 'parent_id'));
                 this.$set('post', data.posts[0]);

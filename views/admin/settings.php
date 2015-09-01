@@ -111,7 +111,7 @@
                         <span class="uk-form-label">{{ 'Comments' | trans }}</span>
                         <div class="uk-form-controls uk-form-controls-text">
                             <p class="uk-form-controls-condensed">
-                                <label><input type="checkbox" v-model="config.comments.require_name_and_email"> {{ 'Require name and e-mail.' | trans }}</label>
+                                <label><input type="checkbox" v-model="config.comments.require_email"> {{ 'Require e-mail.' | trans }}</label>
                             </p>
                             <p class="uk-form-controls-condensed">
                                 <input type="checkbox" v-model="config.comments.autoclose"> {{ 'Close comments on articles older than' | trans }}
