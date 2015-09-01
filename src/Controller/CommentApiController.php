@@ -104,11 +104,7 @@ class CommentApiController
      */
     public function saveAction($data, $id = 0)
     {
-        if (!$id || !$comment = Comment::find($id)) {
-
-            if ($id) {
-                App::abort(404, __('Comment not found.'));
-            }
+        if (!$id) {
 
             if (!$this->user->hasAccess('blog: post comments')) {
                 App::abort(403, __('Insufficient User Rights.'));
@@ -124,7 +120,7 @@ class CommentApiController
                 App::abort(400, __('Please provide valid name and email.'));
             }
 
-            $comment->user_id = (int) $this->user->id;
+            $comment->user_id = $this->user->isAuthenticated() ? (int) $this->user->id:0;
             $comment->ip = App::request()->getClientIp();
             $comment->created = new \DateTime;
 
@@ -134,6 +130,12 @@ class CommentApiController
                 App::abort(403, __('Insufficient User Rights.'));
             }
 
+            $comment = Comment::find($id);
+
+            if (!$comment) {
+                App::abort(404, __('Comment not found.'));
+            }
+
         }
 
         unset($data['created']);
@@ -141,10 +143,10 @@ class CommentApiController
         // check minimum idle time in between user comments
         if (!$this->user->hasAccess('blog: skip comment min idle')
             and $minidle = $this->blog->config('comments.minidle')
-            and $comment = Comment::where($this->user->isAuthenticated() ? ['user_id' => $this->user->id] : ['ip' => App::request()->getClientIp()])->orderBy('created', 'DESC')->first()
+            and $commentIdle = Comment::where($this->user->isAuthenticated() ? ['user_id' => $this->user->id] : ['ip' => App::request()->getClientIp()])->orderBy('created', 'DESC')->first()
         ) {
 
-            $diff = $comment->created->diff(new \DateTime("- {$minidle} sec"));
+            $diff = $commentIdle->created->diff(new \DateTime("- {$minidle} sec"));
 
             if ($diff->invert) {
                 App::abort(403, __('Please wait another %seconds% seconds before commenting again.', ['%seconds%' => $diff->s + $diff->i * 60 + $diff->h * 3600]));
@@ -196,8 +198,9 @@ class CommentApiController
      */
     public function bulkSaveAction($comments = [])
     {
+
         foreach ($comments as $data) {
-            $this->saveAction($data, isset($data['id']) ? $data['id'] : 0);
+            $this->saveAction($data, isset($data['id']) ? intval($data['id']) : 0);
         }
 
         return ['message' => 'success'];

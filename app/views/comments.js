@@ -112,23 +112,11 @@ module.exports = {
 
                     this.$resource('api/blog/comment/:id').save({id: 0}, {comment: comment}, function (data) {
 
-                        this.$set('reply', 0);
-                        this.$set('author', '');
-                        this.$set('email', '');
-                        this.$set('content', '');
-                        this.$set('replyForm', {});
-
                         if (document.replyForm) {
                             document.replyForm.reset();
                         }
 
-                        if (this.user.skipApproval) {
-
-                            this.load().success(function () {
-                                window.location.hash = 'comment-' + data.comment.id;
-                            });
-
-                        } else {
+                        if (!this.user.skipApproval) {
 
                             var notice = '<div class="uk-alert">'+this.$trans('Thank you! Your comment needs approval before showing up.')+'</div>';
 
@@ -137,6 +125,20 @@ module.exports = {
                             } else {
                                 jQuery(e.target).parent().before(notice);
                             }
+                        }
+
+                        this.$set('reply', 0);
+                        this.$set('author', '');
+                        this.$set('email', '');
+                        this.$set('content', '');
+                        this.$set('replyForm', {});
+
+                        if (this.user.skipApproval) {
+
+                            this.load().success(function () {
+                                window.location.hash = 'comment-' + data.comment.id;
+                            });
+
                         }
 
                     }, function () {
