@@ -59,7 +59,7 @@
 
 <script id="comments-reply" type="text/template">
 
-    <div class="uk-margin-large">
+    <div class="uk-margin-large js-comment-reply">
 
         <h2 class="uk-h4">{{ 'Leave a comment' | trans }}</h2>
 

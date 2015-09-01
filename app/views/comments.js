@@ -122,9 +122,22 @@ module.exports = {
                             document.replyForm.reset();
                         }
 
-                        this.load().success(function () {
-                            window.location.hash = 'comment-' + data.comment.id;
-                        });
+                        if (this.user.skipApproval) {
+
+                            this.load().success(function () {
+                                window.location.hash = 'comment-' + data.comment.id;
+                            });
+
+                        } else {
+
+                            var notice = '<div class="uk-alert">'+this.$trans('Thank you! Your comment needs approval before showing up.')+'</div>';
+
+                            if (comment.parent_id) {
+                                jQuery('#comment-' + data.comment.id).append(notice);
+                            } else {
+                                jQuery(e.target).parent().before(notice);
+                            }
+                        }
 
                     }, function () {
 

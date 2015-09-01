@@ -146,6 +146,7 @@ class SiteController
                     'name' => $user->name,
                     'isAuthenticated' => $user->isAuthenticated(),
                     'canComment' => $user->hasAccess('blog: post comments'),
+                    'skipApproval' => $user->hasAccess('blog: skip comment approval')
                 ],
 
             ],
