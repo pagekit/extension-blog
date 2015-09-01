@@ -182,7 +182,7 @@ return [
 
         'uninstall.blog' => function () use ($app) {
             $app['migrator']->create('blog:migrations', $this->config('version'))->run(0);
-            $app['config']()->remove($this->name);
+            $app['config']->remove($this->name);
         }
 
     ]
