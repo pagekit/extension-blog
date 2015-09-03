@@ -129,8 +129,8 @@
                             <p class="uk-form-controls-condensed">
                                 <label>{{ 'Order comments by' | trans }}
                                     <select class="uk-form-small" v-model="config.comments.order">
-                                        <option value="ASC">{{ 'latest last.' | trans }}</option>
-                                        <option value="DESC">{{ 'latest first.' | trans }}</option>
+                                        <option value="ASC">{{ 'latest last' | trans }}</option>
+                                        <option value="DESC">{{ 'latest first' | trans }}</option>
                                     </select>
                                 </label>
                             </p>
