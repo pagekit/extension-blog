@@ -42,7 +42,7 @@
                 <div class="uk-form-row">
                     <label for="form-image" class="uk-form-label">{{ 'Image' | trans }}</label>
                     <div class="uk-form-controls">
-                        <input-image source="{{@ post.data.image }}" class="pk-image-max-height"></input-image>
+                        <input-image-meta image="{{@ post.data.image }}" class="pk-image-max-height"></input-image-meta>
                     </div>
                 </div>
 
