@@ -128,7 +128,7 @@ return [
             'blacklist' => '',
             'comments_per_page' => 20,
             'gravatar' => true,
-            'max_depth' => 3,
+            'max_depth' => 5,
             'maxlinks' => 2,
             'minidle' => 120,
             'nested' => true,
