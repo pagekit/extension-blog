@@ -2,12 +2,12 @@
 
 return [
 
-    'up' => function() use ($app) {
+    'install' => function ($app) {
 
         $util = $app['db']->getUtility();
 
         if ($util->tableExists('@blog_post') === false) {
-            $util->createTable('@blog_post', function($table) {
+            $util->createTable('@blog_post', function ($table) {
                 $table->addColumn('id', 'integer', ['unsigned' => true, 'length' => 10, 'autoincrement' => true]);
                 $table->addColumn('user_id', 'integer', ['unsigned' => true, 'length' => 10, 'default' => 0]);
                 $table->addColumn('slug', 'string', ['length' => 255]);
@@ -30,7 +30,7 @@ return [
         }
 
         if ($util->tableExists('@blog_comment') === false) {
-            $util->createTable('@blog_comment', function($table) {
+            $util->createTable('@blog_comment', function ($table) {
                 $table->addColumn('id', 'integer', ['unsigned' => true, 'length' => 10, 'autoincrement' => true]);
                 $table->addColumn('parent_id', 'integer', ['unsigned' => true, 'length' => 10]);
                 $table->addColumn('post_id', 'integer', ['unsigned' => true, 'length' => 10]);
@@ -51,11 +51,9 @@ return [
             });
         }
 
-        // skip migrations and return latest version
-        return '0000-00-00_init';
     },
 
-    'down' => function() use ($app) {
+    'uninstall' => function ($app) {
 
         $util = $app['db']->getUtility();
 

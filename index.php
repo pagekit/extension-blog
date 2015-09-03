@@ -172,17 +172,6 @@ return [
         'view.scripts' => function ($event, $scripts) {
             $scripts->register('node-blog', 'blog:app/bundle/node-blog.js', '~site-edit');
             $scripts->register('link-blog', 'blog:app/bundle/link-blog.js', '~panel-link');
-        },
-
-        'enable.blog' => function () use ($app) {
-            if ($version = $app['migrator']->create('blog:migrations', $this->config('version'))->run()) {
-                $app['config']($this->name)->set('version', $version);
-            }
-        },
-
-        'uninstall.blog' => function () use ($app) {
-            $app['migrator']->create('blog:migrations', $this->config('version'))->run(0);
-            $app['config']->remove($this->name);
         }
 
     ]
