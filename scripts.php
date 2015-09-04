@@ -17,7 +17,7 @@ return [
                 $table->addColumn('modified', 'datetime');
                 $table->addColumn('content', 'text');
                 $table->addColumn('excerpt', 'text');
-                $table->addColumn('comment_status', 'boolean', ['notnull' => false]);
+                $table->addColumn('comment_status', 'boolean', ['default' => false]);
                 $table->addColumn('comment_count', 'integer', ['default' => 0]);
                 $table->addColumn('data', 'json_array', ['notnull' => false]);
                 $table->addColumn('roles', 'simple_array', ['notnull' => false]);
