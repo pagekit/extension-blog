@@ -87,7 +87,7 @@ return [
 
         'blog' => [
             'label' => 'Blog',
-            'icon' => 'blog:image.svg',
+            'icon' => 'blog:icon.svg',
             'url' => '@blog/post',
             'active' => '@blog/post*',
             'access' => 'blog: manage own posts || blog: manage all posts || blog: manage comments || system: manage settings',
