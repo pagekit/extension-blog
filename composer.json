@@ -3,7 +3,7 @@
     "type": "pagekit-extension",
     "version": "0.9.0",
     "title": "Blog",
-    "description": "Create a blog.",
+    "description": "A blog extensions with a built-in comment system.",
     "license": "MIT",
     "authors": [
         {
