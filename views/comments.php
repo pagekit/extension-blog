@@ -24,7 +24,7 @@
 
             <header class="uk-comment-header">
 
-                <img class="uk-comment-avatar uk-border-rounded" width="40" height="40" alt="{{ comment.author }}" v-gravatar="comment.email">
+                <img class="uk-comment-avatar" width="40" height="40" alt="{{ comment.author }}" v-gravatar="comment.email">
 
                 <h3 class="uk-comment-title">{{ comment.author }}</h3>
 
