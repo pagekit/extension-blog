@@ -1,13 +1,28 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Pagekit UNKNOWN (blog, messages)\n"
-"POT-Creation-Date: 2015-08-19 14:25+0000\n"
+"Project-Id-Version: Pagekit UNKNOWN (pagekit/extension-blog, messages)\n"
+"POT-Creation-Date: 2015-09-17 15:47+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Filter by"
+msgstr ""
+
+msgid "Thank you! Your comment needs approval before showing up."
+msgstr ""
+
+msgid "Unable to comment. Please try again later."
+msgstr ""
+
+msgid "View"
+msgstr ""
+
+msgid "Posts View"
+msgstr ""
 
 msgid "Posts"
 msgstr ""
@@ -39,10 +54,10 @@ msgstr ""
 msgid "Post not found."
 msgstr ""
 
-msgid "Comment not found."
+msgid "Please provide valid name and email."
 msgstr ""
 
-msgid "Please provide valid name and email."
+msgid "Comment not found."
 msgstr ""
 
 msgid "Please wait another %seconds% seconds before commenting again."
@@ -228,13 +243,10 @@ msgstr ""
 msgid "Posts per page"
 msgstr ""
 
-msgid "Hide excerpt on post page"
-msgstr ""
-
 msgid "Default post settings"
 msgstr ""
 
-msgid "Require name and e-mail."
+msgid "Require e-mail."
 msgstr ""
 
 msgid "Close comments on articles older than"
@@ -252,10 +264,10 @@ msgstr ""
 msgid "Order comments by"
 msgstr ""
 
-msgid "latest last."
+msgid "latest last"
 msgstr ""
 
-msgid "latest first."
+msgid "latest first"
 msgstr ""
 
 msgid "Enable nested comments of"
@@ -288,7 +300,7 @@ msgstr ""
 msgid "Comment cannot be blank."
 msgstr ""
 
-msgid "Submit comment"
+msgid "Submit"
 msgstr ""
 
 msgid "You are not allowed to post comments."
@@ -300,15 +312,9 @@ msgstr ""
 msgid "Written by %name% on %date%"
 msgstr ""
 
-msgid "Continue Reading"
+msgid "Read more"
 msgstr ""
 
 msgid "{0} No comments|{1} %num% Comment|]1,Inf[ %num% Comments"
-msgstr ""
-
-msgid "Newer posts"
-msgstr ""
-
-msgid "Older posts"
 msgstr ""
 
