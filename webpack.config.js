@@ -9,7 +9,6 @@ module.exports = [
             "comments": "./app/views/comments",
             "post": "./app/views/post",
             "posts": "./app/views/posts",
-            "node-blog": "./app/components/node-blog.vue",
             "link-blog": "./app/components/link-blog.vue"
         },
         output: {

@@ -85,7 +85,7 @@
             <div>{{{ comment.content }}}</div>
 
             <div class="uk-margin-top" v-if="replyComment.parent_id === comment.id">
-                <form name="replyform" class="uk-form" v-on="valid: submit">
+                <form name="replyform" class="uk-form" v-on="submit: submit | valid">
 
                     <div class="uk-form-row">
                         <textarea class="uk-width-1-1" name="content" rows="10" v-model="replyComment.content" v-valid="required"></textarea>
@@ -131,7 +131,7 @@
             <img class="uk-img-preserve uk-border-circle" width="40" height="40" alt="{{ editComment.author }}" v-gravatar="editComment.email">
         </td>
         <td colspan="3">
-            <form class="uk-form uk-form-stacked" name="editform" v-on="valid: submit">
+            <form class="uk-form uk-form-stacked" name="editform" v-on="submit: submit | valid">
 
                 <div class="uk-grid uk-grid-medium uk-grid-width-medium-1-3" data-uk-margin="{cls:'uk-margin-top'}">
                     <div>

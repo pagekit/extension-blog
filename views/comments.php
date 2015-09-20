@@ -69,7 +69,7 @@
 
         <div class="uk-alert uk-alert-danger" v-show="error">{{ error }}</div>
 
-        <form class="uk-form uk-form-stacked" name="replyForm" v-if="user.canComment" v-on="valid: save">
+        <form class="uk-form uk-form-stacked" name="replyForm" v-if="user.canComment" v-on="submit: save | valid">
 
             <p v-if="user.isAuthenticated">{{ 'Logged in as %name%' | trans {name:user.name} }}</p>
 

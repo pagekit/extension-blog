@@ -170,7 +170,6 @@ return [
         },
 
         'view.scripts' => function ($event, $scripts) {
-            $scripts->register('node-blog', 'blog:app/bundle/node-blog.js', '~site-edit');
             $scripts->register('link-blog', 'blog:app/bundle/link-blog.js', '~panel-link');
         }
 

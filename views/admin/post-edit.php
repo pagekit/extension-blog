@@ -1,6 +1,6 @@
 <?php $view->script('post-edit', 'blog:app/bundle/post-edit.js', ['vue', 'editor']) ?>
 
-<form id="post" class="uk-form uk-form-stacked" name="form" v-on="valid: save" v-cloak>
+<form id="post" class="uk-form uk-form-stacked" name="form" v-on="submit: save | valid" v-cloak>
 
     <div class="uk-margin uk-flex uk-flex-space-between uk-flex-wrap" data-uk-margin>
         <div data-uk-margin>
