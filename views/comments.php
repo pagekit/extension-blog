@@ -1,6 +1,6 @@
 <?php $view->script('comments', 'blog:app/bundle/comments.js', 'vue') ?>
 
-<div id="comments" class="uk-margin-large" v-if="config.enabled || comments.length">
+<div id="comments" class="uk-margin-large-top" v-if="config.enabled || comments.length">
 
     <h2 class="uk-h4" v-show="comments.length">{{ 'Comments (%count%)' | trans {count:count} }}</h2>
 
@@ -63,7 +63,7 @@
 
 <script id="comments-reply" type="text/template">
 
-    <div class="uk-margin-large js-comment-reply">
+    <div class="uk-margin-large-top js-comment-reply">
 
         <h2 class="uk-h4">{{ 'Leave a comment' | trans }}</h2>
 
