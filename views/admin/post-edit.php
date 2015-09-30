@@ -1,4 +1,4 @@
-<?php $view->script('post-edit', 'blog:app/bundle/post-edit.js', ['vue', 'editor']) ?>
+<?php $view->script('post-edit', 'blog:app/bundle/post-edit.js', ['vue', 'editor', 'uikit']) ?>
 
 <form id="post" class="uk-form uk-form-stacked" name="form" v-on="submit: save | valid" v-cloak>
 
@@ -17,80 +17,13 @@
         </div>
     </div>
 
-    <div class="uk-grid pk-grid-large" data-uk-grid-margin>
-        <div class="uk-flex-item-1">
+    <ul class="uk-tab" v-el="tab" v-show="sections.length > 1">
+        <li v-repeat="section: sections | orderBy 'priority'"><a>{{ section.label | trans }}</a></li>
+    </ul>
 
-            <div class="uk-form-row">
-                <input class="uk-width-1-1 uk-form-large" type="text" name="title" placeholder="{{ 'Enter Title' | trans }}" v-model="post.title" v-valid="required">
-                <p class="uk-form-help-block uk-text-danger" v-show="form.title.invalid">{{ 'Title cannot be blank.' | trans }}</p>
-            </div>
-            <div class="uk-form-row">
-                <v-editor id="post-content" value="{{@ post.content }}" options="{{ {markdown : post.data.markdown} }}"></v-editor>
-            </div>
-            <div class="uk-form-row">
-                <label class="uk-form-label">{{ 'Excerpt' | trans }}</label>
-                <div class="uk-form-controls">
-                    <v-editor id="post-content" value="{{@ post.excerpt }}" options="{{ {markdown : post.data.markdown, height: 250} }}"></v-editor>
-                </div>
-            </div>
-
-        </div>
-        <div class="pk-width-sidebar pk-width-sidebar-large">
-
-            <div class="uk-panel">
-
-                <div class="uk-form-row">
-                    <label for="form-image" class="uk-form-label">{{ 'Image' | trans }}</label>
-                    <div class="uk-form-controls">
-                        <input-image-meta image="{{@ post.data.image }}" class="pk-image-max-height"></input-image-meta>
-                    </div>
-                </div>
-
-                <div class="uk-form-row">
-                    <label for="form-slug" class="uk-form-label">{{ 'Slug' | trans }}</label>
-                    <div class="uk-form-controls">
-                        <input id="form-slug" class="uk-width-1-1" type="text" v-model="post.slug">
-                    </div>
-                </div>
-                <div class="uk-form-row">
-                    <label for="form-status" class="uk-form-label">{{ 'Status' | trans }}</label>
-                    <div class="uk-form-controls">
-                        <select id="form-status" class="uk-width-1-1" v-model="post.status" options="statuses"></select>
-                    </div>
-                </div>
-                <div class="uk-form-row" v-if="data.canEditAll">
-                    <label for="form-author" class="uk-form-label">{{ 'Author' | trans }}</label>
-                    <div class="uk-form-controls">
-                        <select id="form-author" class="uk-width-1-1" v-model="post.user_id" options="authors"></select>
-                    </div>
-                </div>
-                <div class="uk-form-row">
-                    <span class="uk-form-label">{{ 'Publish on' | trans }}</span>
-                    <div class="uk-form-controls">
-                        <input-date datetime="{{@ post.date}}"></input-date>
-                    </div>
-                </div>
-
-                <div class="uk-form-row">
-                    <span class="uk-form-label">{{ 'Restrict Access' | trans }}</span>
-                    <div class="uk-form-controls uk-form-controls-text">
-                        <p v-repeat="role: data.roles" class="uk-form-controls-condensed">
-                            <label><input type="checkbox" value="{{ role.id }}" v-checkbox="post.roles" number> {{ role.name }}</label>
-                        </p>
-                    </div>
-                </div>
-                <div class="uk-form-row">
-                    <span class="uk-form-label">{{ 'Options' | trans }}</span>
-                    <div class="uk-form-controls">
-                        <label><input type="checkbox" v-model="post.data.markdown" value="1"> {{ 'Enable Markdown' | trans }}</label>
-                    </div>
-                    <div class="uk-form-controls">
-                        <label><input type="checkbox" v-model="post.comment_status" value="1"> {{ 'Enable Comments' | trans }}</label>
-                    </div>
-                </div>
-
-            </div>
-
+    <div class="uk-switcher uk-margin" v-el="content">
+        <div v-repeat="section: sections | orderBy 'priority'">
+            <component is="{{ section.name }}" post="{{@ post }}"></component>
         </div>
     </div>
 
