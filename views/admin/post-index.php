@@ -76,7 +76,7 @@
                     <td class="pk-table-text-break">
                         <a target="_blank" v-if="post.accessible && post.url" v-attr="href: this.$url.route(post.url.substr(1))">{{ post.url }}</a>
                         <span v-if="!post.accessible && post.url">{{ post.url }}</span>
-                        <span v-if="!post.url">{{ 'Disabled' | true}}</span>
+                        <span v-if="!post.url">{{ 'Disabled' | trans }}</span>
                     </td>
                 </tr>
             </tbody>
