@@ -74,8 +74,8 @@
                         {{ post.date | date }}
                     </td>
                     <td class="pk-table-text-break">
-                        <a target="_blank" v-if="post.accessible && post.url" v-attr="href: this.$url.route(post.url.substr(1))">{{ post.url }}</a>
-                        <span v-if="!post.accessible && post.url">{{ post.url }}</span>
+                        <a target="_blank" v-if="post.accessible && post.url" v-attr="href: this.$url.route(post.url.substr(1))">{{ decodeURI(post.url) }}</a>
+                        <span v-if="!post.accessible && post.url">{{ decodeURI(post.url) }}</span>
                         <span v-if="!post.url">{{ 'Disabled' | trans }}</span>
                     </td>
                 </tr>
