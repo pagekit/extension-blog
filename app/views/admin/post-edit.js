@@ -7,12 +7,27 @@ window.Post = module.exports = {
         }
     },
 
-    ready: function () {
-        this.tab = UIkit.tab(this.$$.tab, {connect: this.$$.content});
+    created: function () {
+
+        var sections = [];
+
+        _.forIn(this.$options.components, function (component, name) {
+
+            var options = component.options || {};
+
+            if (options.section) {
+                sections.push(_.extend({name: name, priority: 0}, options.section));
+            }
+
+        });
+
+        this.$set('sections', _.sortBy(sections, 'priority'));
+
+        this.resource = this.$resource('api/blog/post/:id');
     },
 
-    created: function () {
-        this.resource = this.$resource('api/blog/post/:id');
+    ready: function () {
+        this.tab = UIkit.tab(this.$$.tab, {connect: this.$$.content});
     },
 
     computed: {
@@ -23,23 +38,6 @@ window.Post = module.exports = {
 
         authors: function() {
             return this.data.authors.map(function(user) { return { text: user.username, value: user.id }; });
-        },
-
-        sections: function () {
-
-            var sections = [];
-
-            _.forIn(this.$options.components, function (component, name) {
-
-                var options = component.options || {};
-
-                if (options.section) {
-                    sections.push(_.extend({name: name, priority: 0}, options.section));
-                }
-
-            });
-
-            return sections;
         }
 
     },
