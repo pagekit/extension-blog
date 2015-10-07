@@ -1,8 +1,10 @@
 # Changelog
 
 ## WIP
+
 ### Added
 - Meta data in post view
+- Sections tabs in post edit view
 
 ### Fixed
 - Comments margin
