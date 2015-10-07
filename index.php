@@ -135,7 +135,7 @@ return [
             'notifications' => 'always',
             'order' => 'ASC',
             'replymail' => true,
-            'require_name_and_email' => true,
+            'require_email' => true
 
         ],
 

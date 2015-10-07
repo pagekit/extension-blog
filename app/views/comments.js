@@ -13,7 +13,6 @@ module.exports = {
     },
 
     created: function () {
-        this.Comments = this.$resource('api/blog/comment/:id');
         this.load();
     },
 
@@ -21,7 +20,7 @@ module.exports = {
 
         load: function () {
 
-            return this.Comments.query({post: this.config.post}, function (data) {
+            return this.$resource('api/blog/comment/:id').query({post: this.config.post}, function (data) {
 
                 this.$set('comments', data.comments);
                 this.$set('tree', _.groupBy(data.comments, 'parent_id'));

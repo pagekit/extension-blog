@@ -116,7 +116,7 @@ class CommentApiController
                 $data['author'] = $this->user->name;
                 $data['email']  = $this->user->email;
                 $data['url']    = $this->user->url;
-            } elseif ($this->blog->config('comments.require_name_and_email') && (!@$data['author'] || !@$data['email'])) {
+            } elseif ($this->blog->config('comments.require_email') && (!@$data['author'] || !@$data['email'])) {
                 App::abort(400, __('Please provide valid name and email.'));
             }
 
