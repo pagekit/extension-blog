@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 0.9.1 (October 8, 2015)
 
 ### Added
 - Sections tabs in post edit view
