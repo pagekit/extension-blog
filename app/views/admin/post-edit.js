@@ -1,6 +1,6 @@
 window.Post = module.exports = {
 
-    data: function() {
+    data: function () {
         return {
             data: window.$data,
             post: window.$data.post
@@ -32,12 +32,16 @@ window.Post = module.exports = {
 
     computed: {
 
-        statuses: function() {
-            return _.map(this.data.statuses, function(status, id) { return { text: status, value: id }; } );
+        statuses: function () {
+            return _.map(this.data.statuses, function (status, id) {
+                return {text: status, value: id};
+            });
         },
 
-        authors: function() {
-            return this.data.authors.map(function(user) { return { text: user.username, value: user.id }; });
+        authors: function () {
+            return this.data.authors.map(function (user) {
+                return {text: user.username, value: user.id};
+            });
         }
 
     },
@@ -47,7 +51,11 @@ window.Post = module.exports = {
         save: function (e) {
             e.preventDefault();
 
-            this.resource.save({ id: this.post.id }, { post: this.post, id: this.post.id }, function (data) {
+            var data = {post: this.post, id: this.post.id};
+
+            this.$broadcast('save', data);
+
+            this.resource.save({id: this.post.id}, data, function (data) {
 
                 if (!this.post.id) {
                     window.history.replaceState({}, '', this.$url.route('admin/blog/post/edit', {id: data.post.id}))
