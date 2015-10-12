@@ -3,7 +3,6 @@
 namespace Pagekit\Blog\Controller;
 
 use Pagekit\Application as App;
-use Pagekit\Blog\BlogExtension;
 use Pagekit\Blog\Model\Post;
 use Pagekit\Module\Module;
 
