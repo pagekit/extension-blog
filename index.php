@@ -44,12 +44,6 @@ return [
 
     ],
 
-    'resources' => [
-
-        'blog:' => ''
-
-    ],
-
     'permissions' => [
 
         'blog: manage own posts' => [
