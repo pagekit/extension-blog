@@ -5,11 +5,12 @@ namespace Pagekit\Blog\Controller;
 use Pagekit\Application as App;
 use Pagekit\Blog\BlogExtension;
 use Pagekit\Blog\Model\Post;
+use Pagekit\Module\Module;
 
 class SiteController
 {
     /**
-     * @var BlogExtension
+     * @var Module
      */
     protected $blog;
 
@@ -109,7 +110,7 @@ class SiteController
             );
         }
 
-        return App::response($feed->generate(), 200, ['Content-Type' => $feed->getMIMEType()]);
+        return App::response($feed->output(), 200, ['Content-Type' => $feed->getMIMEType().'; charset='.$feed->getEncoding()]);
     }
 
     /**

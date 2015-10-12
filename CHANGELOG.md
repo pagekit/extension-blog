@@ -4,6 +4,7 @@
 
 ### Fixed
 - Date conversion to ISO8601
+- Feed charset
 
 ## 0.9.1 (October 8, 2015)
 
