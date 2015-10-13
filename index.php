@@ -8,8 +8,6 @@ return [
 
     'name' => 'blog',
 
-    'type' => 'extension',
-
     'autoload' => [
 
         'Pagekit\\Blog\\' => 'src'
