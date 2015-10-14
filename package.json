@@ -1,0 +1,7 @@
+{
+  "name": "pagekit-blog",
+  "devDependencies": {
+    "webpack": "^1.11.0",
+    "vue-loader": "^2.1.1"
+  }
+}
