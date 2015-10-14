@@ -1,5 +1,8 @@
 {
   "name": "pagekit-blog",
+  "scripts": {
+    "archive": "webpack && composer archive --format=zip"
+  },
   "devDependencies": {
     "webpack": "^1.11.0",
     "vue-loader": "^2.1.1"
