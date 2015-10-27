@@ -96,7 +96,7 @@ module.exports = {
 
             this.resource.save({ id: 'copy' }, { ids: this.selected }, function (data) {
                 this.load();
-                this.$notify(data.message || data.error, data.error ? 'danger' : '');
+                this.$notify('Posts copied.');
             });
         },
 

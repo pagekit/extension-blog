@@ -118,11 +118,11 @@ class PostApiController
     }
 
     /**
+     * @Route(methods="POST")
      * @Request({"ids": "int[]"}, csrf=true)
      */
     public function copyAction($ids = [])
     {
-        $count = 0;
         foreach ($ids as $id) {
             if ($post = Post::find((int) $id)) {
                 if(!App::user()->hasAccess('blog: manage all posts') && $post->user_id !== App::user()->id) {
@@ -135,11 +135,10 @@ class PostApiController
                 $post->title = $post->title.' - '.__('Copy');
                 $post->comment_count = 0;
                 $post->save();
-                $count++;
             }
         }
 
-        return ['message' => _c('{0} No post copied.|{1} Post copied.|]1,Inf[ Posts copied.', $count)];
+        return ['message' => 'success'];
     }
 
     /**
