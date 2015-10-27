@@ -27,7 +27,7 @@ window.Post = module.exports = {
     },
 
     ready: function () {
-        this.tab = UIkit.tab(this.$$.tab, {connect: this.$$.content});
+        this.tab = UIkit.tab(this.$els.tab, {connect: this.$els.content});
     },
 
     computed: {
