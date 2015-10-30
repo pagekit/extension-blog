@@ -14,7 +14,7 @@
   'Slug' => 'Slug',
   'Email invalid.' => 'Correo no válido.',
   'Comment not found.' => 'Comentario no encontrado.',
-  'Filter by' => '',
+  'Filter by' => 'Filtrar por',
   'Comments (%count%)' => 'Comentarios (%count%)',
   'Author' => 'Autor',
   'Unapprove' => 'Desaprobar',
@@ -99,7 +99,7 @@
   'Leave a comment' => 'Dejar un comentario',
   '{0} No comments|{1} %num% Comment|]1,Inf[ %num% Comments' => '{0} Sin comentarios|{1} %num% Comentario|]1,Inf[ %num% Comentarios',
   'Post' => 'Publicación',
-  'View' => '',
+  'View' => 'Vista',
   'Numeric' => 'Numérico',
   'Name' => 'Nombre',
 );
