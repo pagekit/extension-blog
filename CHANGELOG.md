@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 0.9.3 (October 30, 2015)
 
 ## Changed
 - Date is set to "now" on post copy
