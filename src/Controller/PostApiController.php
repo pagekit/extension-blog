@@ -134,6 +134,7 @@ class PostApiController
                 $post->status = Post::STATUS_DRAFT;
                 $post->title = $post->title.' - '.__('Copy');
                 $post->comment_count = 0;
+                $post->date = new \DateTime();
                 $post->save();
             }
         }
