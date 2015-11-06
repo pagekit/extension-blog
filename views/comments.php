@@ -7,12 +7,12 @@
         <h2 class="uk-h4">{{ 'Comments (%count%)' | trans {count:count} }}</h2>
 
         <ul class="uk-comment-list">
-            <comments-item v-repeat="comment: tree[0]" depth="0"></comments-item>
+            <comments-item v-for="comment in tree[0]" depth="0"></comments-item>
         </ul>
 
     </template>
 
-    <div class="uk-alert" v-repeat="message:messages">{{ message }}</div>
+    <div class="uk-alert" v-for="message in messages">{{ message }}</div>
 
     <comments-reply v-if="config.enabled && !reply"></comments-reply>
 
@@ -49,19 +49,19 @@
 
             </div>
 
-            <div class="uk-alert" v-repeat="message:comment.messages">{{ message }}</div>
+            <div class="uk-alert" v-for="message in comment.messages">{{ message }}</div>
 
             <comments-reply v-if="showReply"></comments-reply>
 
         </article>
 
         <ul v-if="tree[comment.id] && depth < config.max_depth">
-            <comments-item v-repeat="comment: tree[comment.id]" :depth="1 + depth"></comments-item>
+            <comments-item v-for="comment in tree[comment.id]" :depth="1 + depth"></comments-item>
         </ul>
 
     </li>
 
-    <comments-item v-repeat="comment: remainder" :depth="depth"></comments-item>
+    <comments-item v-for="comment in remainder" :depth="depth"></comments-item>
 
 </script>
 

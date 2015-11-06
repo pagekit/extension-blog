@@ -47,7 +47,7 @@
                 </tr>
             </thead>
             <tbody >
-                <tr v-repeat="comment: comments" v-component="row"></tr>
+                <tr v-for="comment in comments" v-component="row"></tr>
             </tbody>
         </table>
     </div>

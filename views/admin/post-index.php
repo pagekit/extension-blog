@@ -53,7 +53,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="check-item" v-repeat="post: posts" :class="{'uk-active': active(post)}">
+                <tr class="check-item" v-for="post in posts" :class="{'uk-active': active(post)}">
                     <td><input type="checkbox" name="id" :value="post.id"></td>
                     <td>
                         <a :href="$url.route('admin/blog/post/edit', { id: post.id })">{{ post.title }}</a>
