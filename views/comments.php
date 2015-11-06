@@ -20,7 +20,7 @@
 
     <li id="comment-{{ comment.id }}">
 
-        <article class="uk-comment" v-class="uk-comment-primary:comment.special">
+        <article class="uk-comment" :class="{'uk-comment-primary': comment.special}">
 
             <header class="uk-comment-header">
 

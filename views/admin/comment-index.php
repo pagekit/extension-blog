@@ -37,7 +37,7 @@
                     <th class="pk-table-width-100 uk-text-center">
                         <input-filter title="{{ 'Status' | trans }}" value="{{@ config.filter.status}}" options="{{ statusOptions }}"></input-filter>
                     </th>
-                    <th class="pk-table-width-200" v-class="pk-filter: config.post, uk-active: config.post">
+                    <th class="pk-table-width-200" :class="{'pk-filter': config.post, 'uk-active': config.post}">
                         <span v-if="!config.post">{{ 'Post' | trans }}</span>
                         <span v-if="config.post">{{ config.post.title }}</span>
                     </th>
@@ -57,7 +57,7 @@
 
 <script id="default-row" type="text/template">
 
-    <tr class="check-item" v-class="uk-active: active(comment)">
+    <tr class="check-item" :class="{'uk-active': active(comment)}">
 
         <td class="pk-blog-comments-padding"><input type="checkbox" name="id" value="{{ comment.id }}"></td>
         <td class="pk-table-width-minimum">
@@ -103,18 +103,14 @@
 
         </td>
         <td class="pk-blog-comments-padding uk-text-center">
-            <a href="#" title="{{ getStatusText(comment) }}" v-class="
-                    pk-icon-circle-success: comment.status == 1,
-                    pk-icon-circle-warning: comment.status == 0,
-                    pk-icon-circle-danger:  comment.status == 2
-                " v-on="click: toggleStatus(comment)">
+            <a href="#" title="{{ getStatusText(comment) }}" :class="{'pk-icon-circle-success': comment.status == 1, 'pk-icon-circle-warning': comment.status == 0, 'pk-icon-circle-danger':  comment.status == 2}" v-on="click: toggleStatus(comment)">
             </a>
         </td>
         <td class="pk-blog-comments-padding">
             <a v-attr="href: $url.route('admin/blog/post/edit', { id: post.id })">{{ post.title }}</a>
 
             <p>
-                <a class="uk-text-nowrap" v-class="pk-link-icon: !post.comments_pending" v-attr="href: $url.route('admin/blog/comment', { post: post.id })" title="{{ '{0} No pending|{1} One pending|]1,Inf[ %comments_pending% pending' | transChoice post.comments_pending post }}"><i class="pk-icon-comment" v-class="pk-icon-primary: post.comments_pending"></i> {{ post.comment_count }}</a>
+                <a class="uk-text-nowrap" :class="{'pk-link-icon': !post.comments_pending}" v-attr="href: $url.route('admin/blog/comment', { post: post.id })" title="{{ '{0} No pending|{1} One pending|]1,Inf[ %comments_pending% pending' | transChoice post.comments_pending post }}"><i class="pk-icon-comment" :class="{'pk-icon-primary': post.comments_pending}"></i> {{ post.comment_count }}</a>
             </p>
         </td>
 
