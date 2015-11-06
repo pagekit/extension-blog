@@ -48,9 +48,7 @@ window.Post = module.exports = {
 
     methods: {
 
-        save: function (e) {
-            e.preventDefault();
-
+        save: function () {
             var data = {post: this.post, id: this.post.id};
 
             this.$broadcast('save', data);
@@ -74,7 +72,7 @@ window.Post = module.exports = {
 
     components: {
 
-        'settings': require('../../components/post-settings.vue')
+        settings: require('../../components/post-settings.vue')
 
     }
 

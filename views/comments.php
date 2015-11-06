@@ -45,7 +45,7 @@
 
                 <p>{{{ comment.content }}}</p>
 
-                <p v-if="showReplyButton"><a href="#" v-on="click: replyTo">{{ 'Reply' | trans }}</a></p>
+                <p v-if="showReplyButton"><a href="#" @click="replyTo">{{ 'Reply' | trans }}</a></p>
 
             </div>
 
@@ -73,7 +73,7 @@
 
         <div class="uk-alert uk-alert-danger" v-show="error">{{ error }}</div>
 
-        <form class="uk-form uk-form-stacked" v-if="user.canComment" v-validator="replyForm" v-on="submit: save | valid">
+        <form class="uk-form uk-form-stacked" v-if="user.canComment" v-validator="replyForm" @submit.prevent="save | valid">
 
             <p v-if="user.isAuthenticated">{{ 'Logged in as %name%' | trans {name:user.name} }}</p>
 

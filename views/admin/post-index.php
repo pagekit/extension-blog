@@ -12,10 +12,10 @@
 
                 <div class="uk-margin-left">
                     <ul class="uk-subnav pk-subnav-icon">
-                        <li><a class="pk-icon-check pk-icon-hover" title="Publish" data-uk-tooltip="{delay: 500}" v-on="click: status(2)"></a></li>
-                        <li><a class="pk-icon-block pk-icon-hover" title="Unpublish" data-uk-tooltip="{delay: 500}" v-on="click: status(3)"></a></li>
-                        <li><a class="pk-icon-copy pk-icon-hover" title="Copy" data-uk-tooltip="{delay: 500}" v-on="click: copy"></a></li>
-                        <li><a class="pk-icon-delete pk-icon-hover" title="Delete" data-uk-tooltip="{delay: 500}" v-on="click: remove" v-confirm="'Delete Posts?'"></a></li>
+                        <li><a class="pk-icon-check pk-icon-hover" title="Publish" data-uk-tooltip="{delay: 500}" @click="status(2)"></a></li>
+                        <li><a class="pk-icon-block pk-icon-hover" title="Unpublish" data-uk-tooltip="{delay: 500}" @click="status(3)"></a></li>
+                        <li><a class="pk-icon-copy pk-icon-hover" title="Copy" data-uk-tooltip="{delay: 500}" @click.prevent="copy"></a></li>
+                        <li><a class="pk-icon-delete pk-icon-hover" title="Delete" data-uk-tooltip="{delay: 500}" @click.prevent="remove" v-confirm="'Delete Posts?'"></a></li>
                     </ul>
                 </div>
             </template>
@@ -65,7 +65,7 @@
                                 'pk-icon-circle-success': post.status == 2 && post.published,
                                 'pk-icon-circle-danger': post.status == 3,
                                 'pk-icon-schedule': post.status == 2 && !post.published
-                            }" v-on="click: toggleStatus(post)"></a>
+                            }" @click="toggleStatus(post)"></a>
                     </td>
                     <td>
                         <a v-attr="href: $url.route('admin/user/edit', { id: post.user_id })">{{ post.author }}</a>

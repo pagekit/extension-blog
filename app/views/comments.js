@@ -43,34 +43,26 @@ module.exports = {
             computed: {
 
                 showReply: function () {
-
                     return this.config.enabled && this.reply && this.reply == this.comment.id;
-
                 },
 
                 showReplyButton: function () {
-
                     return this.config.enabled && this.depth < this.config.max_depth && !this.showReply;
-
                 },
 
                 remainder: function () {
-
                     return this.depth >= this.config.max_depth && this.tree[this.comment.id] || [];
-
                 },
 
                 permalink: function () {
                     return $pagekit.url + this.post.url + '#comment-' + this.comment.id;
-
                 }
 
             },
 
             methods: {
 
-                replyTo: function (e) {
-                    e.preventDefault();
+                replyTo: function () {
                     this.$set('reply', this.comment.id);
                 }
 
@@ -93,9 +85,7 @@ module.exports = {
 
             methods: {
 
-                save: function (e) {
-
-                    e.preventDefault();
+                save: function () {
 
                     var comment = {
                         parent_id: this.comment ? this.comment.id : 0,

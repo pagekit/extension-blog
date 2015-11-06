@@ -114,13 +114,7 @@ module.exports = {
             return this.statuses[comment.status];
         },
 
-        cancel: function (e) {
-
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-
+        cancel: function () {
             this.$set('replyComment', {});
             this.$set('editComment', {});
         }
