@@ -6,16 +6,19 @@
         <div class="uk-flex uk-flex-middle uk-flex-wrap" data-uk-margin>
 
             <h2 class="uk-margin-remove" v-show="!selected.length">{{ '{0} %count% Posts|{1} %count% Post|]1,Inf[ %count% Posts' | transChoice count {count:count} }}</h2>
-            <h2 class="uk-margin-remove" v-show="selected.length">{{ '{1} %count% Post selected|]1,Inf[ %count% Posts selected' | transChoice selected.length {count:selected.length} }}</h2>
 
-            <div class="uk-margin-left" v-show="selected.length">
-                <ul class="uk-subnav pk-subnav-icon">
-                    <li><a class="pk-icon-check pk-icon-hover" title="Publish" data-uk-tooltip="{delay: 500}" v-on="click: status(2)"></a></li>
-                    <li><a class="pk-icon-block pk-icon-hover" title="Unpublish" data-uk-tooltip="{delay: 500}" v-on="click: status(3)"></a></li>
-                    <li><a class="pk-icon-copy pk-icon-hover" title="Copy" data-uk-tooltip="{delay: 500}" v-on="click: copy"></a></li>
-                    <li><a class="pk-icon-delete pk-icon-hover" title="Delete" data-uk-tooltip="{delay: 500}" v-on="click: remove" v-confirm="'Delete Posts?'"></a></li>
-                </ul>
-            </div>
+            <template v-else>
+                <h2 class="uk-margin-remove">{{ '{1} %count% Post selected|]1,Inf[ %count% Posts selected' | transChoice selected.length {count:selected.length} }}</h2>
+
+                <div class="uk-margin-left">
+                    <ul class="uk-subnav pk-subnav-icon">
+                        <li><a class="pk-icon-check pk-icon-hover" title="Publish" data-uk-tooltip="{delay: 500}" v-on="click: status(2)"></a></li>
+                        <li><a class="pk-icon-block pk-icon-hover" title="Unpublish" data-uk-tooltip="{delay: 500}" v-on="click: status(3)"></a></li>
+                        <li><a class="pk-icon-copy pk-icon-hover" title="Copy" data-uk-tooltip="{delay: 500}" v-on="click: copy"></a></li>
+                        <li><a class="pk-icon-delete pk-icon-hover" title="Delete" data-uk-tooltip="{delay: 500}" v-on="click: remove" v-confirm="'Delete Posts?'"></a></li>
+                    </ul>
+                </div>
+            </template>
 
             <div class="pk-search">
                 <div class="uk-search">
@@ -42,7 +45,7 @@
                     </th>
                     <th class="pk-table-width-100">
                         <span v-if="!canEditAll">{{ 'Author' | trans }}</span>
-                        <input-filter title="{{ 'Author' | trans }}" value="{{@ config.filter.author}}" options="{{ authors }}" v-if="canEditAll"></input-filter>
+                        <input-filter title="{{ 'Author' | trans }}" value="{{@ config.filter.author}}" options="{{ authors }}" v-else></input-filter>
                     </th>
                     <th class="pk-table-width-100 uk-text-center" v-order="comment_count: config.filter.order">{{ 'Comments' | trans }}</th>
                     <th class="pk-table-width-100" v-order="date: config.filter.order">{{ 'Date' | trans }}</th>

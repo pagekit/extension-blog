@@ -7,16 +7,19 @@
         <div class="uk-flex uk-flex-middle uk-flex-wrap" data-uk-margin>
 
             <h2 class="uk-margin-remove" v-show="!selected.length">{{ '{0} %count% Comments|{1} %count% Comment|]1,Inf[ %count% Comments' | transChoice count {count:count} }}</h2>
-            <h2 class="uk-margin-remove" v-show="selected.length">{{ '{1} %count% Comment selected|]1,Inf[ %count% Comments selected' | transChoice selected.length {count:selected.length} }}</h2>
 
-            <div class="uk-margin-left" v-show="selected.length">
-                <ul class="uk-subnav pk-subnav-icon">
-                    <li><a class="pk-icon-check pk-icon-hover" title="{{ 'Approve' | trans }}" data-uk-tooltip="{delay: 500}" v-on="click: status(1)"></a></li>
-                    <li><a class="pk-icon-block pk-icon-hover" title="{{ 'Unapprove' | trans }}" data-uk-tooltip="{delay: 500}" v-on="click: status(0)"></a></li>
-                    <li><a class="pk-icon-spam pk-icon-hover" title="{{ 'Mark as spam' | trans }}" data-uk-tooltip="{delay: 500}" v-on="click: status(2)"></a></li>
-                    <li><a class="pk-icon-delete pk-icon-hover" title="{{ 'Delete' | trans }}" data-uk-tooltip="{delay: 500}" v-on="click: remove"></a></li>
-                </ul>
-            </div>
+            <template v-else>
+                <h2 class="uk-margin-remove">{{ '{1} %count% Comment selected|]1,Inf[ %count% Comments selected' | transChoice selected.length {count:selected.length} }}</h2>
+
+                <div class="uk-margin-left">
+                    <ul class="uk-subnav pk-subnav-icon">
+                        <li><a class="pk-icon-check pk-icon-hover" title="{{ 'Approve' | trans }}" data-uk-tooltip="{delay: 500}" v-on="click: status(1)"></a></li>
+                        <li><a class="pk-icon-block pk-icon-hover" title="{{ 'Unapprove' | trans }}" data-uk-tooltip="{delay: 500}" v-on="click: status(0)"></a></li>
+                        <li><a class="pk-icon-spam pk-icon-hover" title="{{ 'Mark as spam' | trans }}" data-uk-tooltip="{delay: 500}" v-on="click: status(2)"></a></li>
+                        <li><a class="pk-icon-delete pk-icon-hover" title="{{ 'Delete' | trans }}" data-uk-tooltip="{delay: 500}" v-on="click: remove"></a></li>
+                    </ul>
+                </div>
+            </template>
 
             <div class="pk-search">
                 <div class="uk-search">
@@ -39,7 +42,7 @@
                     </th>
                     <th class="pk-table-width-200" :class="{'pk-filter': config.post, 'uk-active': config.post}">
                         <span v-if="!config.post">{{ 'Post' | trans }}</span>
-                        <span v-if="config.post">{{ config.post.title }}</span>
+                        <span v-else>{{ config.post.title }}</span>
                     </th>
                 </tr>
             </thead>
@@ -68,7 +71,7 @@
             <div class="uk-margin uk-flex uk-flex-space-between uk-flex-wrap" data-uk-margin>
                 <div>
                     <a v-attr="href: $url.route('admin/user/edit', { id: comment.user_id })" v-if="comment.user_id">{{ comment.author }}</a>
-                    <span v-if="!comment.user_id">{{ comment.author }}</span>
+                    <span v-else>{{ comment.author }}</span>
                     <br><a class="uk-link-muted" href="mailto:{{ comment.email }}">{{ comment.email }}</a>
                 </div>
                 <div class="uk-flex uk-flex-middle">
@@ -78,7 +81,7 @@
                     </ul>
 
                     <a class="uk-link-muted" v-if="post.accessible" v-attr="href: post.url+'#comment-'+comment.id">{{ comment.created | relativeDate }}</a>
-                    <span v-if="!post.accessible">{{ comment.created | relativeDate }}</span>
+                    <span v-else>{{ comment.created | relativeDate }}</span>
                 </div>
             </div>
 
