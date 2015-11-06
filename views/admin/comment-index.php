@@ -70,7 +70,7 @@
 
             <div class="uk-margin uk-flex uk-flex-space-between uk-flex-wrap" data-uk-margin>
                 <div>
-                    <a v-attr="href: $url.route('admin/user/edit', { id: comment.user_id })" v-if="comment.user_id">{{ comment.author }}</a>
+                    <a :href="$url.route('admin/user/edit', { id: comment.user_id })" v-if="comment.user_id">{{ comment.author }}</a>
                     <span v-else>{{ comment.author }}</span>
                     <br><a class="uk-link-muted" href="mailto:{{ comment.email }}">{{ comment.email }}</a>
                 </div>
@@ -80,7 +80,7 @@
                         <li><a class="pk-icon-reply pk-icon-hover" title="{{ 'Reply' | trans }}" data-uk-tooltip="{delay: 500}" @click.prevent="reply"></a></li>
                     </ul>
 
-                    <a class="uk-link-muted" v-if="post.accessible" v-attr="href: post.url+'#comment-'+comment.id">{{ comment.created | relativeDate }}</a>
+                    <a class="uk-link-muted" v-if="post.accessible" :href="post.url+'#comment-'+comment.id">{{ comment.created | relativeDate }}</a>
                     <span v-else>{{ comment.created | relativeDate }}</span>
                 </div>
             </div>
@@ -110,10 +110,10 @@
             </a>
         </td>
         <td class="pk-blog-comments-padding">
-            <a v-attr="href: $url.route('admin/blog/post/edit', { id: post.id })">{{ post.title }}</a>
+            <a :href="$url.route('admin/blog/post/edit', { id: post.id })">{{ post.title }}</a>
 
             <p>
-                <a class="uk-text-nowrap" :class="{'pk-link-icon': !post.comments_pending}" v-attr="href: $url.route('admin/blog/comment', { post: post.id })" title="{{ '{0} No pending|{1} One pending|]1,Inf[ %comments_pending% pending' | transChoice post.comments_pending post }}"><i class="pk-icon-comment" :class="{'pk-icon-primary': post.comments_pending}"></i> {{ post.comment_count }}</a>
+                <a class="uk-text-nowrap" :class="{'pk-link-icon': !post.comments_pending}" :href="$url.route('admin/blog/comment', { post: post.id })" title="{{ '{0} No pending|{1} One pending|]1,Inf[ %comments_pending% pending' | transChoice post.comments_pending post }}"><i class="pk-icon-comment" :class="{'pk-icon-primary': post.comments_pending}"></i> {{ post.comment_count }}</a>
             </p>
         </td>
 
