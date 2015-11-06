@@ -41,11 +41,11 @@
                     <th class="pk-table-width-minimum"><input type="checkbox" v-check-all="selected: input[name=id]" number></th>
                     <th class="pk-table-min-width-200" v-order="title: config.filter.order">{{ 'Title' | trans }}</th>
                     <th class="pk-table-width-100 uk-text-center">
-                        <input-filter title="{{ 'Status' | trans }}" value="{{@ config.filter.status}}" options="{{ statusOptions }}"></input-filter>
+                        <input-filter :title="'Status' | trans" :value.sync="config.filter.status" :options="statusOptions"></input-filter>
                     </th>
                     <th class="pk-table-width-100">
                         <span v-if="!canEditAll">{{ 'Author' | trans }}</span>
-                        <input-filter title="{{ 'Author' | trans }}" value="{{@ config.filter.author}}" options="{{ authors }}" v-else></input-filter>
+                        <input-filter :title="'Author' | trans" :value.sync="config.filter.author" :options="authors" v-else></input-filter>
                     </th>
                     <th class="pk-table-width-100 uk-text-center" v-order="comment_count: config.filter.order">{{ 'Comments' | trans }}</th>
                     <th class="pk-table-width-100" v-order="date: config.filter.order">{{ 'Date' | trans }}</th>
@@ -54,12 +54,12 @@
             </thead>
             <tbody>
                 <tr class="check-item" v-repeat="post: posts" :class="{'uk-active': active(post)}">
-                    <td><input type="checkbox" name="id" value="{{ post.id }}"></td>
+                    <td><input type="checkbox" name="id" :value="post.id"></td>
                     <td>
                         <a :href="$url.route('admin/blog/post/edit', { id: post.id })">{{ post.title }}</a>
                     </td>
                     <td class="uk-text-center">
-                        <a title="{{ getStatusText(post) }}" :class="{
+                        <a :title="getStatusText(post)" :class="{
                                 'pk-icon-circle': post.status == 0,
                                 'pk-icon-circle-warning': post.status == 1,
                                 'pk-icon-circle-success': post.status == 2 && post.published,
@@ -71,7 +71,7 @@
                         <a :href="$url.route('admin/user/edit', { id: post.user_id })">{{ post.author }}</a>
                     </td>
                     <td class="uk-text-center">
-                        <a class="uk-text-nowrap" :class="{'pk-link-icon': !post.comments_pending}" :href="$url.route('admin/blog/comment', { post: post.id })" title="{{ '{0} No pending|{1} One pending|]1,Inf[ %comments% pending' | transChoice post.comments_pending {comments:post.comments_pending} }}"><i class="pk-icon-comment uk-margin-small-right" :class="{'pk-icon-primary': post.comments_pending}"></i> {{ post.comment_count }}</a>
+                        <a class="uk-text-nowrap" :class="{'pk-link-icon': !post.comments_pending}" :href="$url.route('admin/blog/comment', { post: post.id })" :title="'{0} No pending|{1} One pending|]1,Inf[ %comments% pending' | transChoice post.comments_pending {comments:post.comments_pending}"><i class="pk-icon-comment uk-margin-small-right" :class="{'pk-icon-primary': post.comments_pending}"></i> {{ post.comment_count }}</a>
                     </td>
                     <td>
                         {{ post.date | date }}
@@ -88,6 +88,6 @@
 
     <h3 class="uk-h1 uk-text-muted uk-text-center" v-show="posts && !posts.length">{{ 'No posts found.' | trans }}</h3>
 
-    <v-pagination page="{{@ config.page }}" pages="{{ pages }}" v-show="pages > 1"></v-pagination>
+    <v-pagination :page.sync="config.page" :pages="pages" v-show="pages > 1"></v-pagination>
 
 </div>

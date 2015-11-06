@@ -23,7 +23,7 @@
 
     <div class="uk-switcher uk-margin" v-el="content">
         <div v-repeat="section: sections">
-            <component is="{{ section.name }}" post="{{@ post }}"></component>
+            <component :is="section.name" :post.sync="post"></component>
         </div>
     </div>
 

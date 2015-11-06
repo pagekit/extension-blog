@@ -125,7 +125,7 @@ module.exports = {
 
         'row': {
             inherit: true,
-            template: '<component is="{{ editComment.id !== comment.id ? \'default-row\' : \'edit-row\' }}"></component>'
+            template: '<component :is="editComment.id !== comment.id ? \'default-row\' : \'edit-row\'"></component>'
         },
 
         'default-row': {

@@ -13,10 +13,10 @@
 
                 <div class="uk-margin-left">
                     <ul class="uk-subnav pk-subnav-icon">
-                        <li><a class="pk-icon-check pk-icon-hover" title="{{ 'Approve' | trans }}" data-uk-tooltip="{delay: 500}" @click="status(1)"></a></li>
-                        <li><a class="pk-icon-block pk-icon-hover" title="{{ 'Unapprove' | trans }}" data-uk-tooltip="{delay: 500}" @click="status(0)"></a></li>
-                        <li><a class="pk-icon-spam pk-icon-hover" title="{{ 'Mark as spam' | trans }}" data-uk-tooltip="{delay: 500}" @click="status(2)"></a></li>
-                        <li><a class="pk-icon-delete pk-icon-hover" title="{{ 'Delete' | trans }}" data-uk-tooltip="{delay: 500}" @click.prevent="remove"></a></li>
+                        <li><a class="pk-icon-check pk-icon-hover" :title="'Approve' | trans" data-uk-tooltip="{delay: 500}" @click="status(1)"></a></li>
+                        <li><a class="pk-icon-block pk-icon-hover" :title="'Unapprove' | trans" data-uk-tooltip="{delay: 500}" @click="status(0)"></a></li>
+                        <li><a class="pk-icon-spam pk-icon-hover" :title="'Mark as spam' | trans" data-uk-tooltip="{delay: 500}" @click="status(2)"></a></li>
+                        <li><a class="pk-icon-delete pk-icon-hover" :title="'Delete' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="remove"></a></li>
                     </ul>
                 </div>
             </template>
@@ -38,7 +38,7 @@
                     <th class="pk-table-width-minimum"><input type="checkbox" v-check-all="selected: input[name=id]" number></th>
                     <th class="pk-table-min-width-300" colspan="2">{{ 'Comment' | trans }}</th>
                     <th class="pk-table-width-100 uk-text-center">
-                        <input-filter title="{{ 'Status' | trans }}" value="{{@ config.filter.status}}" options="{{ statusOptions }}"></input-filter>
+                        <input-filter :title="'Status' | trans" :value.sync="config.filter.status" :options="statusOptions"></input-filter>
                     </th>
                     <th class="pk-table-width-200" :class="{'pk-filter': config.post, 'uk-active': config.post}">
                         <span v-if="!config.post">{{ 'Post' | trans }}</span>
@@ -54,7 +54,7 @@
 
     <h3 class="uk-h1 uk-text-muted uk-text-center" v-show="comments && !comments.length">{{ 'No comments found.' | trans }}</h3>
 
-    <v-pagination page="{{@ config.page }}" pages="{{ pages }}" v-show="pages > 1"></v-pagination>
+    <v-pagination :page.sync="config.page" :pages="pages" v-show="pages > 1"></v-pagination>
 
 </div>
 
@@ -62,9 +62,9 @@
 
     <tr class="check-item" :class="{'uk-active': active(comment)}">
 
-        <td class="pk-blog-comments-padding"><input type="checkbox" name="id" value="{{ comment.id }}"></td>
+        <td class="pk-blog-comments-padding"><input type="checkbox" name="id" :value="comment.id"></td>
         <td class="pk-table-width-minimum">
-            <img class="uk-img-preserve uk-border-circle" width="40" height="40" alt="{{ comment.author }}" v-gravatar="comment.email">
+            <img class="uk-img-preserve uk-border-circle" width="40" height="40" :alt="comment.author" v-gravatar="comment.email">
         </td>
         <td class="uk-visible-hover">
 
@@ -76,8 +76,8 @@
                 </div>
                 <div class="uk-flex uk-flex-middle">
                     <ul class="uk-subnav pk-subnav-icon uk-invisible uk-margin-right">
-                        <li><a class="pk-icon-edit pk-icon-hover" title="{{ 'Edit' | trans }}" data-uk-tooltip="{delay: 500}" @click.prevent="edit"></a></li>
-                        <li><a class="pk-icon-reply pk-icon-hover" title="{{ 'Reply' | trans }}" data-uk-tooltip="{delay: 500}" @click.prevent="reply"></a></li>
+                        <li><a class="pk-icon-edit pk-icon-hover" :title="'Edit' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="edit"></a></li>
+                        <li><a class="pk-icon-reply pk-icon-hover" :title="'Reply' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="reply"></a></li>
                     </ul>
 
                     <a class="uk-link-muted" v-if="post.accessible" :href="post.url+'#comment-'+comment.id">{{ comment.created | relativeDate }}</a>
@@ -106,14 +106,14 @@
 
         </td>
         <td class="pk-blog-comments-padding uk-text-center">
-            <a href="#" title="{{ getStatusText(comment) }}" :class="{'pk-icon-circle-success': comment.status == 1, 'pk-icon-circle-warning': comment.status == 0, 'pk-icon-circle-danger':  comment.status == 2}" @click="toggleStatus(comment)">
+            <a href="#" :title="getStatusText(comment)" :class="{'pk-icon-circle-success': comment.status == 1, 'pk-icon-circle-warning': comment.status == 0, 'pk-icon-circle-danger':  comment.status == 2}" @click="toggleStatus(comment)">
             </a>
         </td>
         <td class="pk-blog-comments-padding">
             <a :href="$url.route('admin/blog/post/edit', { id: post.id })">{{ post.title }}</a>
 
             <p>
-                <a class="uk-text-nowrap" :class="{'pk-link-icon': !post.comments_pending}" :href="$url.route('admin/blog/comment', { post: post.id })" title="{{ '{0} No pending|{1} One pending|]1,Inf[ %comments_pending% pending' | transChoice post.comments_pending post }}"><i class="pk-icon-comment" :class="{'pk-icon-primary': post.comments_pending}"></i> {{ post.comment_count }}</a>
+                <a class="uk-text-nowrap" :class="{'pk-link-icon': !post.comments_pending}" :href="$url.route('admin/blog/comment', { post: post.id })" :title="'{0} No pending|{1} One pending|]1,Inf[ %comments_pending% pending' | transChoice post.comments_pending post"><i class="pk-icon-comment" :class="{'pk-icon-primary': post.comments_pending}"></i> {{ post.comment_count }}</a>
             </p>
         </td>
 
@@ -127,7 +127,7 @@
 
         <td></td>
         <td class="pk-table-width-minimum">
-            <img class="uk-img-preserve uk-border-circle" width="40" height="40" alt="{{ editComment.author }}" v-gravatar="editComment.email">
+            <img class="uk-img-preserve uk-border-circle" width="40" height="40" :alt="editComment.author" v-gravatar="editComment.email">
         </td>
         <td colspan="3">
             <form class="uk-form uk-form-stacked" v-validator="editform" @submit.prevent="submit | valid">

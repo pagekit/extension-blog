@@ -28,12 +28,12 @@
 
             <header class="uk-comment-header">
 
-                <img class="uk-comment-avatar" width="40" height="40" alt="{{ comment.author }}" v-gravatar="comment.email">
+                <img class="uk-comment-avatar" width="40" height="40" :alt="comment.author" v-gravatar="comment.email">
 
                 <h3 class="uk-comment-title">{{ comment.author }}</h3>
 
                 <p class="uk-comment-meta" v-if="comment.status">
-                    <time datetime="{{ comment.created }}">{{ comment.created | relativeDate }}</time>
+                    <time :datetime="comment.created">{{ comment.created | relativeDate }}</time>
                     | <a class="uk-link-muted" :href="permalink">#</a>
                 </p>
 
@@ -56,12 +56,12 @@
         </article>
 
         <ul v-if="tree[comment.id] && depth < config.max_depth">
-            <comments-item v-repeat="comment: tree[comment.id]" depth="{{ 1 + depth }}"></comments-item>
+            <comments-item v-repeat="comment: tree[comment.id]" :depth="1 + depth"></comments-item>
         </ul>
 
     </li>
 
-    <comments-item v-repeat="comment: remainder" depth="{{ depth }}"></comments-item>
+    <comments-item v-repeat="comment: remainder" :depth="depth"></comments-item>
 
 </script>
 
