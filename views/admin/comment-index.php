@@ -147,7 +147,9 @@
                     </div>
                     <div>
                         <label for="form-status" class="uk-form-label">{{ 'Status' | trans }}</label>
-                        <select id="form-status" class="uk-width-1-1" v-model="editComment.status" options="statuses | toOptions"></select>
+                        <select id="form-status" class="uk-width-1-1" v-model="editComment.status">
+                            <option v-for="status in statuses" :value="$key">{{ status }}</option>
+                        </select>
                     </div>
                 </div>
 
