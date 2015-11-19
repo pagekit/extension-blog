@@ -16,7 +16,6 @@ module.exports = {
     created: function () {
 
         this.Comments = this.$resource('api/blog/comment/:id');
-        this.config.filter = _.extend({filter: {search: '', status: ''}}, this.config.filter);
 
         UIkit.init(this.$el);
     },
@@ -83,7 +82,7 @@ module.exports = {
         remove: function () {
             this.Comments.delete({id: 'bulk'}, {ids: this.selected}, function () {
                 this.load();
-                this.$notify('Comment(s) deleted.');
+                this.$notify('Comments deleted.');
             });
         },
 

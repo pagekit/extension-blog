@@ -7,18 +7,18 @@
 
             <h2 class="uk-margin-remove" v-show="!selected.length">{{ '{0} %count% Posts|{1} %count% Post|]1,Inf[ %count% Posts' | transChoice count {count:count} }}</h2>
 
-            <template v-else>
-                <h2 class="uk-margin-remove">{{ '{1} %count% Post selected|]1,Inf[ %count% Posts selected' | transChoice selected.length {count:selected.length} }}</h2>
 
-                <div class="uk-margin-left">
-                    <ul class="uk-subnav pk-subnav-icon">
-                        <li><a class="pk-icon-check pk-icon-hover" title="Publish" data-uk-tooltip="{delay: 500}" @click="status(2)"></a></li>
-                        <li><a class="pk-icon-block pk-icon-hover" title="Unpublish" data-uk-tooltip="{delay: 500}" @click="status(3)"></a></li>
-                        <li><a class="pk-icon-copy pk-icon-hover" title="Copy" data-uk-tooltip="{delay: 500}" @click.prevent="copy"></a></li>
-                        <li><a class="pk-icon-delete pk-icon-hover" title="Delete" data-uk-tooltip="{delay: 500}" @click.prevent="remove" v-confirm="'Delete Posts?'"></a></li>
-                    </ul>
-                </div>
-            </template>
+            <h2 class="uk-margin-remove">{{ '{1} %count% Post selected|]1,Inf[ %count% Posts selected' | transChoice selected.length {count:selected.length} }}</h2>
+
+            <div class="uk-margin-left" v-show="selected.length">
+                <ul class="uk-subnav pk-subnav-icon">
+                    <li><a class="pk-icon-check pk-icon-hover" title="Publish" data-uk-tooltip="{delay: 500}" @click="status(2)"></a></li>
+                    <li><a class="pk-icon-block pk-icon-hover" title="Unpublish" data-uk-tooltip="{delay: 500}" @click="status(3)"></a></li>
+                    <li><a class="pk-icon-copy pk-icon-hover" title="Copy" data-uk-tooltip="{delay: 500}" @click="copy"></a></li>
+                    <li><a class="pk-icon-delete pk-icon-hover" title="Delete" data-uk-tooltip="{delay: 500}" @click="remove" v-confirm="'Delete Posts?'"></a></li>
+                </ul>
+            </div>
+
 
             <div class="pk-search">
                 <div class="uk-search">
@@ -41,11 +41,11 @@
                     <th class="pk-table-width-minimum"><input type="checkbox" v-check-all:selected.literal="input[name=id]" number></th>
                     <th class="pk-table-min-width-200" v-order:title="config.filter.order">{{ 'Title' | trans }}</th>
                     <th class="pk-table-width-100 uk-text-center">
-                        <input-filter :title="'Status' | trans" :value.sync="config.filter.status" :options="statusOptions"></input-filter>
+                        <input-filter :title="$trans('Status')" :value.sync="config.filter.status" :options="statusOptions"></input-filter>
                     </th>
                     <th class="pk-table-width-100">
                         <span v-if="!canEditAll">{{ 'Author' | trans }}</span>
-                        <input-filter :title="'Author' | trans" :value.sync="config.filter.author" :options="authors" v-else></input-filter>
+                        <input-filter :title="$trans('Author')" :value.sync="config.filter.author" :options="authors" v-else></input-filter>
                     </th>
                     <th class="pk-table-width-100 uk-text-center" v-order:comment_count="config.filter.order">{{ 'Comments' | trans }}</th>
                     <th class="pk-table-width-100" v-order:date="config.filter.order">{{ 'Date' | trans }}</th>
