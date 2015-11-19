@@ -39,7 +39,7 @@
             <thead>
                 <tr>
                     <th class="pk-table-width-minimum"><input type="checkbox" v-check-all:selected.literal="input[name=id]" number></th>
-                    <th class="pk-table-min-width-200" v-order="title: config.filter.order">{{ 'Title' | trans }}</th>
+                    <th class="pk-table-min-width-200" v-order:title="config.filter.order">{{ 'Title' | trans }}</th>
                     <th class="pk-table-width-100 uk-text-center">
                         <input-filter :title="'Status' | trans" :value.sync="config.filter.status" :options="statusOptions"></input-filter>
                     </th>
@@ -47,8 +47,8 @@
                         <span v-if="!canEditAll">{{ 'Author' | trans }}</span>
                         <input-filter :title="'Author' | trans" :value.sync="config.filter.author" :options="authors" v-else></input-filter>
                     </th>
-                    <th class="pk-table-width-100 uk-text-center" v-order="comment_count: config.filter.order">{{ 'Comments' | trans }}</th>
-                    <th class="pk-table-width-100" v-order="date: config.filter.order">{{ 'Date' | trans }}</th>
+                    <th class="pk-table-width-100 uk-text-center" v-order:comment_count="config.filter.order">{{ 'Comments' | trans }}</th>
+                    <th class="pk-table-width-100" v-order:date="config.filter.order">{{ 'Date' | trans }}</th>
                     <th class="pk-table-width-200 pk-table-min-width-200">{{ 'URL' | trans }}</th>
                 </tr>
             </thead>

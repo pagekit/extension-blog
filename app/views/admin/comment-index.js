@@ -117,58 +117,28 @@ module.exports = {
         cancel: function () {
             this.$set('replyComment', {});
             this.$set('editComment', {});
+        },
+
+        reply: function (comment) {
+            this.cancel();
+            this.$set('replyComment', {parent_id: comment.id, post_id: comment.post_id, author: this.user.name, email: this.user.email});
+        },
+
+        edit: function (comment) {
+            this.cancel();
+            this.$set('editComment', _.merge({}, comment));
+        },
+
+        toggleStatus: function (comment) {
+            comment.status = comment.status === 1 ? 0 : 1;
+            this.save(comment);
         }
 
     },
 
-    components: {
-
-        'row': {
-            inherit: true,
-            template: '<component :is="editComment.id !== comment.id ? \'default-row\' : \'edit-row\'"></component>'
-        },
-
-        'default-row': {
-
-            inherit: true,
-            template: '#default-row',
-
-            computed: {
-
-                post: function () {
-                    return _.find(this.posts, 'id', this.comment.post_id) || {};
-                }
-
-            },
-
-            methods: {
-
-                reply: function () {
-                    this.cancel();
-                    this.$set('replyComment', {parent_id: this.comment.id, post_id: this.comment.post_id, author: this.user.name, email: this.user.email});
-                },
-
-                edit: function () {
-                    this.cancel();
-                    this.$set('editComment', _.merge({}, this.comment));
-                },
-
-                toggleStatus: function () {
-                    this.comment.status = this.comment.status === 1 ? 0 : 1;
-                    this.save(this.comment);
-                }
-
-            }
-
-        },
-
-        'edit-row': {
-
-            inherit: true,
-            template: '#edit-row'
-
-        }
-
+    partials: {
+        'default-row': '#default-row',
+        'edit-row': '#edit-row'
     }
 
 };

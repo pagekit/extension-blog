@@ -17,13 +17,13 @@
         </div>
     </div>
 
-    <ul class="uk-tab" v-el="tab" v-show="sections.length > 1">
+    <ul class="uk-tab" v-el:tab v-show="sections.length > 1">
         <li v-for="section in sections"><a>{{ section.label | trans }}</a></li>
     </ul>
 
-    <div class="uk-switcher uk-margin" v-el="content">
+    <div class="uk-switcher uk-margin" v-el:content>
         <div v-for="section in sections">
-            <component :is="section.name" :post.sync="post"></component>
+            <component :is="section.name" :post.sync="post" :data.sync="data"></component>
         </div>
     </div>
 

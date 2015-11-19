@@ -1,13 +1,14 @@
 <?php $view->script('comments', 'blog:app/bundle/comments.js', 'vue') ?>
 
-<div id="comments" class="uk-margin-large-top" v-if="config.enabled || comments.length">
 
-    <template v-show="comments.length">
+<div id="comments" class="uk-margin-large-top" v-show="config.enabled || comments.length">
+
+    <template v-if="comments.length">
 
         <h2 class="uk-h4">{{ 'Comments (%count%)' | trans {count:count} }}</h2>
 
         <ul class="uk-comment-list">
-            <comments-item v-for="comment in tree[0]" depth="0"></comments-item>
+            <comments-item v-for="comment in tree[0]" :depth="0" :reply.sync="reply" :comment="comment"></comments-item>
         </ul>
 
     </template>
@@ -22,7 +23,7 @@
 
 <script id="comments-item" type="text/template">
 
-    <li id="comment-{{ comment.id }}">
+    <li :id="'comment-'+comment.id">
 
         <article class="uk-comment" :class="{'uk-comment-primary': comment.special}">
 
@@ -45,18 +46,18 @@
 
                 <p>{{{ comment.content }}}</p>
 
-                <p v-if="showReplyButton"><a href="#" @click="replyTo">{{ 'Reply' | trans }}</a></p>
+                <p v-if="showReplyButton"><a href="#" @click.prevent="replyTo">{{ 'Reply' | trans }}</a></p>
 
             </div>
 
             <div class="uk-alert" v-for="message in comment.messages">{{ message }}</div>
 
-            <comments-reply v-if="showReply"></comments-reply>
+            <comments-reply v-if="showReply" :comment="comment" :reply.sync="reply"></comments-reply>
 
         </article>
 
         <ul v-if="tree[comment.id] && depth < config.max_depth">
-            <comments-item v-for="comment in tree[comment.id]" :depth="1 + depth"></comments-item>
+            <comments-item v-for="comment in tree[comment.id]" :depth="1 + depth" :reply.sync="reply" :comment="comment"></comments-item>
         </ul>
 
     </li>
@@ -73,7 +74,7 @@
 
         <div class="uk-alert uk-alert-danger" v-show="error">{{ error }}</div>
 
-        <form class="uk-form uk-form-stacked" v-if="user.canComment" v-validator="replyForm" @submit.prevent="save | valid">
+        <form class="uk-form uk-form-stacked" v-if="user.canComment" v-validator="replyForm" @submit.prevent="save | valid" @reset="cancel">
 
             <p v-if="user.isAuthenticated">{{ 'Logged in as %name%' | trans {name:user.name} }}</p>
 
@@ -83,7 +84,9 @@
                     <label for="form-name" class="uk-form-label">{{ 'Name' | trans }}</label>
                     <div class="uk-form-controls">
                         <input id="form-name" class="uk-form-width-large" type="text" name="author" v-model="author" v-validate="required">
-                        <p class="uk-form-help-block uk-text-danger" v-show="replyForm.author.invalid">{{ 'Name cannot be blank.' | trans }}</p>
+
+                        <p class="uk-form-help-block uk-text-danger" v-show="replyForm.author.invalid">{{ 'Name cannot
+                            be blank.' | trans }}</p>
                     </div>
                 </div>
 
@@ -91,7 +94,9 @@
                     <label for="form-email" class="uk-form-label">{{ 'Email' | trans }}</label>
                     <div class="uk-form-controls">
                         <input id="form-email" class="uk-form-width-large" type="email" name="email" v-model="email" v-validate="email">
-                        <p class="uk-form-help-block uk-text-danger" v-show="replyForm.email.invalid">{{ 'Email invalid.' | trans }}</p>
+
+                        <p class="uk-form-help-block uk-text-danger" v-show="replyForm.email.invalid">{{ 'Email
+                            invalid.' | trans }}</p>
                     </div>
                 </div>
 
@@ -101,12 +106,15 @@
                 <label for="form-comment" class="uk-form-label">{{ 'Comment' | trans }}</label>
                 <div class="uk-form-controls">
                     <textarea id="form-comment" class="uk-form-width-large" name="content" rows="10" v-model="content" v-validate="required"></textarea>
-                    <p class="uk-form-help-block uk-text-danger" v-show="replyForm.content.invalid">{{ 'Comment cannot be blank.' | trans }}</p>
+
+                    <p class="uk-form-help-block uk-text-danger" v-show="replyForm.content.invalid">{{ 'Comment cannot
+                        be blank.' | trans }}</p>
                 </div>
             </div>
 
             <p>
                 <button class="uk-button uk-button-primary" type="submit" accesskey="s">{{ 'Submit' | trans }}</button>
+                <button class="uk-button" type="reset" accesskey="c" v-if="reply">{{ 'Cancel' | trans }}</button>
             </p>
 
         </form>

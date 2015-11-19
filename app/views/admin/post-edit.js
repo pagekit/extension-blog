@@ -3,7 +3,8 @@ window.Post = module.exports = {
     data: function () {
         return {
             data: window.$data,
-            post: window.$data.post
+            post: window.$data.post,
+            sections: []
         }
     },
 
@@ -28,22 +29,6 @@ window.Post = module.exports = {
 
     ready: function () {
         this.tab = UIkit.tab(this.$els.tab, {connect: this.$els.content});
-    },
-
-    computed: {
-
-        statuses: function () {
-            return _.map(this.data.statuses, function (status, id) {
-                return {text: status, value: id};
-            });
-        },
-
-        authors: function () {
-            return this.data.authors.map(function (user) {
-                return {text: user.username, value: user.id};
-            });
-        }
-
     },
 
     methods: {

@@ -47,7 +47,12 @@
                 </tr>
             </thead>
             <tbody >
-                <tr v-for="comment in comments" v-component="row"></tr>
+
+            <template v-for="comment in comments">
+                <partial name="default-row" v-if="editComment.id !== comment.id"></partial>
+                <partial name="edit-row" v-else></partial>
+            </template>
+
             </tbody>
         </table>
     </div>
@@ -60,7 +65,7 @@
 
 <script id="default-row" type="text/template">
 
-    <tr class="check-item" :class="{'uk-active': active(comment)}">
+    <tr class="check-item" :class="{'uk-active': active(comment)}" v-for="post in posts | filterBy comment.post_id in 'id'">
 
         <td class="pk-blog-comments-padding"><input type="checkbox" name="id" :value="comment.id"></td>
         <td class="pk-table-width-minimum">
@@ -72,12 +77,12 @@
                 <div>
                     <a :href="$url.route('admin/user/edit', { id: comment.user_id })" v-if="comment.user_id">{{ comment.author }}</a>
                     <span v-else>{{ comment.author }}</span>
-                    <br><a class="uk-link-muted" href="mailto:{{ comment.email }}">{{ comment.email }}</a>
+                    <br><a class="uk-link-muted" :href="'mailto:'+comment.email">{{ comment.email }}</a>
                 </div>
                 <div class="uk-flex uk-flex-middle">
                     <ul class="uk-subnav pk-subnav-icon uk-invisible uk-margin-right">
-                        <li><a class="pk-icon-edit pk-icon-hover" :title="'Edit' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="edit"></a></li>
-                        <li><a class="pk-icon-reply pk-icon-hover" :title="'Reply' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="reply"></a></li>
+                        <li><a class="pk-icon-edit pk-icon-hover" :title="'Edit' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="edit(comment)"></a></li>
+                        <li><a class="pk-icon-reply pk-icon-hover" :title="'Reply' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="reply(comment)"></a></li>
                     </ul>
 
                     <a class="uk-link-muted" v-if="post.accessible" :href="post.url+'#comment-'+comment.id">{{ comment.created | relativeDate }}</a>

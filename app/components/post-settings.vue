@@ -38,13 +38,17 @@
                 <div class="uk-form-row">
                     <label for="form-status" class="uk-form-label">{{ 'Status' | trans }}</label>
                     <div class="uk-form-controls">
-                        <select id="form-status" class="uk-width-1-1" v-model="post.status" options="statuses"></select>
+                        <select id="form-status" class="uk-width-1-1" v-model="post.status">
+                            <option v-for="(id, status) in data.statuses" :value="id">{{status}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="uk-form-row" v-if="data.canEditAll">
                     <label for="form-author" class="uk-form-label">{{ 'Author' | trans }}</label>
                     <div class="uk-form-controls">
-                        <select id="form-author" class="uk-width-1-1" v-model="post.user_id" options="authors"></select>
+                        <select id="form-author" class="uk-width-1-1" v-model="post.user_id">
+                            <option v-for="author in data.authors" :value="author.id">{{author.username}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="uk-form-row">
@@ -83,7 +87,7 @@
 
     module.exports = {
 
-        inherit: true,
+        props: ['post', 'data'],
 
         section: {
             label: 'Post'
