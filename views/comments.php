@@ -83,7 +83,7 @@
                 <div class="uk-form-row">
                     <label for="form-name" class="uk-form-label">{{ 'Name' | trans }}</label>
                     <div class="uk-form-controls">
-                        <input id="form-name" class="uk-form-width-large" type="text" name="author" v-model="author" v-validate="required">
+                        <input id="form-name" class="uk-form-width-large" type="text" name="author" v-model="author" v-validate:required>
 
                         <p class="uk-form-help-block uk-text-danger" v-show="replyForm.author.invalid">{{ 'Name cannot
                             be blank.' | trans }}</p>
@@ -93,7 +93,7 @@
                 <div class="uk-form-row">
                     <label for="form-email" class="uk-form-label">{{ 'Email' | trans }}</label>
                     <div class="uk-form-controls">
-                        <input id="form-email" class="uk-form-width-large" type="email" name="email" v-model="email" v-validate="email">
+                        <input id="form-email" class="uk-form-width-large" type="email" name="email" v-model="email" v-validate:email>
 
                         <p class="uk-form-help-block uk-text-danger" v-show="replyForm.email.invalid">{{ 'Email
                             invalid.' | trans }}</p>
@@ -105,7 +105,7 @@
             <div class="uk-form-row">
                 <label for="form-comment" class="uk-form-label">{{ 'Comment' | trans }}</label>
                 <div class="uk-form-controls">
-                    <textarea id="form-comment" class="uk-form-width-large" name="content" rows="10" v-model="content" v-validate="required"></textarea>
+                    <textarea id="form-comment" class="uk-form-width-large" name="content" rows="10" v-model="content" v-validate:required></textarea>
 
                     <p class="uk-form-help-block uk-text-danger" v-show="replyForm.content.invalid">{{ 'Comment cannot
                         be blank.' | trans }}</p>
