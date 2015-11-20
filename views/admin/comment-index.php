@@ -6,17 +6,20 @@
     <div class="uk-margin uk-flex uk-flex-space-between uk-flex-wrap" data-uk-margin>
         <div class="uk-flex uk-flex-middle uk-flex-wrap" data-uk-margin>
 
-            <h2 class="uk-margin-remove" v-show="!selected.length">{{ '{0} %count% Comments|{1} %count% Comment|]1,Inf[ %count% Comments' | transChoice count {count:count} }}</h2>
-            <h2 class="uk-margin-remove">{{ '{1} %count% Comment selected|]1,Inf[ %count% Comments selected' | transChoice selected.length {count:selected.length} }}</h2>
+            <h2 class="uk-margin-remove" v-if="!selected.length">{{ '{0} %count% Comments|{1} %count% Comment|]1,Inf[ %count% Comments' | transChoice count {count:count} }}</h2>
 
-            <div class="uk-margin-left" v-show="selected.length">
-                <ul class="uk-subnav pk-subnav-icon">
-                    <li><a class="pk-icon-check pk-icon-hover" :title="'Approve' | trans" data-uk-tooltip="{delay: 500}" @click="status(1)"></a></li>
-                    <li><a class="pk-icon-block pk-icon-hover" :title="'Unapprove' | trans" data-uk-tooltip="{delay: 500}" @click="status(0)"></a></li>
-                    <li><a class="pk-icon-spam pk-icon-hover" :title="'Mark as spam' | trans" data-uk-tooltip="{delay: 500}" @click="status(2)"></a></li>
-                    <li><a class="pk-icon-delete pk-icon-hover" :title="'Delete' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="remove"></a></li>
-                </ul>
-            </div>
+            <template v-else>
+                <h2 class="uk-margin-remove">{{ '{1} %count% Comment selected|]1,Inf[ %count% Comments selected' | transChoice selected.length {count:selected.length} }}</h2>
+
+                <div class="uk-margin-left">
+                    <ul class="uk-subnav pk-subnav-icon">
+                        <li><a class="pk-icon-check pk-icon-hover" :title="'Approve' | trans" data-uk-tooltip="{delay: 500}" @click="status(1)"></a></li>
+                        <li><a class="pk-icon-block pk-icon-hover" :title="'Unapprove' | trans" data-uk-tooltip="{delay: 500}" @click="status(0)"></a></li>
+                        <li><a class="pk-icon-spam pk-icon-hover" :title="'Mark as spam' | trans" data-uk-tooltip="{delay: 500}" @click="status(2)"></a></li>
+                        <li><a class="pk-icon-delete pk-icon-hover" :title="'Delete' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="remove"></a></li>
+                    </ul>
+                </div>
+            </template>
 
             <div class="pk-search">
                 <div class="uk-search">
