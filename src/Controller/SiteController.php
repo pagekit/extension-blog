@@ -140,15 +140,14 @@ class SiteController
                     'post' => $post->id,
                     'enabled' => $post->isCommentable(),
                     'requireinfo' => $this->blog->config('comments.require_email'),
-                    'max_depth' => $this->blog->config('comments.max_depth')
-                ],
-                'user' => [
-                    'name' => $user->name,
-                    'isAuthenticated' => $user->isAuthenticated(),
-                    'canComment' => $user->hasAccess('blog: post comments'),
-                    'skipApproval' => $user->hasAccess('blog: skip comment approval')
-                ],
-
+                    'max_depth' => $this->blog->config('comments.max_depth'),
+                    'user' => [
+                        'name' => $user->name,
+                        'isAuthenticated' => $user->isAuthenticated(),
+                        'canComment' => $user->hasAccess('blog: post comments'),
+                        'skipApproval' => $user->hasAccess('blog: skip comment approval')
+                    ]
+                ]
             ],
             'blog' => $this->blog,
             'post' => $post

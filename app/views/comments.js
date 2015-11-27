@@ -1,75 +1,3 @@
-var reply = {
-    components: {
-
-        'comments-reply': {
-
-            props: ['comment', 'reply'],
-            template: '#comments-reply',
-
-            data: function () {
-                return _.extend({
-                    author: '',
-                    email: '',
-                    content: ''
-                }, window.$comments);
-            },
-
-            methods: {
-
-                save: function () {
-
-                    var comment = {
-                        parent_id: this.comment ? this.comment.id : 0,
-                        post_id: this.config.post,
-                        content: this.content
-                    };
-
-                    if (!this.user.isAuthenticated) {
-                        comment.author = this.author;
-                        comment.email = this.email;
-                    }
-
-                    this.$set('error', false);
-
-                    this.$resource('api/blog/comment/:id').save({id: 0}, {comment: comment}, function (data) {
-
-                        this.$set('reply', 0);
-                        this.$set('author', '');
-                        this.$set('email', '');
-                        this.$set('content', '');
-                        this.$set('replyForm', {});
-
-                        if (!this.user.skipApproval) {
-
-                            var message = this.$trans('Thank you! Your comment needs approval before showing up.');
-
-                            this.messages.push(message);
-                        }
-
-                        if (this.user.skipApproval) {
-
-                            this.$root.load().success(function () {
-                                window.location.hash = 'comment-' + data.comment.id;
-                            });
-                        }
-
-                    }, function () {
-
-                        // TODO better error messages
-                        this.$set('error', this.$trans('Unable to comment. Please try again later.'));
-                    });
-                },
-
-                cancel: function () {
-                    this.$set('reply', 0);
-                }
-
-            }
-
-        }
-    }
-};
-
 module.exports = {
 
     data: function () {
@@ -79,12 +7,9 @@ module.exports = {
             comments: [],
             messages: [],
             count: 0,
-            reply: 0,
-            error: false
+            replyForm: false
         }, window.$comments);
     },
-
-    mixins: [reply],
 
     created: function () {
         this.load();
@@ -100,44 +25,73 @@ module.exports = {
                 this.$set('tree', _.groupBy(data.comments, 'parent_id'));
                 this.$set('post', data.posts[0]);
                 this.$set('count', data.count);
-                this.$set('reply', 0);
+
+                this.reply();
             });
+        },
+
+        reply: function (parent) {
+
+            parent = parent || this;
+
+            if (this.replyForm) {
+                this.replyForm.$destroy(true);
+            }
+
+            this.replyForm = new this.$options.components['reply']({
+                data: {config: this.config, parent: parent.comment && parent.comment.id || 0},
+                parent: parent
+            }).$mount().$appendTo(parent.$els.reply);
+
         }
 
     },
 
     components: {
 
-        'comments-item': {
+        comment: {
 
-            name: 'comments-item',
-            props: ['depth', 'comment', 'reply'],
+            name: 'Comment',
+            props: ['comment'],
             template: '#comments-item',
-            mixins: [reply],
 
             data: function () {
-                return _.extend({
-                    post: this.$root.post,
+                return {
+                    config: this.$root.config,
                     tree: this.$root.tree
-                }, window.$comments);
+                };
             },
 
             computed: {
 
-                showReply: function () {
-                    return this.config.enabled && this.reply && this.reply == this.comment.id;
+                depth: function () {
+
+                    var depth = 1, parent = this.$parent;
+
+                    while (parent) {
+                        if (parent.$options.name === 'Comment') {
+                            depth++;
+                        }
+                        parent = parent.$parent;
+                    }
+
+                    return depth;
                 },
 
                 showReplyButton: function () {
-                    return this.config.enabled && this.depth < this.config.max_depth && !this.showReply;
+                    return this.config.enabled && !this.isLeaf && this.$root.replyForm.$parent !== this;
                 },
 
                 remainder: function () {
-                    return this.depth >= this.config.max_depth && this.tree[this.comment.id] || [];
+                    return this.isLeaf && this.tree[this.comment.id] || [];
+                },
+
+                isLeaf: function () {
+                    return this.depth >= this.config.max_depth;
                 },
 
                 permalink: function () {
-                    return $pagekit.url + this.post.url + '#comment-' + this.comment.id;
+                    return $pagekit.url + this.config.post.url + '#comment-' + this.comment.id;
                 }
 
             },
@@ -145,7 +99,76 @@ module.exports = {
             methods: {
 
                 replyTo: function () {
-                    this.$set('reply', this.comment.id);
+                    this.$root.reply(this);
+                }
+
+            }
+
+        },
+
+        reply: {
+
+            template: '#comments-reply',
+
+            data: function () {
+                return {
+                    author: '',
+                    email: '',
+                    content: '',
+                    error: false,
+                    form: false
+                };
+            },
+
+            computed: {
+
+                user: function () {
+                    return this.config.user;
+                }
+
+            },
+
+            methods: {
+
+                save: function () {
+
+                    var comment = {
+                        parent_id: this.parent,
+                        post_id: this.config.post,
+                        content: this.content
+                    };
+
+                    if (!this.user.isAuthenticated) {
+                        comment.author = this.author;
+                        comment.email = this.email;
+                    }
+
+                    this.$set('error', false);
+
+                    this.$resource('api/blog/comment/:id').save({id: 0}, {comment: comment}, function (data) {
+
+                        if (!this.user.skipApproval) {
+
+                            this.$root.messages.push(this.$trans('Thank you! Your comment needs approval before showing up.'));
+
+                        } else {
+
+                            this.$root.load().success(function () {
+                                window.location.hash = 'comment-' + data.comment.id;
+                            });
+                        }
+
+                        this.cancel()
+
+                    }, function () {
+
+                        // TODO better error messages
+                        this.$set('error', this.$trans('Unable to comment. Please try again later.'));
+                    });
+                },
+
+                cancel: function () {
+                    this.$root.reply();
                 }
 
             }
