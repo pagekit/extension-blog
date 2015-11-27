@@ -88,7 +88,7 @@
                     <div class="uk-form-controls">
                         <input id="form-name" class="uk-form-width-large" type="text" name="author" v-model="author" v-validate:required>
 
-                        <p class="uk-form-help-block uk-text-danger" v-show="form.author && form.author.invalid">{{ 'Name cannot be blank.' | trans }}</p>
+                        <p class="uk-form-help-block uk-text-danger" v-show="form.author.invalid">{{ 'Name cannot be blank.' | trans }}</p>
                     </div>
                 </div>
 
@@ -97,7 +97,7 @@
                     <div class="uk-form-controls">
                         <input id="form-email" class="uk-form-width-large" type="email" name="email" v-model="email" v-validate:email>
 
-                        <p class="uk-form-help-block uk-text-danger" v-show="form.email && form.email.invalid">{{ 'Email invalid.' | trans }}</p>
+                        <p class="uk-form-help-block uk-text-danger" v-show="form.email.invalid">{{ 'Email invalid.' | trans }}</p>
                     </div>
                 </div>
 
