@@ -87,7 +87,7 @@
 
     module.exports = {
 
-        props: ['post', 'data'],
+        props: ['post', 'data', 'form'],
 
         section: {
             label: 'Post'
