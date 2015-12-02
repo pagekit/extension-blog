@@ -96,7 +96,7 @@
                 <form class="uk-form" v-validator="replyform" @submit.prevent="submit | valid">
 
                     <div class="uk-form-row">
-                        <textarea class="uk-width-1-1" name="content" rows="10" v-model="replyComment.content" v-validate="required"></textarea>
+                        <textarea class="uk-width-1-1" name="content" rows="10" v-model="replyComment.content" v-validate:required></textarea>
 
                         <p class="uk-form-help-block uk-text-danger" v-show="replyform.content.invalid">{{ 'Content cannot be blank.' | trans }}</p>
                     </div>
@@ -140,13 +140,13 @@
                 <div class="uk-grid uk-grid-medium uk-grid-width-medium-1-3" data-uk-margin="{cls:'uk-margin-top'}">
                     <div>
                         <label for="form-author" class="uk-form-label">{{ 'Name' | trans }}</label>
-                        <input id="form-author" class="uk-width-1-1" name="author" type="text" v-model="editComment.author" v-validate="required">
+                        <input id="form-author" class="uk-width-1-1" name="author" type="text" v-model="editComment.author" v-validate:required>
 
                         <p class="uk-form-help-block uk-text-danger" v-show="editform.author.invalid">{{ 'Author cannot be blank.' | trans }}</p>
                     </div>
                     <div>
                         <label for="form-email" class="uk-form-label">{{ 'E-mail' | trans }}</label>
-                        <input id="form-email" class="uk-width-1-1" name="email" type="text" v-model="editComment.email" v-validate="email" lazy>
+                        <input id="form-email" class="uk-width-1-1" name="email" type="text" v-model="editComment.email" v-validate:email lazy>
 
                         <p class="uk-form-help-block uk-text-danger" v-show="editform.email.invalid">{{ 'Field must be a valid email address.' | trans }}</p>
                     </div>
@@ -160,7 +160,7 @@
 
                 <div class="uk-grid uk-grid-medium uk-grid-width-1-1">
                     <div>
-                        <textarea class="uk-width-1-1" name="content" rows="10" v-model="editComment.content" v-validate="required"></textarea>
+                        <textarea class="uk-width-1-1" name="content" rows="10" v-model="editComment.content" v-validate:required></textarea>
 
                         <p class="uk-form-help-block uk-text-danger" v-show="editform.content.invalid">{{ 'Content cannot be blank.' | trans }}</p>
                     </div>
