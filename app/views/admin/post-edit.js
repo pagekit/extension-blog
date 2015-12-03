@@ -1,4 +1,6 @@
-window.Post = module.exports = {
+window.Post = {
+
+    el: '#post',
 
     data: function () {
         return {
@@ -63,8 +65,4 @@ window.Post = module.exports = {
 
 };
 
-$(function () {
-
-    new Vue(module.exports).$mount('#post');
-
-});
+Vue.ready(window.Post);

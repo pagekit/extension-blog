@@ -1,5 +1,7 @@
 module.exports = {
 
+    el: '#comments',
+
     data: function () {
         return _.extend({
             post: {},
@@ -179,6 +181,4 @@ module.exports = {
 
 };
 
-jQuery(function () {
-    new Vue(module.exports).$mount('#comments');
-});
+Vue.ready(module.exports);

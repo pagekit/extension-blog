@@ -1,5 +1,7 @@
 module.exports = {
 
+    el: '#post',
+
     data: function() {
         return _.merge({
             posts: false,
@@ -125,8 +127,4 @@ module.exports = {
 
 };
 
-jQuery(function () {
-
-    (new Vue(module.exports)).$mount('#post');
-
-});
+Vue.ready(module.exports);

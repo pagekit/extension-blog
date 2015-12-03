@@ -1,5 +1,7 @@
 module.exports = {
 
+    el: '#comments',
+
     data: function () {
         return _.merge({
             posts: [],
@@ -143,8 +145,4 @@ module.exports = {
 
 };
 
-jQuery(function () {
-
-    (new Vue(module.exports)).$mount('#comments');
-
-});
+Vue.ready(module.exports);
