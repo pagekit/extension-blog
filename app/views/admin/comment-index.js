@@ -1,5 +1,7 @@
 module.exports = {
 
+    el: '#comments',
+
     data: function () {
         return _.merge({
             posts: [],
@@ -83,7 +85,7 @@ module.exports = {
         remove: function () {
             this.Comments.delete({id: 'bulk'}, {ids: this.selected}, function () {
                 this.load();
-                this.$notify('Comment(s) deleted.');
+                this.$notify('Comments deleted.');
             });
         },
 
@@ -114,73 +116,33 @@ module.exports = {
             return this.statuses[comment.status];
         },
 
-        cancel: function (e) {
-
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-
+        cancel: function () {
             this.$set('replyComment', {});
             this.$set('editComment', {});
+        },
+
+        reply: function (comment) {
+            this.cancel();
+            this.$set('replyComment', {parent_id: comment.id, post_id: comment.post_id, author: this.user.name, email: this.user.email});
+        },
+
+        edit: function (comment) {
+            this.cancel();
+            this.$set('editComment', _.merge({}, comment));
+        },
+
+        toggleStatus: function (comment) {
+            comment.status = comment.status === 1 ? 0 : 1;
+            this.save(comment);
         }
 
     },
 
-    components: {
-
-        'row': {
-            inherit: true,
-            template: '<component is="{{ editComment.id !== comment.id ? \'default-row\' : \'edit-row\' }}"></component>'
-        },
-
-        'default-row': {
-
-            inherit: true,
-            template: '#default-row',
-
-            computed: {
-
-                post: function () {
-                    return _.find(this.posts, 'id', this.comment.post_id) || {};
-                }
-
-            },
-
-            methods: {
-
-                reply: function () {
-                    this.cancel();
-                    this.$set('replyComment', {parent_id: this.comment.id, post_id: this.comment.post_id, author: this.user.name, email: this.user.email});
-                },
-
-                edit: function () {
-                    this.cancel();
-                    this.$set('editComment', _.merge({}, this.comment));
-                },
-
-                toggleStatus: function () {
-                    this.comment.status = this.comment.status === 1 ? 0 : 1;
-                    this.save(this.comment);
-                }
-
-            }
-
-        },
-
-        'edit-row': {
-
-            inherit: true,
-            template: '#edit-row'
-
-        }
-
+    partials: {
+        'default-row': '#default-row',
+        'edit-row': '#edit-row'
     }
 
 };
 
-jQuery(function () {
-
-    (new Vue(module.exports)).$mount('#comments');
-
-});
+Vue.ready(module.exports);

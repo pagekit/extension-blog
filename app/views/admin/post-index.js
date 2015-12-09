@@ -1,5 +1,7 @@
 module.exports = {
 
+    el: '#post',
+
     data: function() {
         return _.merge({
             posts: false,
@@ -13,7 +15,7 @@ module.exports = {
     created: function () {
 
         this.resource = this.$resource('api/blog/post/:id');
-        this.config.filter = _.extend({ search: '', status: '' , author:'', order: 'date desc', limit:25}, this.config.filter);
+        this.config.filter = _.extend({order: 'date desc', limit:25}, this.config.filter);
     },
 
     watch: {
@@ -125,8 +127,4 @@ module.exports = {
 
 };
 
-jQuery(function () {
-
-    (new Vue(module.exports)).$mount('#post');
-
-});
+Vue.ready(module.exports);

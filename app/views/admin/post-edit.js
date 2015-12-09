@@ -1,9 +1,12 @@
-window.Post = module.exports = {
+window.Post = {
+
+    el: '#post',
 
     data: function () {
         return {
             data: window.$data,
-            post: window.$data.post
+            post: window.$data.post,
+            sections: []
         }
     },
 
@@ -27,30 +30,12 @@ window.Post = module.exports = {
     },
 
     ready: function () {
-        this.tab = UIkit.tab(this.$$.tab, {connect: this.$$.content});
-    },
-
-    computed: {
-
-        statuses: function () {
-            return _.map(this.data.statuses, function (status, id) {
-                return {text: status, value: id};
-            });
-        },
-
-        authors: function () {
-            return this.data.authors.map(function (user) {
-                return {text: user.username, value: user.id};
-            });
-        }
-
+        this.tab = UIkit.tab(this.$els.tab, {connect: this.$els.content});
     },
 
     methods: {
 
-        save: function (e) {
-            e.preventDefault();
-
+        save: function () {
             var data = {post: this.post, id: this.post.id};
 
             this.$broadcast('save', data);
@@ -74,14 +59,10 @@ window.Post = module.exports = {
 
     components: {
 
-        'settings': require('../../components/post-settings.vue')
+        settings: require('../../components/post-settings.vue')
 
     }
 
 };
 
-$(function () {
-
-    new Vue(module.exports).$mount('#post');
-
-});
+Vue.ready(window.Post);

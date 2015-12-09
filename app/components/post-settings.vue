@@ -4,16 +4,16 @@
         <div class="uk-flex-item-1">
 
             <div class="uk-form-row">
-                <input class="uk-width-1-1 uk-form-large" type="text" name="title" placeholder="{{ 'Enter Title' | trans }}" v-model="post.title" v-validate="required">
+                <input class="uk-width-1-1 uk-form-large" type="text" name="title" :placeholder="'Enter Title' | trans" v-model="post.title" v-validate:required>
                 <p class="uk-form-help-block uk-text-danger" v-show="form.title.invalid">{{ 'Title cannot be blank.' | trans }}</p>
             </div>
             <div class="uk-form-row">
-                <v-editor id="post-content" value="{{@ post.content }}" options="{{ {markdown : post.data.markdown} }}"></v-editor>
+                <v-editor id="post-content" :value.sync="post.content" :options="{markdown : post.data.markdown}"></v-editor>
             </div>
             <div class="uk-form-row">
                 <label class="uk-form-label">{{ 'Excerpt' | trans }}</label>
                 <div class="uk-form-controls">
-                    <v-editor id="post-content" value="{{@ post.excerpt }}" options="{{ {markdown : post.data.markdown, height: 250} }}"></v-editor>
+                    <v-editor id="post-content" :value.sync="post.excerpt" :options="{markdown : post.data.markdown, height: 250}"></v-editor>
                 </div>
             </div>
 
@@ -25,7 +25,7 @@
                 <div class="uk-form-row">
                     <label for="form-image" class="uk-form-label">{{ 'Image' | trans }}</label>
                     <div class="uk-form-controls">
-                        <input-image-meta image="{{@ post.data.image }}" class="pk-image-max-height"></input-image-meta>
+                        <input-image-meta :image.sync="post.data.image" class="pk-image-max-height"></input-image-meta>
                     </div>
                 </div>
 
@@ -38,27 +38,31 @@
                 <div class="uk-form-row">
                     <label for="form-status" class="uk-form-label">{{ 'Status' | trans }}</label>
                     <div class="uk-form-controls">
-                        <select id="form-status" class="uk-width-1-1" v-model="post.status" options="statuses"></select>
+                        <select id="form-status" class="uk-width-1-1" v-model="post.status">
+                            <option v-for="(id, status) in data.statuses" :value="id">{{status}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="uk-form-row" v-if="data.canEditAll">
                     <label for="form-author" class="uk-form-label">{{ 'Author' | trans }}</label>
                     <div class="uk-form-controls">
-                        <select id="form-author" class="uk-width-1-1" v-model="post.user_id" options="authors"></select>
+                        <select id="form-author" class="uk-width-1-1" v-model="post.user_id">
+                            <option v-for="author in data.authors" :value="author.id">{{author.username}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="uk-form-row">
                     <span class="uk-form-label">{{ 'Publish on' | trans }}</span>
                     <div class="uk-form-controls">
-                        <input-date datetime="{{@ post.date}}"></input-date>
+                        <input-date :datetime.sync="post.date"></input-date>
                     </div>
                 </div>
 
                 <div class="uk-form-row">
                     <span class="uk-form-label">{{ 'Restrict Access' | trans }}</span>
                     <div class="uk-form-controls uk-form-controls-text">
-                        <p v-repeat="role: data.roles" class="uk-form-controls-condensed">
-                            <label><input type="checkbox" value="{{ role.id }}" v-checkbox="post.roles" number> {{ role.name }}</label>
+                        <p v-for="role in data.roles" class="uk-form-controls-condensed">
+                            <label><input type="checkbox" :value="role.id" v-checkbox="post.roles" number> {{ role.name }}</label>
                         </p>
                     </div>
                 </div>
@@ -83,7 +87,7 @@
 
     module.exports = {
 
-        inherit: true,
+        props: ['post', 'data', 'form'],
 
         section: {
             label: 'Post'

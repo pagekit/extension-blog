@@ -3,7 +3,12 @@
     <div class="uk-form-row">
         <label for="form-link-blog" class="uk-form-label">{{ 'View' | trans }}</label>
         <div class="uk-form-controls">
-            <select id="form-link-blog" class="uk-width-1-1" v-model="link" options="postOptions"></select>
+            <select id="form-link-blog" class="uk-width-1-1" v-model="link">
+                <option value="@blog">{{ 'Posts View' | trans }}</option>
+                <optgroup :label="'Posts' | trans">
+                    <option v-for="p in posts" :value="p | link">{{ p.title }}</option>
+                </optgroup>
+            </select>
         </div>
     </div>
 
@@ -35,12 +40,10 @@
             this.link = '@blog';
         },
 
-        computed: {
+        filters: {
 
-            postOptions: function () {
-                return [{text: this.$trans('Posts View'), value: '@blog'}].concat({label: this.$trans('Posts'), options: _.map(this.posts, function (post) {
-                    return {text: post.title, value: '@blog/id?id='+post.id};
-                })});
+            link: function (post) {
+                return '@blog/id?id='+post.id;
             }
 
         }
