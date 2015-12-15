@@ -1,8 +1,13 @@
 # Changelog
 
+## 0.10.0 (Dezember 15, 2015)
+
+### Changed
+- Switched to Vuejs 1.0
+
 ## 0.9.3 (October 30, 2015)
 
-## Changed
+### Changed
 - Date is set to "now" on post copy
 
 ## 0.9.2 (October 14, 2015)
