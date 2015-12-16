@@ -57,7 +57,7 @@ module.exports = {
         },
 
         save: function (post) {
-            this.resource.save({ id: post.id }, { post: post }, function (data) {
+            this.resource.save({ id: post.id }, { post: post }).then(function () {
                 this.load();
                 this.$notify('Post saved.');
             });
@@ -71,7 +71,7 @@ module.exports = {
                 post.status = status;
             });
 
-            this.resource.save({ id: 'bulk' }, { posts: posts }, function (data) {
+            this.resource.save({ id: 'bulk' }, { posts: posts }).then(function () {
                 this.load();
                 this.$notify('Posts saved.');
             });
@@ -79,7 +79,7 @@ module.exports = {
 
         remove: function() {
 
-            this.resource.delete({ id: 'bulk' }, { ids: this.selected }, function (data) {
+            this.resource.delete({ id: 'bulk' }, { ids: this.selected }).then(function () {
                 this.load();
                 this.$notify('Posts deleted.');
             });
@@ -96,7 +96,7 @@ module.exports = {
                 return;
             }
 
-            this.resource.save({ id: 'copy' }, { ids: this.selected }, function (data) {
+            this.resource.save({ id: 'copy' }, { ids: this.selected }).then(function () {
                 this.load();
                 this.$notify('Posts copied.');
             });
@@ -106,7 +106,10 @@ module.exports = {
 
             page = page !== undefined ? page : this.config.page;
 
-            this.resource.query({ filter: this.config.filter, page: page }, function (data) {
+            this.resource.query({ filter: this.config.filter, page: page }).then(function (res) {
+
+                var data = res.data;
+
                 this.$set('posts', data.posts);
                 this.$set('pages', data.pages);
                 this.$set('count', data.count);

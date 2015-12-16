@@ -31,8 +31,8 @@
         },
 
         created: function () {
-            this.$resource('api/blog/post').get({limit: 100}, function (data) {
-                this.$set('posts', data.posts);
+            this.$http.get('api/blog/post', {limit: 100}).then(function (res) {
+                this.$set('posts', res.data.posts);
             });
         },
 

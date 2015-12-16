@@ -40,7 +40,9 @@ window.Post = {
 
             this.$broadcast('save', data);
 
-            this.resource.save({id: this.post.id}, data, function (data) {
+            this.resource.save({id: this.post.id}, data).then(function (res) {
+
+                var data = res.data;
 
                 if (!this.post.id) {
                     window.history.replaceState({}, '', this.$url.route('admin/blog/post/edit', {id: data.post.id}))
@@ -50,8 +52,8 @@ window.Post = {
 
                 this.$notify('Post saved.');
 
-            }, function (data) {
-                this.$notify(data, 'danger');
+            }, function (res) {
+                this.$notify(res.data, 'danger');
             });
         }
 

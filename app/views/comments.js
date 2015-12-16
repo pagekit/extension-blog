@@ -21,7 +21,8 @@ module.exports = {
 
         load: function () {
 
-            return this.$resource('api/blog/comment/:id').query({post: this.config.post}, function (data) {
+            return this.$http.get('api/blog/comment/:id', {post: this.config.post}).then(function (res) {
+                var data = res.data;
 
                 this.$set('comments', data.comments);
                 this.$set('tree', _.groupBy(data.comments, 'parent_id'));
@@ -147,7 +148,9 @@ module.exports = {
 
                     this.$set('error', false);
 
-                    this.$resource('api/blog/comment/:id').save({id: 0}, {comment: comment}, function (data) {
+                    this.$resource('api/blog/comment/:id').save({id: 0}, {comment: comment}).then(function (res) {
+
+                        var data = res.data;
 
                         if (!this.user.skipApproval) {
 

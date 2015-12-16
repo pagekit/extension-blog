@@ -60,11 +60,11 @@ module.exports = {
         },
 
         save: function (comment) {
-            return this.Comments.save({id: comment.id}, {comment: comment}, function () {
+            return this.Comments.save({id: comment.id}, {comment: comment}).then(function () {
                 this.load();
                 this.$notify('Comment saved.');
-            }, function (data) {
-                this.$notify(data, 'danger');
+            }, function (res) {
+                this.$notify(res.data, 'danger');
             });
         },
 
@@ -76,14 +76,14 @@ module.exports = {
                 comment.status = status;
             });
 
-            this.Comments.save({id: 'bulk'}, {comments: comments}, function () {
+            this.Comments.save({id: 'bulk'}, {comments: comments}).then(function () {
                 this.load();
                 this.$notify('Comments saved.');
             });
         },
 
         remove: function () {
-            this.Comments.delete({id: 'bulk'}, {ids: this.selected}, function () {
+            this.Comments.delete({id: 'bulk'}, {ids: this.selected}).then(function () {
                 this.load();
                 this.$notify('Comments deleted.');
             });
@@ -95,7 +95,10 @@ module.exports = {
 
             this.cancel();
 
-            this.Comments.query({filter: this.config.filter, post: this.config.post && this.config.post.id || 0, page: page, limit: this.config.limit}, function (data) {
+            this.Comments.query({filter: this.config.filter, post: this.config.post && this.config.post.id || 0, page: page, limit: this.config.limit}).then(function (res) {
+
+                var data = res.data;
+
                 this.$set('posts', data.posts);
                 this.$set('comments', data.comments);
                 this.$set('pages', data.pages);
