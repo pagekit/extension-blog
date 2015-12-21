@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.10.0 (Dezember 15, 2015)
+## 0.10.0 (December 15, 2015)
 
 ### Changed
 - Switched to Vuejs 1.0
