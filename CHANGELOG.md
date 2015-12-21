@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+- Set comment ordering to DESC at admin panel
+- Updated Vue resource
+
 ## 0.10.0 (Dezember 15, 2015)
 
 ### Changed

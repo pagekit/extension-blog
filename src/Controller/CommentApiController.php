@@ -69,9 +69,15 @@ class CommentApiController
             $query->offset($page * $limit)->limit($limit);
         }
 
+        if (preg_match('/^(created)\s(asc|desc)$/i', $order, $match)) {
+            $order = $match;
+        } else {
+            $order = [1 => 'created', 2 => App::module('blog')->config('comments.order')];
+        }
+
         $comments = $query->related(['post' => function ($query) {
             return $query->related('comments');
-        }])->related('user')->orderBy('created', App::module('blog')->config('comments.order'))->get();
+        }])->related('user')->orderBy($order[1], $order[2])->get();
 
         $posts = [];
 

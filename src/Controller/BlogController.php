@@ -111,6 +111,7 @@ class BlogController
     public function commentAction($filter = [], $post = 0, $page = 0)
     {
         $post = Post::find($post);
+        $filter['order'] = 'created DESC';
 
         return [
             '$view' => [
