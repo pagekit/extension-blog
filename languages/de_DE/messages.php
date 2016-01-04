@@ -90,7 +90,7 @@
   'Comments are closed.' => 'Kommentare sind geschlossen.',
   'Close comments on articles older than' => 'Kommentare von Artikeln schließen, die älter sind als',
   'Cancel' => 'Abbrechen',
-  'Written by %name% on %date%' => 'Geschrieben von %Name% am %Date%',
+  'Written by %name% on %date%' => 'Geschrieben von %name% am %date%',
   'Enable nested comments of' => 'Verschachtelte Kommentare aktivieren für',
   'Restrict Access' => 'Zugriff einschränken',
   'Comment cannot be blank.' => 'Kommentar darf nicht leer sein.',
