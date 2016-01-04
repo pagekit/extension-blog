@@ -6,7 +6,10 @@
 - Set comment ordering to DESC at admin panel
 - Updated Vue resource
 
-## 0.10.0 (Dezember 15, 2015)
+### Fixed
+- Comments permalink
+
+## 0.10.0 (December 15, 2015)
 
 ### Changed
 - Switched to Vuejs 1.0

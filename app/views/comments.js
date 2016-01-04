@@ -21,7 +21,7 @@ module.exports = {
 
         load: function () {
 
-            return this.$http.get('api/blog/comment/:id', {post: this.config.post}).then(function (res) {
+            return this.$http.get('api/blog/comment/:id', {post: this.config.post.id}).then(function (res) {
                 var data = res.data;
 
                 this.$set('comments', data.comments);
@@ -137,7 +137,7 @@ module.exports = {
 
                     var comment = {
                         parent_id: this.parent,
-                        post_id: this.config.post,
+                        post_id: this.config.post.id,
                         content: this.content
                     };
 

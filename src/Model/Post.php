@@ -122,9 +122,7 @@ class Post implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $data = [
-            'url' => App::url('@blog/id', ['id' => $this->id ?: 0], 'base')
-        ];
+        $data = [];
 
         if ($this->comments) {
             $data['comments_pending'] = count(array_filter($this->comments, function ($comment) {

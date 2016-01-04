@@ -137,7 +137,7 @@ class SiteController
             ],
             '$comments' => [
                 'config' => [
-                    'post' => $post->id,
+                    'post' => ['id' => $post->id, 'url' => App::url('@blog/id', ['id' => $post->id ?: 0], 'base')],
                     'enabled' => $post->isCommentable(),
                     'requireinfo' => $this->blog->config('comments.require_email'),
                     'max_depth' => $this->blog->config('comments.max_depth'),
