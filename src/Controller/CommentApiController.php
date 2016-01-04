@@ -27,7 +27,7 @@ class CommentApiController
     public function indexAction($filter = [], $post = 0, $page = 0, $limit = 0)
     {
         $query  = Comment::query();
-        $filter = array_merge(array_fill_keys(['status', 'search'], ''), $filter);
+        $filter = array_merge(array_fill_keys(['status', 'search', 'order'], ''), $filter);
 
         extract($filter, EXTR_SKIP);
 
