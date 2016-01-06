@@ -2,6 +2,9 @@
 
 ## WIP
 
+### Added
+- Link to login page at comment section
+
 ### Changed
 - Set comment ordering to DESC at admin panel
 - Updated Vue resource

@@ -21,7 +21,7 @@ module.exports = {
 
         load: function () {
 
-            return this.$http.get('api/blog/comment/:id', {post: this.config.post.id}).then(function (res) {
+            return this.$http.get('api/blog/comment/:id', {post: this.config.post}).then(function (res) {
                 var data = res.data;
 
                 this.$set('comments', data.comments);
@@ -94,7 +94,7 @@ module.exports = {
                 },
 
                 permalink: function () {
-                    return $pagekit.url + this.config.post.url + '#comment-' + this.comment.id;
+                    return '#comment-' + this.comment.id;
                 }
 
             },
@@ -127,6 +127,10 @@ module.exports = {
 
                 user: function () {
                     return this.config.user;
+                },
+
+                login: function () {
+                    return this.$url('user/login', {redirect: window.location.href});
                 }
 
             },
@@ -137,7 +141,7 @@ module.exports = {
 
                     var comment = {
                         parent_id: this.parent,
-                        post_id: this.config.post.id,
+                        post_id: this.config.post,
                         content: this.content
                     };
 
