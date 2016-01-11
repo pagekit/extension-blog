@@ -94,7 +94,7 @@ module.exports = {
                 },
 
                 permalink: function () {
-                    return $pagekit.url + this.config.post.url + '#comment-' + this.comment.id;
+                    return '#comment-' + this.comment.id;
                 }
 
             },
@@ -127,6 +127,10 @@ module.exports = {
 
                 user: function () {
                     return this.config.user;
+                },
+
+                login: function () {
+                    return this.$url('user/login', {redirect: window.location.href});
                 }
 
             },

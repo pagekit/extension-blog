@@ -27,7 +27,7 @@ class CommentApiController
     public function indexAction($filter = [], $post = 0, $page = 0, $limit = 0)
     {
         $query  = Comment::query();
-        $filter = array_merge(array_fill_keys(['status', 'search'], ''), $filter);
+        $filter = array_merge(array_fill_keys(['status', 'search', 'order'], ''), $filter);
 
         extract($filter, EXTR_SKIP);
 
@@ -69,9 +69,15 @@ class CommentApiController
             $query->offset($page * $limit)->limit($limit);
         }
 
+        if (preg_match('/^(created)\s(asc|desc)$/i', $order, $match)) {
+            $order = $match;
+        } else {
+            $order = [1 => 'created', 2 => App::module('blog')->config('comments.order')];
+        }
+
         $comments = $query->related(['post' => function ($query) {
             return $query->related('comments');
-        }])->related('user')->orderBy('created', App::module('blog')->config('comments.order'))->get();
+        }])->related('user')->orderBy($order[1], $order[2])->get();
 
         $posts = [];
 

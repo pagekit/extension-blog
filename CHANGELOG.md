@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.10.1 (January 11, 2016)
+
+### Added
+- Link to login page at comment section
+
+### Changed
+- Set comment ordering to DESC at admin panel
+- Updated Vue resource
+
+### Fixed
+- Comments permalink
+
 ## 0.10.0 (December 15, 2015)
 
 ### Changed

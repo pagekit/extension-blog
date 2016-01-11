@@ -11,9 +11,9 @@
                 <v-editor id="post-content" :value.sync="post.content" :options="{markdown : post.data.markdown}"></v-editor>
             </div>
             <div class="uk-form-row">
-                <label class="uk-form-label">{{ 'Excerpt' | trans }}</label>
+                <label for="form-post-excerpt" class="uk-form-label">{{ 'Excerpt' | trans }}</label>
                 <div class="uk-form-controls">
-                    <v-editor id="post-content" :value.sync="post.excerpt" :options="{markdown : post.data.markdown, height: 250}"></v-editor>
+                    <v-editor id="post-excerpt" :value.sync="post.excerpt" :options="{markdown : post.data.markdown, height: 250}"></v-editor>
                 </div>
             </div>
 

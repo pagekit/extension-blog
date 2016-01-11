@@ -73,7 +73,7 @@
   'Day and name' => 'Nap és név',
   'Options' => 'Egyéb opciók',
   'Field must be a valid email address.' => 'Hibás email cím formátum',
-  'levels deep.' => '',
+  'levels deep.' => 'szintek mélysége.',
   'Comments on %title%' => 'Hozzászólások a %title% tartalmon',
   'Insufficient User Rights.' => 'Elégtelen felhasználói jogok',
   'Copy' => 'Másolás',

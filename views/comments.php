@@ -121,7 +121,7 @@
 
         <template v-else>
             <p v-show="user.isAuthenticated">{{ 'You are not allowed to post comments.' | trans }}</p>
-            <p v-else>{{ 'Please login to leave a comment.' | trans }}</p>
+            <p v-else><a :href="login">{{ 'Please login to leave a comment.' | trans }}<a></p>
         </template>
 
     </div>

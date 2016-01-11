@@ -24,7 +24,7 @@
   'Default post settings' => '',
   '{1} %count% Post selected|]1,Inf[ %count% Posts selected' => '',
   'Read more' => '',
-  'Image' => '',
+  'Image' => 'Изображение',
   'Posts' => 'Публикации',
   'Pending' => 'Изчакващ',
   'Comment' => 'Коментар',
