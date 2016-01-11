@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 0.10.1 (January 11, 2016)
 
 ### Added
 - Link to login page at comment section
