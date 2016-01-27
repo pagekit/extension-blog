@@ -3,7 +3,10 @@
 ## WIP
 
 ### Added
--Filter cache for posts and comments settings
+- Filter cache for posts and comments settings
+
+### Changed
+- Removed language files from repository. Are now pulled in by build task
 
 ## 0.10.1 (January 11, 2016)
 
