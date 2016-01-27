@@ -5,6 +5,9 @@ module.exports = {
     data: function () {
         return _.merge({
             posts: [],
+            config: {
+                filter: this.$session.get('comments.filter') || {}
+            },
             comments: false,
             pages: 0,
             count: '',
@@ -28,8 +31,9 @@ module.exports = {
         'config.page': 'load',
 
         'config.filter': {
-            handler: function () {
+            handler: function (filter) {
                 this.load(0);
+                this.$session.set('comments.filter', filter);
             },
             deep: true
         }

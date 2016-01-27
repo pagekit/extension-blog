@@ -28,7 +28,7 @@ class BlogController
                 'authors'  => Post::getAuthors(),
                 'canEditAll' => App::user()->hasAccess('blog: manage all posts'),
                 'config'   => [
-                    'filter' => $filter,
+                    'filter' => (object) $filter,
                     'page'   => $page
                 ]
             ]
@@ -121,7 +121,7 @@ class BlogController
             '$data'   => [
                 'statuses' => Comment::getStatuses(),
                 'config'   => [
-                    'filter' => $filter,
+                    'filter' => (object) $filter,
                     'page'   => $page,
                     'post'   => $post,
                     'limit'  => App::module('blog')->config('comments.comments_per_page')

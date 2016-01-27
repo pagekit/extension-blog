@@ -1,5 +1,10 @@
 # Changelog
 
+## WIP
+
+### Added
+-Filter cache for posts and comments settings
+
 ## 0.10.1 (January 11, 2016)
 
 ### Added
