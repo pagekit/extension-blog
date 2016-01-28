@@ -1,5 +1,7 @@
 module.exports = {
 
+    name: 'comment',
+
     el: '#comments',
 
     data: function () {
@@ -18,10 +20,10 @@ module.exports = {
         }, window.$data);
     },
 
-    created: function () {
+    ready: function () {
 
         this.Comments = this.$resource('api/blog/comment/:id');
-        this.config.filter = _.extend({filter: {search: '', status: ''}}, this.config.filter);
+        this.load();
 
         UIkit.init(this.$el);
     },
@@ -32,7 +34,6 @@ module.exports = {
 
         'config.filter': {
             handler: function (filter) {
-                this.load(0);
                 this.$session.set('comments.filter', filter);
             },
             deep: true

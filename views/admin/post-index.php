@@ -88,6 +88,6 @@
 
     <h3 class="uk-h1 uk-text-muted uk-text-center" v-show="posts && !posts.length">{{ 'No posts found.' | trans }}</h3>
 
-    <v-pagination :page.sync="config.page" :pages="pages" v-show="pages > 1"></v-pagination>
+    <v-pagination :page.sync="config.page" :pages="pages" v-show="pages > 1 || page > 0"></v-pagination>
 
 </div>

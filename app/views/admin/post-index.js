@@ -1,12 +1,14 @@
 module.exports = {
 
+    name: 'post',
+
     el: '#post',
 
     data: function() {
         return _.merge({
             posts: false,
             config: {
-                filter: this.$session.get('posts.filter') || {}
+                filter: this.$session.get('posts.filter') || {order: 'date desc', limit:25}
             },
             pages: 0,
             count: '',
@@ -15,10 +17,10 @@ module.exports = {
         }, window.$data);
     },
 
-    created: function () {
+    ready: function () {
 
         this.resource = this.$resource('api/blog/post/:id');
-        this.config.filter = _.extend({order: 'date desc', limit:25}, this.config.filter);
+        this.load();
     },
 
     watch: {
