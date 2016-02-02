@@ -31,7 +31,7 @@
         },
 
         created: function () {
-            this.$http.get('api/blog/post', {limit: 100}).then(function (res) {
+            this.$http.get('api/blog/post', {filter: {limit: 100}}).then(function (res) {
                 this.$set('posts', res.data.posts);
             });
         },
