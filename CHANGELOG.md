@@ -3,22 +3,23 @@
 ## WIP
 
 ### Added
-- Filter cache for posts and comments settings
+- Added filter cache for posts and comments settings
 
 ### Changed
 - Removed language files from repository. Are now pulled in by build task
+- Ensure newest comments are displayed first in comment administration
 
 ## 0.10.1 (January 11, 2016)
 
 ### Added
-- Link to login page at comment section
+- Added link to login page at comment section
 
 ### Changed
 - Set comment ordering to DESC at admin panel
 - Updated Vue resource
 
 ### Fixed
-- Comments permalink
+- Fixed comments permalink
 
 ## 0.10.0 (December 15, 2015)
 
@@ -33,18 +34,18 @@
 ## 0.9.2 (October 14, 2015)
 
 ### Fixed
-- Date conversion to ISO8601
-- Feed charset
+- Fixed date conversion to ISO8601
+- Fixed feed charset
 
 ## 0.9.1 (October 8, 2015)
 
 ### Added
-- Sections tabs in post edit view
+- Added sections tabs in post edit view
 
 ### Fixed
-- Comments margin
-- "Require email" setting
-- Display of URLs with UTF8 characters
+- Fixed comments margin
+- Fixed "Require email" setting
+- Fixed display of URLs with UTF8 characters
 
 ## 0.9.0 (September 10, 2015)
 

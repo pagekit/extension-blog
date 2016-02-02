@@ -48,7 +48,7 @@
             </thead>
             <tbody >
 
-            <template v-for="comment in comments">
+            <template v-for="comment in comments | orderBy 'created' -1">
                 <partial name="default-row" v-if="editComment.id !== comment.id"></partial>
                 <partial name="edit-row" v-else></partial>
             </template>
