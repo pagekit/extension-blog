@@ -31,7 +31,8 @@
         },
 
         created: function () {
-            this.$http.get('api/blog/post', {filter: {limit: 100}}).then(function (res) {
+            // TODO: Implement pagination or search
+            this.$http.get('api/blog/post', {filter: {limit: 1000}}).then(function (res) {
                 this.$set('posts', res.data.posts);
             });
         },
