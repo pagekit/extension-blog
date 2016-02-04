@@ -19,7 +19,7 @@ module.exports = {
 
     ready: function () {
 
-        this.resource = this.$resource('api/blog/post/:id');
+        this.resource = this.$resource('api/blog/post{/id}');
         this.load();
     },
 

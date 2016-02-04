@@ -22,7 +22,7 @@ module.exports = {
 
     ready: function () {
 
-        this.Comments = this.$resource('api/blog/comment/:id');
+        this.Comments = this.$resource('api/blog/comment{/id}');
         this.load();
 
         UIkit.init(this.$el);

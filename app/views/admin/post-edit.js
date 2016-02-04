@@ -26,7 +26,7 @@ window.Post = {
 
         this.$set('sections', _.sortBy(sections, 'priority'));
 
-        this.resource = this.$resource('api/blog/post/:id');
+        this.resource = this.$resource('api/blog/post{/id}');
     },
 
     ready: function () {
