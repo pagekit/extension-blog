@@ -1,5 +1,4 @@
 **/app/bundle/**/*.js
-languages/**/*
 node_modules
 .DS_Store
 *.zip
