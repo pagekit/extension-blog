@@ -48,7 +48,7 @@
             </thead>
             <tbody >
 
-            <template v-for="comment in comments">
+            <template v-for="comment in comments | orderBy 'created' -1">
                 <partial name="default-row" v-if="editComment.id !== comment.id"></partial>
                 <partial name="edit-row" v-else></partial>
             </template>
@@ -59,7 +59,7 @@
 
     <h3 class="uk-h1 uk-text-muted uk-text-center" v-show="comments && !comments.length">{{ 'No comments found.' | trans }}</h3>
 
-    <v-pagination :page.sync="config.page" :pages="pages" v-show="pages > 1"></v-pagination>
+    <v-pagination :page.sync="config.page" :pages="pages" v-show="pages > 1 || page > 0"></v-pagination>
 
 </div>
 

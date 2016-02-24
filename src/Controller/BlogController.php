@@ -16,7 +16,7 @@ class BlogController
      * @Access("blog: manage own posts || blog: manage all posts")
      * @Request({"filter": "array", "page":"int"})
      */
-    public function postAction($filter = null, $page = 0)
+    public function postAction($filter = null, $page = null)
     {
         return [
             '$view' => [
@@ -28,7 +28,7 @@ class BlogController
                 'authors'  => Post::getAuthors(),
                 'canEditAll' => App::user()->hasAccess('blog: manage all posts'),
                 'config'   => [
-                    'filter' => $filter,
+                    'filter' => (object) $filter,
                     'page'   => $page
                 ]
             ]
@@ -108,7 +108,7 @@ class BlogController
      * @Access("blog: manage comments")
      * @Request({"filter": "array", "post":"int", "page":"int"})
      */
-    public function commentAction($filter = [], $post = 0, $page = 0)
+    public function commentAction($filter = [], $post = 0, $page = null)
     {
         $post = Post::find($post);
         $filter['order'] = 'created DESC';
@@ -121,7 +121,7 @@ class BlogController
             '$data'   => [
                 'statuses' => Comment::getStatuses(),
                 'config'   => [
-                    'filter' => $filter,
+                    'filter' => (object) $filter,
                     'page'   => $page,
                     'post'   => $post,
                     'limit'  => App::module('blog')->config('comments.comments_per_page')
