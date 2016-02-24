@@ -1,16 +1,16 @@
 # Changelog
 
-## WIP
+## 0.10.1 (February 24, 2016)
 
 ### Added
 - Added filter cache for posts and comments settings
 
 ### Changed
-- Removed language files from repository. Are now pulled in by build task
 - Ensure newest comments are displayed first in comment administration
 
 ### Fixed
 - Fixed post url in backend view
+- Fixed comments count
 
 ## 0.10.1 (January 11, 2016)
 
