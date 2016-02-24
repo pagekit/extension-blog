@@ -89,7 +89,7 @@
   'Access denied.' => 'Zugang untersagt.',
   'Spam' => 'Spam',
   'Leave a comment' => 'Schreibe einen Kommentar',
-  '{0} No comments|{1} %num% Comment|]1,Inf[ %num% Comments' => '{0} keine Kommentare| {1} Num % Kommentar|] 1, Inf [% Num % Kommentare',
+  '{0} No comments|{1} %num% Comment|]1,Inf[ %num% Comments' => '{0} Keine Kommentare|{1} %num% Kommentar|]1,Inf[ %num% Kommentare',
   'Post' => 'Artikel',
   'View' => 'Ansicht',
   'Numeric' => 'Numerisch',
