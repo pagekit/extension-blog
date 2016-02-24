@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.10.1 (February 24, 2016)
+## 0.10.2 (February 24, 2016)
 
 ### Added
 - Added filter cache for posts and comments settings
