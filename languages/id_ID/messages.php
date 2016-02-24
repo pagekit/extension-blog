@@ -26,7 +26,7 @@
   'Image' => 'Gambar',
   'Posts' => 'Post',
   'Pending' => 'Tertunda',
-  'Disabled' => '',
+  'Disabled' => 'Non Aktif',
   'Approved' => 'Diterima',
   'Edit Post' => 'Edit Post',
   'Enable Comments' => 'Ijinkan Komentar',

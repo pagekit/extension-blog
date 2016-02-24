@@ -26,7 +26,7 @@
   'Image' => 'Kép',
   'Posts' => 'Bejegyzések',
   'Pending' => 'Függőben levő',
-  'Disabled' => '',
+  'Disabled' => 'Tiltott',
   'Approved' => 'Jóváhagyott',
   'Edit Post' => 'Bejegyzés szerkesztése',
   'Enable Comments' => 'Hozzászólások engedélyezése',
