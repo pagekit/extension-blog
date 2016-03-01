@@ -8,7 +8,7 @@ module.exports = {
         return _.merge({
             posts: [],
             config: {
-                filter: this.$session.get('comments.filter') || {}
+                filter: this.$session.get('comments.filter', {})
             },
             comments: false,
             pages: 0,
@@ -30,10 +30,17 @@ module.exports = {
 
     watch: {
 
-        'config.page': 'load',
+        'config.page': function (page, old) {
+            if (page == old) {
+                return;
+            }
+
+            this.load();
+        },
 
         'config.filter': {
             handler: function (filter) {
+                this.load();
                 this.$session.set('comments.filter', filter);
             },
             deep: true

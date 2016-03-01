@@ -8,7 +8,7 @@ module.exports = {
         return _.merge({
             posts: false,
             config: {
-                filter: this.$session.get('posts.filter') || {order: 'date desc', limit:25}
+                filter: this.$session.get('posts.filter', {order: 'date desc', limit:25})
             },
             pages: 0,
             count: '',
