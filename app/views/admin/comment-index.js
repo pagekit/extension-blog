@@ -8,7 +8,7 @@ module.exports = {
         return _.merge({
             posts: [],
             config: {
-                filter: this.$session.get('comments.filter') || {}
+                filter: this.$session.get('comments.filter', {})
             },
             comments: false,
             pages: 0,
