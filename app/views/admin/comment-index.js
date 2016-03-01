@@ -30,10 +30,17 @@ module.exports = {
 
     watch: {
 
-        'config.page': 'load',
+        'config.page': function (page, old) {
+            if (page == old) {
+                return;
+            }
+
+            this.load();
+        },
 
         'config.filter': {
             handler: function (filter) {
+                this.load();
                 this.$session.set('comments.filter', filter);
             },
             deep: true

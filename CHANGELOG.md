@@ -11,6 +11,7 @@
 ### Fixed
 - Fixed post url in backend view
 - Fixed comments count
+- Fixed comments filters
 
 ## 0.10.1 (January 11, 2016)
 
