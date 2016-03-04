@@ -85,10 +85,10 @@ class SiteController
         $site = App::module('system/site');
         $feed = App::feed()->create($type ?: $this->blog->config('feed.type'), [
             'title' => $site->config('title'),
-            'link' => App::url('@blog', [], true),
+            'link' => App::url('@blog', [], 0),
             'description' => $site->config('description'),
             'element' => ['language', $locale],
-            'selfLink' => App::url('@blog/feed', [], true)
+            'selfLink' => App::url('@blog/feed', [], 0)
         ]);
 
         if ($last = Post::where(['status = ?', 'date < ?'], [Post::STATUS_PUBLISHED, new \DateTime])->limit(1)->orderBy('modified', 'DESC')->first()) {
@@ -96,7 +96,7 @@ class SiteController
         }
 
         foreach (Post::where(['status = ?', 'date < ?'], [Post::STATUS_PUBLISHED, new \DateTime])->related('user')->limit($this->blog->config('feed.limit'))->orderBy('date', 'DESC')->get() as $post) {
-            $url = App::url('@blog/id', ['id' => $post->id], true);
+            $url = App::url('@blog/id', ['id' => $post->id], 0);
             $feed->addItem(
                 $feed->createItem([
                     'title' => $post->title,
