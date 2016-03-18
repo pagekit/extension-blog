@@ -133,7 +133,10 @@ class SiteController
         return [
             '$view' => [
                 'title' => __($post->title),
-                'name' => 'blog/post.php'
+                'name' => 'blog/post.php',
+                'og:title' => $post->get('meta.og:title') ?: $post->title,
+                'og:description' => $post->get('meta.og:description') ?: $post->excerpt,
+                'og:image' =>  $post->get('image.src') ? App::url()->getStatic($post->get('image.src'), [], 0) : false
             ],
             '$comments' => [
                 'config' => [
