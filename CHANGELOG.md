@@ -1,6 +1,9 @@
 # Changelog
 
-## WIP
+## 0.11.0
+
+### Added
+- Added OpenGraph
 
 ### Fixed
 - Fixed RSS feed links
