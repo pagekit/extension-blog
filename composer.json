@@ -1,7 +1,7 @@
 {
     "name": "pagekit/blog",
     "type": "pagekit-extension",
-    "version": "0.10.2",
+    "version": "0.11.0",
     "title": "Blog",
     "description": "A blog extensions with a built-in comment system.",
     "license": "MIT",
