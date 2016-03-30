@@ -9,7 +9,8 @@ module.exports = [
             "comments": "./app/views/comments",
             "post": "./app/views/post",
             "posts": "./app/views/posts",
-            "link-blog": "./app/components/link-blog.vue"
+            "link-blog": "./app/components/link-blog.vue",
+            "post-meta": "./app/components/post-meta.vue"
         },
         output: {
             filename: "./app/bundle/[name].js"

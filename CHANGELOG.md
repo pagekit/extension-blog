@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.0 (March 30, 2016)
+
+### Added
+- Added OpenGraph
+
+### Fixed
+- Fixed RSS feed links
+
 ## 0.10.2 (February 24, 2016)
 
 ### Added
