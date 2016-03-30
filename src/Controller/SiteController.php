@@ -134,6 +134,10 @@ class SiteController
             '$view' => [
                 'title' => __($post->title),
                 'name' => 'blog/post.php',
+                'og:type' => 'article',
+                'article:published_time' => $post->date->format(\DateTime::ATOM),
+                'article:modified_time' => $post->modified->format(\DateTime::ATOM),
+                'article:author' => $post->user->name,
                 'og:title' => $post->get('meta.og:title') ?: $post->title,
                 'og:description' => $post->get('meta.og:description') ?: $post->excerpt,
                 'og:image' =>  $post->get('image.src') ? App::url()->getStatic($post->get('image.src'), [], 0) : false
