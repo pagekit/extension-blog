@@ -85,7 +85,7 @@
                         <li><a class="pk-icon-reply pk-icon-hover" :title="'Reply' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="reply(comment)"></a></li>
                     </ul>
 
-                    <a class="uk-link-muted" v-if="post.accessible" :href="post.url+'#comment-'+comment.id">{{ comment.created | relativeDate }}</a>
+                    <a class="uk-link-muted" v-if="post.accessible" :href="$url.route(post.url.substr(1))+'#comment-'+comment.id">{{ comment.created | relativeDate }}</a>
                     <span v-else>{{ comment.created | relativeDate }}</span>
                 </div>
             </div>

@@ -1,5 +1,10 @@
 # Changelog
 
+## WIP
+
+### Fixed
+- Fixed comments links
+
 ## 0.11.0 (March 30, 2016)
 
 ### Added
