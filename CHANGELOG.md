@@ -1,5 +1,10 @@
 # Changelog
 
+## WIP
+
+### Fixed
+- Fixed wrapping sidebar if content in main column is to large
+
 ## 0.11.0 (March 30, 2016)
 
 ### Added
