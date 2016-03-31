@@ -75,7 +75,7 @@
 
             <div class="uk-margin uk-flex uk-flex-space-between uk-flex-wrap" data-uk-margin>
                 <div>
-                    <a :href="$url.route('admin/user/edit', { id: comment.user_id })" v-if="comment.user_id">{{ comment.author }}</a>
+                    <a :href="$url.route('admin/user/edit', { id: comment.user_id })" v-if="comment.user_id!=0">{{ comment.author }}</a>
                     <span v-else>{{ comment.author }}</span>
                     <br><a class="uk-link-muted" :href="'mailto:'+comment.email">{{ comment.email }}</a>
                 </div>

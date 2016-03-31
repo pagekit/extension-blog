@@ -5,6 +5,7 @@
 ### Fixed
 - Fixed comments links
 - Fixed wrapping sidebar if content in main column is to large
+- Fixed anonymous comment author not editable
 
 ## 0.11.0 (March 30, 2016)
 
