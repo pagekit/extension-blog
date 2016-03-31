@@ -1,6 +1,6 @@
 <template>
 
-    <div class="uk-grid pk-grid-large" data-uk-grid-margin>
+    <div class="uk-grid pk-grid-large uk-form-stacked" data-uk-grid-margin>
         <div class="uk-flex-item-1">
 
             <div class="uk-form-row">
