@@ -75,7 +75,7 @@
 
             <div class="uk-margin uk-flex uk-flex-space-between uk-flex-wrap" data-uk-margin>
                 <div>
-                    <a :href="$url.route('admin/user/edit', { id: comment.user_id })" v-if="comment.user_id">{{ comment.author }}</a>
+                    <a :href="$url.route('admin/user/edit', { id: comment.user_id })" v-if="comment.user_id!=0">{{ comment.author }}</a>
                     <span v-else>{{ comment.author }}</span>
                     <br><a class="uk-link-muted" :href="'mailto:'+comment.email">{{ comment.email }}</a>
                 </div>
@@ -85,7 +85,7 @@
                         <li><a class="pk-icon-reply pk-icon-hover" :title="'Reply' | trans" data-uk-tooltip="{delay: 500}" @click.prevent="reply(comment)"></a></li>
                     </ul>
 
-                    <a class="uk-link-muted" v-if="post.accessible" :href="post.url+'#comment-'+comment.id">{{ comment.created | relativeDate }}</a>
+                    <a class="uk-link-muted" v-if="post.accessible" :href="$url.route(post.url.substr(1))+'#comment-'+comment.id">{{ comment.created | relativeDate }}</a>
                     <span v-else>{{ comment.created | relativeDate }}</span>
                 </div>
             </div>

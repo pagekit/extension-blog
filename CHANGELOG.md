@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.11.1 (April 1, 2016)
+
+### Changed
+- Use truncated post content as Open Graph description if not explicitly provided 
+
+### Fixed
+- Fixed comments links
+- Fixed wrapping sidebar if content in main column is to large
+- Fixed anonymous comment author not editable
+- Fixed adding posts with permission 'edit own'
+- Fixed deleting posts with permission 'edit own'
+
 ## 0.11.0 (March 30, 2016)
 
 ### Added

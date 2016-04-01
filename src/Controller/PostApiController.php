@@ -84,14 +84,14 @@ class PostApiController
             App::abort(400, __('Invalid slug.'));
         }
 
-        // user without universal access can only edit their own posts
-        if(!App::user()->hasAccess('blog: manage all posts') && $post->user_id !== App::user()->id) {
-            return ['error' => __('Access denied.')];
-        }
-
         // user without universal access is not allowed to assign posts to other users
         if(!App::user()->hasAccess('blog: manage all posts')) {
             $data['user_id'] = App::user()->id;
+        }
+
+        // user without universal access can only edit their own posts
+        if(!App::user()->hasAccess('blog: manage all posts') && !App::user()->hasAccess('blog: manage own posts') && $post->user_id !== App::user()->id) {
+            App::abort(400, __('Access denied.'));
         }
 
         $post->save($data);
@@ -107,8 +107,8 @@ class PostApiController
     {
         if ($post = Post::find($id)) {
 
-            if(!App::user()->hasAccess('blog: manage all posts') && $post->user_id !== App::user()->id) {
-                return ['error' => __('Access denied.')];
+            if(!App::user()->hasAccess('blog: manage all posts') && !App::user()->hasAccess('blog: manage own posts') && $post->user_id !== App::user()->id) {
+                App::abort(400, __('Access denied.'));
             }
 
             $post->delete();
@@ -125,7 +125,7 @@ class PostApiController
     {
         foreach ($ids as $id) {
             if ($post = Post::find((int) $id)) {
-                if(!App::user()->hasAccess('blog: manage all posts') && $post->user_id !== App::user()->id) {
+                if(!App::user()->hasAccess('blog: manage all posts') && !App::user()->hasAccess('blog: manage own posts') && $post->user_id !== App::user()->id) {
                     continue;
                 }
 
