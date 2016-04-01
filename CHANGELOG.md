@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 0.11.1 (April 1, 2016)
 
 ### Changed
 - Use truncated post content as Open Graph description if not explicitly provided 
