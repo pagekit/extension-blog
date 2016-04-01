@@ -2,6 +2,9 @@
 
 ## WIP
 
+### Changed
+- Use truncated post content as Open Graph description if not explicitly provided 
+
 ### Fixed
 - Fixed comments links
 - Fixed wrapping sidebar if content in main column is to large

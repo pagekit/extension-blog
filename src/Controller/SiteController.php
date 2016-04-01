@@ -130,6 +130,12 @@ class SiteController
 
         $user = App::user();
 
+        $description = $post->get('meta.og:description');
+        if (!$description) {
+            $description = strip_tags($post->excerpt ?: $post->content);
+            $description = rtrim(mb_substr($description, 0, 150), " \t\n\r\0\x0B.,") . '...';
+        }
+
         return [
             '$view' => [
                 'title' => __($post->title),
@@ -139,7 +145,7 @@ class SiteController
                 'article:modified_time' => $post->modified->format(\DateTime::ATOM),
                 'article:author' => $post->user->name,
                 'og:title' => $post->get('meta.og:title') ?: $post->title,
-                'og:description' => $post->get('meta.og:description') ?: $post->excerpt,
+                'og:description' => $description,
                 'og:image' =>  $post->get('image.src') ? App::url()->getStatic($post->get('image.src'), [], 0) : false
             ],
             '$comments' => [
