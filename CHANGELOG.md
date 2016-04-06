@@ -1,5 +1,10 @@
 # Changelog
 
+## WIP
+
+### FIXED
+- Fixed update URL after comment
+
 ## 0.11.1 (April 1, 2016)
 
 ### Changed
