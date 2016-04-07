@@ -64,6 +64,36 @@ return [
         if ($util->tableExists('@blog_comment')) {
             $util->dropTable('@blog_comment');
         }
-    }
+    },
+
+    'updates' => [
+
+        '0.11.2' => function ($app) {
+
+            $db = $app['db'];
+            $util = $db->getUtility();
+
+            foreach (['@blog_post', '@blog_comment'] as $name) {
+                $table = $util->getTable($name);
+
+                foreach ($table->getIndexes() as $name => $index) {
+                    if ($name !== 'primary') {
+                        $table->renameIndex($index->getName(), $app['db']->getPrefix() . $index->getName());
+                    }
+                }
+
+                if ($app['db']->getDatabasePlatform()->getName() === 'sqlite') {
+                    foreach ($table->getColumns() as $column) {
+                        if (in_array($column->getType()->getName(), ['string', 'text'])) {
+                            $column->setOptions(['customSchemaOptions' => ['collation' => 'NOCASE']]);
+                        }
+                    }
+                }
+            }
+
+            $util->migrate();
+        }
+
+    ]
 
 ];
