@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.2 (April 7, 2016)
+
+### FIXED
+- Fixed update URL after comment
+- Fixed different prefixes with SQLLite
+- Fixed SQLite collations
+
 ## 0.11.1 (April 1, 2016)
 
 ### Changed

@@ -162,7 +162,7 @@ module.exports = {
 
                         } else {
 
-                            this.$root.load().success(function () {
+                            this.$root.load().then(function () {
                                 window.location.hash = 'comment-' + data.comment.id;
                             });
                         }

@@ -22,10 +22,10 @@ return [
                 $table->addColumn('data', 'json_array', ['notnull' => false]);
                 $table->addColumn('roles', 'simple_array', ['notnull' => false]);
                 $table->setPrimaryKey(['id']);
-                $table->addUniqueIndex(['slug'], 'BLOG_POST_SLUG');
-                $table->addIndex(['title'], 'BLOG_POST_TITLE');
-                $table->addIndex(['user_id'], 'BLOG_POST_USER_ID');
-                $table->addIndex(['date'], 'BLOG_POST_DATE');
+                $table->addUniqueIndex(['slug'], '@BLOG_POST_SLUG');
+                $table->addIndex(['title'], '@BLOG_POST_TITLE');
+                $table->addIndex(['user_id'], '@BLOG_POST_USER_ID');
+                $table->addIndex(['date'], '@BLOG_POST_DATE');
             });
         }
 
@@ -43,11 +43,11 @@ return [
                 $table->addColumn('content', 'text');
                 $table->addColumn('status', 'smallint');
                 $table->setPrimaryKey(['id']);
-                $table->addIndex(['author'], 'BLOG_COMMENT_AUTHOR');
-                $table->addIndex(['created'], 'BLOG_COMMENT_CREATED');
-                $table->addIndex(['status'], 'BLOG_COMMENT_STATUS');
-                $table->addIndex(['post_id'], 'BLOG_COMMENT_POST_ID');
-                $table->addIndex(['post_id', 'status'], 'BLOG_COMMENT_POST_ID_STATUS');
+                $table->addIndex(['author'], '@BLOG_COMMENT_AUTHOR');
+                $table->addIndex(['created'], '@BLOG_COMMENT_CREATED');
+                $table->addIndex(['status'], '@BLOG_COMMENT_STATUS');
+                $table->addIndex(['post_id'], '@BLOG_COMMENT_POST_ID');
+                $table->addIndex(['post_id', 'status'], '@BLOG_COMMENT_POST_ID_STATUS');
             });
         }
 
@@ -64,6 +64,36 @@ return [
         if ($util->tableExists('@blog_comment')) {
             $util->dropTable('@blog_comment');
         }
-    }
+    },
+
+    'updates' => [
+
+        '0.11.2' => function ($app) {
+
+            $db = $app['db'];
+            $util = $db->getUtility();
+
+            foreach (['@blog_post', '@blog_comment'] as $name) {
+                $table = $util->getTable($name);
+
+                foreach ($table->getIndexes() as $name => $index) {
+                    if ($name !== 'primary') {
+                        $table->renameIndex($index->getName(), $app['db']->getPrefix() . $index->getName());
+                    }
+                }
+
+                if ($app['db']->getDatabasePlatform()->getName() === 'sqlite') {
+                    foreach ($table->getColumns() as $column) {
+                        if (in_array($column->getType()->getName(), ['string', 'text'])) {
+                            $column->setOptions(['customSchemaOptions' => ['collation' => 'NOCASE']]);
+                        }
+                    }
+                }
+            }
+
+            $util->migrate();
+        }
+
+    ]
 
 ];
