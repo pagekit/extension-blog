@@ -95,7 +95,9 @@ class SiteController
             $feed->setDate($last->modified);
         }
 
-        foreach (Post::where(['status = ?', 'date < ?'], [Post::STATUS_PUBLISHED, new \DateTime])->related('user')->limit($this->blog->config('feed.limit'))->orderBy('date', 'DESC')->get() as $post) {
+        foreach (Post::where(['status = ?', 'date < ?'], [Post::STATUS_PUBLISHED, new \DateTime])->where(function ($query) {
+            return $query->where('roles IS NULL')->whereInSet('roles', App::user()->roles, false, 'OR');
+        })->related('user')->limit($this->blog->config('feed.limit'))->orderBy('date', 'DESC')->get() as $post) {
             $url = App::url('@blog/id', ['id' => $post->id], 0);
             $feed->addItem(
                 $feed->createItem([
