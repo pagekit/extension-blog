@@ -18,10 +18,7 @@ trait PostModelTrait
     {
         $query = Comment::where(['post_id' => $id, 'status' => Comment::STATUS_APPROVED]);
 
-        self::where(compact('id'))->update([
-                'comment_count' => $query->count()
-            ]
-        );
+        self::where(compact('id'))->update(['comment_count' => $query->count()]);
     }
 
     /**
