@@ -18,18 +18,20 @@ module.exports = {
     },
 
     ready: function () {
-
         this.resource = this.$resource('api/blog/post{/id}');
-        this.load();
+        this.$watch('config.page', this.load, {immediate: true});    
     },
 
     watch: {
 
-        'config.page': 'load',
-
         'config.filter': {
             handler: function (filter) {
-                this.load(0);
+                if (this.config.page) {
+                    this.config.page = 0;
+                } else {
+                    this.load();
+                }
+
                 this.$session.set('posts.filter', filter);
             },
             deep: true
@@ -110,18 +112,14 @@ module.exports = {
             });
         },
 
-        load: function (page) {
-
-            page = page !== undefined ? page : this.config.page;
-
-            this.resource.query({ filter: this.config.filter, page: page }).then(function (res) {
+        load: function () {
+            this.resource.query({ filter: this.config.filter, page: this.config.page }).then(function (res) {
 
                 var data = res.data;
 
                 this.$set('posts', data.posts);
                 this.$set('pages', data.pages);
                 this.$set('count', data.count);
-                this.$set('config.page', page);
                 this.$set('selected', []);
             });
         },

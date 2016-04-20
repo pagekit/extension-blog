@@ -23,24 +23,21 @@ module.exports = {
     ready: function () {
 
         this.Comments = this.$resource('api/blog/comment{/id}');
-        this.load();
+        this.$watch('config.page', this.load, {immediate: true});
 
         UIkit.init(this.$el);
     },
 
     watch: {
 
-        'config.page': function (page, old) {
-            if (page == old) {
-                return;
-            }
-
-            this.load();
-        },
-
         'config.filter': {
             handler: function (filter) {
-                this.load();
+                if (this.config.page) {
+                    this.config.page = 0;
+                } else {
+                    this.load();
+                }
+
                 this.$session.set('comments.filter', filter);
             },
             deep: true
@@ -101,13 +98,11 @@ module.exports = {
             });
         },
 
-        load: function (page) {
-
-            page = page !== undefined ? page : this.$get('config.page');
+        load: function () {
 
             this.cancel();
 
-            this.Comments.query({filter: this.config.filter, post: this.config.post && this.config.post.id || 0, page: page, limit: this.config.limit}).then(function (res) {
+            this.Comments.query({filter: this.config.filter, post: this.config.post && this.config.post.id || 0, page: this.config.page, limit: this.config.limit}).then(function (res) {
 
                 var data = res.data;
 
@@ -115,7 +110,6 @@ module.exports = {
                 this.$set('comments', data.comments);
                 this.$set('pages', data.pages);
                 this.$set('count', data.count);
-                this.$set('config.page', page);
                 this.$set('selected', []);
             });
         },
