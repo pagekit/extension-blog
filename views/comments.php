@@ -38,7 +38,7 @@
 
                 <p class="uk-comment-meta" v-if="comment.status">
                     <time :datetime="comment.created">{{ comment.created | relativeDate }}</time>
-                    | <a class="uk-link-muted" :href="permalink">#</a>
+                    | <a class="uk-link-muted" :href="permalink" data-uk-smooth-scroll>#</a>
                 </p>
 
                 <p class="uk-comment-meta" v-else>{{ 'The comment is awaiting approval.' }}</p>
