@@ -71,7 +71,7 @@
                         <a :href="$url.route('admin/user/edit', { id: post.user_id })">{{ post.author }}</a>
                     </td>
                     <td class="uk-text-center">
-                        <a class="uk-text-nowrap" :class="{'pk-link-icon': !post.comments_pending}" :href="$url.route('admin/blog/comment', { post: post.id })" :title="'{0} No pending|{1} One pending|]1,Inf[ %comments% pending' | transChoice post.comments_pending {comments:post.comments_pending}"><i class="pk-icon-comment uk-margin-small-right" :class="{'pk-icon-primary': post.comments_pending}"></i> {{ post.comment_count }}</a>
+                        <a class="uk-text-nowrap" :class="{'pk-link-icon': !post.comments_pending}" :href="$url.route('admin/blog/comment', { post: post.id })" :title="'{0} No pending|{1} One pending|]1,Inf[ %comments% pending' | transChoice post.comments_pending {comments:post.comments_pending}" data-uk-tooltip><i class="pk-icon-comment uk-margin-small-right" :class="{'pk-icon-primary': post.comments_pending}"></i> {{ post.comment_count }}</a>
                     </td>
                     <td>
                         {{ post.date | date }}
