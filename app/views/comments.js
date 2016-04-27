@@ -30,8 +30,9 @@ module.exports = {
                 this.$set('count', data.count);
 
                 this.$nextTick(function () {
-                    var anchor;
-                    if ((anchor = jQuery(window.location.hash))) {
+                    var anchor = jQuery(window.location.hash);
+
+                    if (anchor && anchor.length) {
                         UIkit.Utils.scrollToElement(anchor);
                     }
                 });
