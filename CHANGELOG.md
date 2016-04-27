@@ -5,6 +5,9 @@
 ### Fixed
 - Fixed duplicated request occasionally caused by pagination
 
+### Changed
+- Smooth scroll for comment anchor links
+
 ## 1.0.0 (April 13, 2016)
 
 ### Fixed

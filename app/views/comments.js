@@ -29,6 +29,13 @@ module.exports = {
                 this.$set('post', data.posts[0]);
                 this.$set('count', data.count);
 
+                this.$nextTick(function () {
+                    var anchor;
+                    if ((anchor = jQuery(window.location.hash))) {
+                        UIkit.Utils.scrollToElement(anchor);
+                    }
+                });
+
                 this.reply();
             });
         },
