@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1 (May 12, 2016)
+
+### Changed
+- Smooth scroll for comment anchor links
+
+### Fixed
+- Fixed duplicated request occasionally caused by pagination
+
 ## 1.0.0 (April 13, 2016)
 
 ### Fixed
@@ -15,7 +23,7 @@
 ## 0.11.1 (April 1, 2016)
 
 ### Changed
-- Use truncated post content as Open Graph description if not explicitly provided 
+- Use truncated post content as Open Graph description if not explicitly provided
 
 ### Fixed
 - Fixed comments links
