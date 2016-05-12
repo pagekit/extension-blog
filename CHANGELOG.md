@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 1.0.1 (May 12, 2016)
 
 ### Changed
 - Smooth scroll for comment anchor links
