@@ -159,6 +159,26 @@ return [
                 new PostListener(),
                 new ReadmorePlugin
             );
+            //temp add db in dev environment
+            //todo remove here, add to update/install scripts
+            $util = $app['db']->getUtility();
+            if ($util->tableExists('@blog_tag') === false) {
+                $util->createTable('@blog_tag', function ($table) {
+                    $table->addColumn('id', 'integer', ['unsigned' => true, 'length' => 10, 'autoincrement' => true]);
+                    $table->addColumn('name', 'string', ['length' => 255]);
+                    $table->addColumn('slug', 'string', ['length' => 255]);
+                    $table->setPrimaryKey(['id']);
+                });
+            }
+
+            if ($util->tableExists('@blog_post_tags') === false) {
+                $util->createTable('@blog_post_tags', function ($table) {
+                    $table->addColumn('id', 'integer', ['unsigned' => true, 'length' => 10, 'autoincrement' => true]);
+                    $table->addColumn('post_id', 'integer', ['unsigned' => true, 'length' => 10]);
+                    $table->addColumn('tag_id', 'integer', ['unsigned' => true, 'length' => 10]);
+                    $table->setPrimaryKey(['id']);
+                });
+            }
         },
 
         'view.scripts' => function ($event, $scripts) {

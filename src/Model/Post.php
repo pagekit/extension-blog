@@ -70,11 +70,22 @@ class Post implements \JsonSerializable
      */
     public $comments;
 
+    /**
+     * @ManyToMany(
+     *            targetEntity="Tag",
+     *            tableThrough="@blog_post_tags",
+     *            keyThroughFrom="post_id",
+     *            keyThroughTo="tag_id"
+     * )
+     */
+    public $tags;
+
     /** @var array */
     protected static $properties = [
         'author' => 'getAuthor',
         'published' => 'isPublished',
-        'accessible' => 'isAccessible'
+        'accessible' => 'isAccessible',
+        'tag_names' => 'getTagNames'
     ];
 
     public static function getStatuses()
@@ -115,6 +126,18 @@ class Post implements \JsonSerializable
     public function isAccessible(User $user = null)
     {
         return $this->isPublished() && $this->hasAccess($user ?: App::user());
+    }
+
+    /**
+     * @return array
+     */
+    public function getTagNames () {
+        if ($this->tags) {
+            return array_values(array_map(function ($tag) {
+                return $tag->name;
+            }, $this->tags));
+        }
+        return [];
     }
 
     /**

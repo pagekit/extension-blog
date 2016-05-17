@@ -33,7 +33,7 @@ class SiteController
 
         $query = Post::where(['status = ?', 'date < ?'], [Post::STATUS_PUBLISHED, new \DateTime])->where(function ($query) {
             return $query->where('roles IS NULL')->whereInSet('roles', App::user()->roles, false, 'OR');
-        })->related('user');
+        })->related('user', 'tags');
 
         if (!$limit = $this->blog->config('posts.posts_per_page')) {
             $limit = 10;
@@ -97,7 +97,7 @@ class SiteController
 
         foreach (Post::where(['status = ?', 'date < ?'], [Post::STATUS_PUBLISHED, new \DateTime])->where(function ($query) {
             return $query->where('roles IS NULL')->whereInSet('roles', App::user()->roles, false, 'OR');
-        })->related('user')->limit($this->blog->config('feed.limit'))->orderBy('date', 'DESC')->get() as $post) {
+        })->related('user', 'tags')->limit($this->blog->config('feed.limit'))->orderBy('date', 'DESC')->get() as $post) {
             $url = App::url('@blog/id', ['id' => $post->id], 0);
             $feed->addItem(
                 $feed->createItem([
@@ -119,7 +119,7 @@ class SiteController
      */
     public function postAction($id = 0)
     {
-        if (!$post = Post::where(['id = ?', 'status = ?', 'date < ?'], [$id, Post::STATUS_PUBLISHED, new \DateTime])->related('user')->first()) {
+        if (!$post = Post::where(['id = ?', 'status = ?', 'date < ?'], [$id, Post::STATUS_PUBLISHED, new \DateTime])->related('user', 'tags')->first()) {
             App::abort(404, __('Post not found!'));
         }
 
