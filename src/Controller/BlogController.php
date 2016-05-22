@@ -89,7 +89,7 @@ class BlogController
                 ],
                 '$data' => [
                     'post'     => $post,
-                    'post_tags' => $post->tags,
+                    'post_tags' => array_values($post->tags ? : []),
                     'tags'     => array_values(Tag::findAll()),
                     'statuses' => Post::getStatuses(),
                     'roles'    => array_values(Role::findAll()),

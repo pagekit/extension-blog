@@ -36,6 +36,7 @@ return [
             'name' => '@blog/api',
             'controller' => [
                 'Pagekit\\Blog\\Controller\\PostApiController',
+                'Pagekit\\Blog\\Controller\\TagApiController',
                 'Pagekit\\Blog\\Controller\\CommentApiController'
             ]
         ]
