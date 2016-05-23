@@ -50,6 +50,24 @@ return [
                 $table->addIndex(['post_id', 'status'], '@BLOG_COMMENT_POST_ID_STATUS');
             });
         }
+        
+        if ($util->tableExists('@blog_tag') === false) {
+            $util->createTable('@blog_tag', function ($table) {
+                $table->addColumn('id', 'integer', ['unsigned' => true, 'length' => 10, 'autoincrement' => true]);
+                $table->addColumn('name', 'string', ['length' => 255]);
+                $table->addColumn('slug', 'string', ['length' => 255]);
+                $table->setPrimaryKey(['id']);
+            });
+        }
+
+        if ($util->tableExists('@blog_post_tags') === false) {
+            $util->createTable('@blog_post_tags', function ($table) {
+                $table->addColumn('id', 'integer', ['unsigned' => true, 'length' => 10, 'autoincrement' => true]);
+                $table->addColumn('post_id', 'integer', ['unsigned' => true, 'length' => 10]);
+                $table->addColumn('tag_id', 'integer', ['unsigned' => true, 'length' => 10]);
+                $table->setPrimaryKey(['id']);
+            });
+        }
 
     },
 
@@ -63,6 +81,14 @@ return [
 
         if ($util->tableExists('@blog_comment')) {
             $util->dropTable('@blog_comment');
+        }
+
+        if ($util->tableExists('@blog_tag')) {
+            $util->dropTable('@blog_tag');
+        }
+
+        if ($util->tableExists('@blog_post_tags')) {
+            $util->dropTable('@blog_post_tags');
         }
     },
 

@@ -59,6 +59,17 @@
                 </div>
 
                 <div class="uk-form-row">
+                    <span class="uk-form-label">{{ 'Tags' | trans }}</span>
+                    <div class="uk-form-controls">
+                        <ul class="uk-list">
+                            <li v-for="tag in data.post_tags">
+                                {{ tag.name }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
                     <span class="uk-form-label">{{ 'Restrict Access' | trans }}</span>
                     <div class="uk-form-controls uk-form-controls-text">
                         <p v-for="role in data.roles" class="uk-form-controls-condensed">

@@ -10,6 +10,10 @@
 
     <p class="uk-article-meta">
         <?= __('Written by %name% on %date%', ['%name%' => $post->user->name, '%date%' => '<time datetime="'.$post->date->format(\DateTime::ATOM).'" v-cloak>{{ "'.$post->date->format(\DateTime::ATOM).'" | date "longDate" }}</time>' ]) ?>
+
+        <?php if ($post->tag_names) : ?>
+            <br/><?= __('Tags: %tags%', ['%tags%' => implode(', ', $post->tag_names)]) ?>
+        <?php endif; ?>
     </p>
 
     <div class="uk-margin"><?= $post->content ?></div>
