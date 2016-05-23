@@ -25,21 +25,26 @@ class SiteController
      * @Route("/")
      * @Route("/page/{page}", name="page", requirements={"page" = "\d+"})
      */
-    public function indexAction($page = 1)
+    public function indexAction($page = 1, $tag_id = 0)
     {
         if (!App::node()->hasAccess(App::user())) {
             App::abort(403, __('Insufficient User Rights.'));
         }
 
-        $query = Post::where(['status = ?', 'date < ?'], [Post::STATUS_PUBLISHED, new \DateTime])->where(function ($query) {
+        $query = Post::where(['status = ?', 'date < ?'], [Post::STATUS_PUBLISHED, new \DateTime])->from('@blog_post i')->where(function ($query) {
             return $query->where('roles IS NULL')->whereInSet('roles', App::user()->roles, false, 'OR');
-        })->related('user');
+        })->related('user', 'tags');
+
+        if ($tag_id) {
+            //taxonomy trick?
+            $query->join('@blog_post_tags t', 'post_id = i.id')->where('tag_id = ?', [$tag_id]);
+        }
 
         if (!$limit = $this->blog->config('posts.posts_per_page')) {
             $limit = 10;
         }
 
-        $count = $query->count('id');
+        $count = $query->count('i.id');
         $total = ceil($count / $limit);
         $page = max(1, min($total, $page));
 
@@ -97,7 +102,7 @@ class SiteController
 
         foreach (Post::where(['status = ?', 'date < ?'], [Post::STATUS_PUBLISHED, new \DateTime])->where(function ($query) {
             return $query->where('roles IS NULL')->whereInSet('roles', App::user()->roles, false, 'OR');
-        })->related('user')->limit($this->blog->config('feed.limit'))->orderBy('date', 'DESC')->get() as $post) {
+        })->related('user', 'tags')->limit($this->blog->config('feed.limit'))->orderBy('date', 'DESC')->get() as $post) {
             $url = App::url('@blog/id', ['id' => $post->id], 0);
             $feed->addItem(
                 $feed->createItem([
@@ -119,7 +124,7 @@ class SiteController
      */
     public function postAction($id = 0)
     {
-        if (!$post = Post::where(['id = ?', 'status = ?', 'date < ?'], [$id, Post::STATUS_PUBLISHED, new \DateTime])->related('user')->first()) {
+        if (!$post = Post::where(['id = ?', 'status = ?', 'date < ?'], [$id, Post::STATUS_PUBLISHED, new \DateTime])->related('user', 'tags')->first()) {
             App::abort(404, __('Post not found!'));
         }
 
@@ -167,5 +172,14 @@ class SiteController
             'blog' => $this->blog,
             'post' => $post
         ];
+    }
+
+    /**
+     * @Route("/tag/{id}", name="tag")
+     * @Route("/tag/{id}/page/{page}", name="tag/page", requirements={"page" = "\d+", "id" = "\d+"})
+     */
+    public function tagAction($page = 1, $id = '')
+    {
+        return $this->indexAction($page, $id);
     }
 }

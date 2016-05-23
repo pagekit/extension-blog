@@ -6,7 +6,10 @@
             <select id="form-link-blog" class="uk-width-1-1" v-model="link">
                 <option value="@blog">{{ 'Posts View' | trans }}</option>
                 <optgroup :label="'Posts' | trans">
-                    <option v-for="p in posts" :value="p | link">{{ p.title }}</option>
+                    <option v-for="p in posts" :value="p | postlink">{{ p.title }}</option>
+                </optgroup>
+                <optgroup :label="'Tags' | trans">
+                    <option v-for="t in tags" :value="t | taglink">{{ t.name }}</option>
                 </optgroup>
             </select>
         </div>
@@ -26,7 +29,8 @@
 
         data: function () {
             return {
-                posts: []
+                posts: [],
+                tags: []
             }
         },
 
@@ -34,6 +38,9 @@
             // TODO: Implement pagination or search
             this.$http.get('api/blog/post', {filter: {limit: 1000}}).then(function (res) {
                 this.$set('posts', res.data.posts);
+            });
+            this.$http.get('api/blog/tag', {filter: {limit: 1000}}).then(function (res) {
+                this.$set('tags', res.data.tags);
             });
         },
 
@@ -43,8 +50,11 @@
 
         filters: {
 
-            link: function (post) {
+            postlink: function (post) {
                 return '@blog/id?id='+post.id;
+            },
+            taglink: function (tag) {
+                return '@blog/tag?id='+tag.id;
             }
 
         }

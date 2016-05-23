@@ -7,7 +7,7 @@ window.Post = {
             data: window.$data,
             post: window.$data.post,
             sections: []
-        }
+        };
     },
 
     created: function () {
