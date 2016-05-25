@@ -1,5 +1,10 @@
 # Changelog
 
+## WIP
+
+### Removed
+- Removed manual access check from controller actions
+
 ## 1.0.1 (May 12, 2016)
 
 ### Changed
