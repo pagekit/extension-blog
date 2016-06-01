@@ -2,6 +2,9 @@
 
 ## WIP
 
+### Fixed
+- Fixed access check for settings screen 
+
 ### Removed
 - Removed manual access check from controller actions
 
