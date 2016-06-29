@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 1.0.2 (June 29, 2016)
 
 ### Fixed
 - Fixed access check for settings screen 
