@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 (June 29, 2016)
+
+### Fixed
+- Fixed access check for settings screen 
+
+### Removed
+- Removed manual access check from controller actions
+
 ## 1.0.1 (May 12, 2016)
 
 ### Changed

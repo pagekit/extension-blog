@@ -82,7 +82,7 @@ return [
             'icon' => 'blog:icon.svg',
             'url' => '@blog/post',
             'active' => '@blog/post*',
-            'access' => 'blog: manage own posts || blog: manage all posts || blog: manage comments || system: manage settings',
+            'access' => 'blog: manage own posts || blog: manage all posts || blog: manage comments || system: access settings',
             'priority' => 110
         ],
         'blog: posts' => [
@@ -104,7 +104,7 @@ return [
             'parent' => 'blog',
             'url' => '@blog/settings',
             'active' => '@blog/settings*',
-            'access' => 'system: manage settings'
+            'access' => 'system: access settings'
         ]
 
     ],

@@ -27,10 +27,6 @@ class SiteController
      */
     public function indexAction($page = 1)
     {
-        if (!App::node()->hasAccess(App::user())) {
-            App::abort(403, __('Insufficient User Rights.'));
-        }
-
         $query = Post::where(['status = ?', 'date < ?'], [Post::STATUS_PUBLISHED, new \DateTime])->where(function ($query) {
             return $query->where('roles IS NULL')->whereInSet('roles', App::user()->roles, false, 'OR');
         })->related('user');
@@ -74,10 +70,6 @@ class SiteController
      */
     public function feedAction($type = '')
     {
-        if (!App::node()->hasAccess(App::user())) {
-            App::abort(403, __('Insufficient User Rights.'));
-        }
-
         // fetch locale and convert to ISO-639 (en_US -> en-us)
         $locale = App::module('system')->config('site.locale');
         $locale = str_replace('_', '-', strtolower($locale));
