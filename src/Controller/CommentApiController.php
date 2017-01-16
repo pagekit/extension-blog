@@ -95,12 +95,10 @@ class CommentApiController
             $comment->post = null;
             $comment->user = null;
 
-            if (!$this->user->hasAccess('blog: manage comments')) {
-                unset($comment->ip);
-                unset($comment->email);
-                unset($comment->user_id);
-            } else {
+            if ($this->user->hasAccess('blog: manage comments')) {
                 $posts[$p->id] = $p;
+            } else {
+                unset($comment->ip, $comment->email, $comment->user_id);
             }
         }
 

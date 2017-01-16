@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 (January 16, 2017)
+
+### Security
+- Fixed API information leak, discovered by Mahmoud Reda
+
 ## 1.0.2 (June 29, 2016)
 
 ### Fixed
