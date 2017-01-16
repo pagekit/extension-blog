@@ -26,7 +26,7 @@ class CommentApiController
      */
     public function indexAction($filter = [], $post = 0, $page = 0, $limit = 0)
     {
-        $query  = Comment::query();
+        $query = Comment::query();
         $filter = array_merge(array_fill_keys(['status', 'search', 'order'], ''), $filter);
 
         extract($filter, EXTR_SKIP);
@@ -63,7 +63,7 @@ class CommentApiController
 
         $count = $query->count();
         $pages = ceil($count / ($limit ?: PHP_INT_MAX));
-        $page  = max(0, min($pages - 1, $page));
+        $page = max(0, min($pages - 1, $page));
 
         if ($limit) {
             $query->offset($page * $limit)->limit($limit);
@@ -90,15 +90,20 @@ class CommentApiController
             }
 
             $comment->content = App::content()->applyPlugins($comment->content, ['comment' => true]);
-            $posts[$p->id]    = $p;
 
-            $comment->special = count(array_diff($comment->user ? $comment->user->roles:[], [0,1,2]));
-            $comment->post    = null;
-            $comment->user    = null;
+            $comment->special = count(array_diff($comment->user ? $comment->user->roles : [], [0, 1, 2]));
+            $comment->post = null;
+            $comment->user = null;
+
+            if ($this->user->hasAccess('blog: manage comments')) {
+                $posts[$p->id] = $p;
+            } else {
+                unset($comment->ip, $comment->email, $comment->user_id);
+            }
         }
 
         $comments = array_values($comments);
-        $posts    = array_values($posts);
+        $posts = array_values($posts);
 
         return compact('comments', 'posts', 'pages', 'count');
     }
@@ -120,13 +125,13 @@ class CommentApiController
 
             if ($this->user->isAuthenticated()) {
                 $data['author'] = $this->user->name;
-                $data['email']  = $this->user->email;
-                $data['url']    = $this->user->url;
+                $data['email'] = $this->user->email;
+                $data['url'] = $this->user->url;
             } elseif ($this->blog->config('comments.require_email') && (!@$data['author'] || !@$data['email'])) {
                 App::abort(400, __('Please provide valid name and email.'));
             }
 
-            $comment->user_id = $this->user->isAuthenticated() ? (int) $this->user->id:0;
+            $comment->user_id = $this->user->isAuthenticated() ? (int) $this->user->id : 0;
             $comment->ip = App::request()->getClientIp();
             $comment->created = new \DateTime;
 
