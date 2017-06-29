@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 1.0.4 (June 29, 2017)
 
 ### Fixed
 - Fixed MySQL <= 5.7.5 support (ONLY_FULL_GROUP_BY)
