@@ -82,7 +82,7 @@
   'Comments are closed.' => 'Komentari su zatvoreni.',
   'Close comments on articles older than' => 'Zatvori komentare na člancima starijim od',
   'Cancel' => 'Otkaži',
-  'Written by %name% on %date%' => 'Napisao %name% na %date%',
+  'Written by %name% on %date%' => 'Napisao %name%  %date%',
   'Enable nested comments of' => 'Omogući uklopljene komentare od',
   'Restrict Access' => 'Ograniči Pristup',
   'Comment cannot be blank.' => 'Komentar ne može biti prazan.',

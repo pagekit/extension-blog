@@ -80,7 +80,7 @@
   'Unknown' => 'Άγνωστο ',
   'Month and name' => 'Μήνας και όνομα',
   'Comments are closed.' => 'Τα σχόλια έχουν απενεργοποιηθεί.',
-  'Close comments on articles older than' => 'Απενεργοποίηση σχολίων παλαιότερα από',
+  'Close comments on articles older than' => 'Απενεργοποίηση σχολίων σε άρθρα παλαιότερα από',
   'Cancel' => 'Άκυρο',
   'Written by %name% on %date%' => 'Συντάχθηκε από %name% στις %date%',
   'Enable nested comments of' => 'Ενεργοποιήστε τα σχόλια της κατηγορίας',
