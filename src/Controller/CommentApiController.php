@@ -98,7 +98,8 @@ class CommentApiController
             if ($this->user->hasAccess('blog: manage comments')) {
                 $posts[$p->id] = $p;
             } else {
-                unset($comment->ip, $comment->email, $comment->user_id);
+                unset($comment->ip, $comment->user_id);
+                $comment->email = md5(strtolower($comment->email));
             }
         }
 
