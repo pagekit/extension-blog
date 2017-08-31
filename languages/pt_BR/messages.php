@@ -18,7 +18,7 @@
   'Title' => 'Título',
   '{1} %count% Comment selected|]1,Inf[ %count% Comments selected' => '{1} %count% Comentário selecionado|]1,Inf[ %count% Comentário selecionado',
   'Insufficient user rights.' => 'Permissões de usuário insuficiente.',
-  'Posts View' => 'Ver Publicações',
+  'Posts View' => 'Ver Posts',
   'Default post settings' => 'Ajustes padrões de publicação',
   '{1} %count% Post selected|]1,Inf[ %count% Posts selected' => '{1} %count% Publicações selecionadas|]1,Inf[ %count% Publicações selecionadas',
   'Comments' => 'Comentários',

@@ -22,7 +22,7 @@
   'Default post settings' => '',
   '{1} %count% Post selected|]1,Inf[ %count% Posts selected' => '',
   'Comments' => '',
-  'Image' => '',
+  'Image' => 'وێنە‌',
   'Posts' => '',
   'Pending' => '',
   'Disabled' => '',
@@ -91,7 +91,7 @@
   'Leave a comment' => '',
   '{0} No comments|{1} %num% Comment|]1,Inf[ %num% Comments' => '',
   'Post' => '',
-  'View' => '',
+  'View' => 'şanibde',
   'Numeric' => '',
   'Name' => '',
 );

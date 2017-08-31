@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5 (August 31, 2017)
+
+### Fixed
+- Fixed Gravatar for frontend comments
+
 ## 1.0.4 (June 29, 2017)
 
 ### Fixed
