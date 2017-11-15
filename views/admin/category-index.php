@@ -47,7 +47,6 @@
                                                           number></th>
                 <th class="pk-table-min-width-300">{{ 'Category' | trans }}</th>
                 <th class="pk-table-min-width-300">{{ 'Slug' | trans }}</th>
-                <th class="pk-table-min-width-300">{{ 'Type' | trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -58,9 +57,6 @@
                 </td>
                 <td>
                     {{ category.slug }}
-                </td>
-                <td>
-                    {{ getTypeText(category) }}
                 </td>
             </tr>
             </tbody>

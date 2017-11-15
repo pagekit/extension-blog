@@ -109,10 +109,6 @@ module.exports = {
 
         getSelected: function() {
             return this.categories.filter(function(category) { return this.selected.indexOf(category.id) !== -1; }, this);
-        },
-
-        getTypeText: function(category) {
-            return this.types[category.type];
         }
     }
 };

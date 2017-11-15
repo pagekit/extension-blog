@@ -36,7 +36,11 @@ trait PostModelTrait
     {
         $post->modified = new \DateTime();
 
-        $i  = 2;
+        if ($post->tags != null) {
+            $post->setTags(explode(';', $post->tags));
+        }
+
+        $i = 2;
         $id = $post->id;
 
         while (self::where('slug = ?', [$post->slug])->where(function ($query) use ($id) {
@@ -44,7 +48,7 @@ trait PostModelTrait
                 $query->where('id <> ?', [$id]);
             }
         })->first()) {
-            $post->slug = preg_replace('/-\d+$/', '', $post->slug).'-'.$i++;
+            $post->slug = preg_replace('/-\d+$/', '', $post->slug) . '-' . $i++;
         }
     }
 

@@ -51,7 +51,7 @@ class PostApiController
         $pages = ceil($count / $limit);
         $page  = max(0, min($pages - 1, $page));
 
-        $posts = array_values($query->offset($page * $limit)->related('user', 'comments')->limit($limit)->orderBy($order[1], $order[2])->get());
+        $posts = array_values($query->offset($page * $limit)->related('user', 'comments', 'category')->limit($limit)->orderBy($order[1], $order[2])->get());
 
         return compact('posts', 'pages', 'count');
     }
@@ -61,7 +61,7 @@ class PostApiController
      */
     public function getAction($id)
     {
-        return Post::where(compact('id'))->related('user', 'comments')->first();
+        return Post::where(compact('id'))->related('user', 'comments', 'category')->first();
     }
 
     /**

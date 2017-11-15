@@ -38,6 +38,9 @@ class Post implements \JsonSerializable
     /** @Column(type="integer") */
     public $user_id;
 
+    /** @Column(type="integer") */
+    public $category_id;
+
     /** @Column(type="datetime") */
     public $date;
 

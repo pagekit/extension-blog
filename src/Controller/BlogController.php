@@ -48,7 +48,6 @@ class BlogController
                 'name' => 'blog/admin/category-index.php'
             ],
             '$data' => [
-                'types' => Category::getTypes(),
                 'canEditAll' => App::user()->hasAccess('blog: manage all categories'),
                 'config' => [
                     'filter' => (object)$filter,
@@ -85,8 +84,7 @@ class BlogController
                     'name' => 'blog/admin/category-edit.php'
                 ],
                 '$data' => [
-                    'category' => $category,
-                    'types' => Category::getTypes()
+                    'category' => $category
                 ],
                 'category' => $category
             ];

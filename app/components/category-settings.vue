@@ -14,14 +14,6 @@
                 <p class="uk-form-help-block uk-text-danger" v-show="form.slug.invalid">
                     {{ 'Slug cannot be blank.' | trans }}</p>
             </div>
-            <div class="uk-form-row">
-                <select id="uk-form-large-status" class="uk-width-1-1" name="type" v-model="category.type"
-                        :placeholder="'Category type' | trans" v-validate:required>
-                    <option v-for="(id, type) in data.types" :value="id">{{type}}</option>
-                </select>
-                <p class="uk-form-help-block uk-text-danger" v-show="form.type.invalid">
-                    {{ 'Type cannot be blank.' | trans }}</p>
-            </div>
         </div>
     </div>
 
