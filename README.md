@@ -56,10 +56,10 @@ CREATE TABLE pk_blog_category (
 In your administration panel you will see new Categories tab, with list of stored categories. 
 
 Edit category form:
-![Category Form](https://github.com/martinwojtus/extension-blog/category-form.png)
+![Category Form](https://github.com/martinwojtus/extension-blog/blob/master/category-form.png)
 
 Edit post form:
-![Post Form](https://github.com/martinwojtus/extension-blog/post-edit-form.png)
+![Post Form](https://github.com/martinwojtus/extension-blog/blob/master/post-edit-form.png)
 
 
 Use at your own risk :)
