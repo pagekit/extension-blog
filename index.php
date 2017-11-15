@@ -1,12 +1,28 @@
 <?php
 
+use Pagekit\Application;
 use Pagekit\Blog\Content\ReadmorePlugin;
 use Pagekit\Blog\Event\PostListener;
 use Pagekit\Blog\Event\RouteListener;
+use Pagekit\Blog\Model\Category;
 
 return [
 
     'name' => 'blog',
+
+    'type' => 'extension',
+
+    'main' => function (Application $app) {
+        $categories = $result = Application::db()->createQueryBuilder()->select('*')->from('@blog_category')->execute()->fetchAll();
+
+        foreach ($categories as $category) {
+            $app['routes']->add([
+                'path' => '/' . $category['slug'],
+                'name' => '@' . $category['slug'],
+                'controller' => 'Pagekit\\Blog\\Controller\\PostCategoryController'
+            ]);
+        }
+    },
 
     'autoload' => [
 
@@ -23,7 +39,6 @@ return [
             'protected' => true,
             'frontpage' => true
         ]
-
     ],
 
     'routes' => [
@@ -32,14 +47,18 @@ return [
             'name' => '@blog',
             'controller' => 'Pagekit\\Blog\\Controller\\BlogController'
         ],
+        '/tag' => [
+            'name' => '@tag',
+            'controller' => 'Pagekit\\Blog\\Controller\\PostTagController'
+        ],
         '/api/blog' => [
             'name' => '@blog/api',
             'controller' => [
                 'Pagekit\\Blog\\Controller\\PostApiController',
-                'Pagekit\\Blog\\Controller\\CommentApiController'
+                'Pagekit\\Blog\\Controller\\CommentApiController',
+                'Pagekit\\Blog\\Controller\\CategoryApiController',
             ]
         ]
-
     ],
 
     'permissions' => [
@@ -51,6 +70,10 @@ return [
         'blog: manage all posts' => [
             'title' => 'Manage all posts',
             'description' => 'Create, edit, delete and publish posts by all users'
+        ],
+        'blog: manage all categories' => [
+            'title' => 'Manage all categories',
+            'description' => 'Create, edit, delete and publish categories by all users'
         ],
         'blog: manage comments' => [
             'title' => 'Manage comments',
@@ -99,6 +122,13 @@ return [
             'active' => '@blog/comment*',
             'access' => 'blog: manage comments'
         ],
+        'blog: categories' => [
+            'label' => 'Categories',
+            'parent' => 'blog',
+            'url' => '@blog/category',
+            'active' => '@blog/category*',
+            'access' => 'blog: manage categories'
+        ],
         'blog: settings' => [
             'label' => 'Settings',
             'parent' => 'blog',
@@ -114,7 +144,6 @@ return [
     'config' => [
 
         'comments' => [
-
             'autoclose' => false,
             'autoclose_days' => 14,
             'blacklist' => '',
@@ -128,15 +157,17 @@ return [
             'order' => 'ASC',
             'replymail' => true,
             'require_email' => true
+        ],
 
+        'categories' => [
+            'categories_per_page' => 20,
+            'order' => 'ASC'
         ],
 
         'posts' => [
-
-            'posts_per_page' => 20,
+            'categories_per_page' => 20,
             'comments_enabled' => true,
             'markdown_enabled' => true
-
         ],
 
         'permalink' => [
@@ -148,7 +179,6 @@ return [
             'type' => 'rss2',
             'limit' => 20
         ]
-
     ],
 
     'events' => [
@@ -165,7 +195,5 @@ return [
             $scripts->register('link-blog', 'blog:app/bundle/link-blog.js', '~panel-link');
             $scripts->register('post-meta', 'blog:app/bundle/post-meta.js', '~post-edit');
         }
-
     ]
-
 ];

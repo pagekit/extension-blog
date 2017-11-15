@@ -10,6 +10,7 @@ return [
             $util->createTable('@blog_post', function ($table) {
                 $table->addColumn('id', 'integer', ['unsigned' => true, 'length' => 10, 'autoincrement' => true]);
                 $table->addColumn('user_id', 'integer', ['unsigned' => true, 'length' => 10, 'default' => 0]);
+                $table->addColumn('category_id', 'integer', ['unsigned' => true, 'length' => 10]);
                 $table->addColumn('slug', 'string', ['length' => 255]);
                 $table->addColumn('title', 'string', ['length' => 255]);
                 $table->addColumn('status', 'smallint');
@@ -25,7 +26,18 @@ return [
                 $table->addUniqueIndex(['slug'], '@BLOG_POST_SLUG');
                 $table->addIndex(['title'], '@BLOG_POST_TITLE');
                 $table->addIndex(['user_id'], '@BLOG_POST_USER_ID');
+                $table->addIndex(['category_id'], '@BLOG_POST_CATEGORY_ID');
                 $table->addIndex(['date'], '@BLOG_POST_DATE');
+                $table->addColumn('tag1', 'string', ['length' => 100, 'notnull' => false]);
+                $table->addColumn('tag2', 'string', ['length' => 100, 'notnull' => false]);
+                $table->addColumn('tag3', 'string', ['length' => 100, 'notnull' => false]);
+                $table->addColumn('tag4', 'string', ['length' => 100, 'notnull' => false]);
+                $table->addColumn('tag5', 'string', ['length' => 100, 'notnull' => false]);
+                $table->addColumn('tag6', 'string', ['length' => 100, 'notnull' => false]);
+                $table->addColumn('tag7', 'string', ['length' => 100, 'notnull' => false]);
+                $table->addColumn('tag8', 'string', ['length' => 100, 'notnull' => false]);
+                $table->addColumn('tag9', 'string', ['length' => 100, 'notnull' => false]);
+                $table->addColumn('tag10', 'string', ['length' => 100, 'notnull' => false]);
             });
         }
 
@@ -51,6 +63,15 @@ return [
             });
         }
 
+        if ($util->tableExists('@blog_category') === false) {
+            $util->createTable('@blog_category', function ($table) {
+                $table->addColumn('id', 'integer', ['unsigned' => true, 'length' => 10, 'autoincrement' => true]);
+                $table->addColumn('title', 'string', ['length' => 255]);
+                $table->addColumn('slug', 'string', ['length' => 255]);
+                $table->setPrimaryKey(['id']);
+                $table->addUniqueIndex(['slug'], '@BLOG_POST_CATEGORY_SLUG');
+            });
+        }
     },
 
     'uninstall' => function ($app) {
@@ -64,6 +85,10 @@ return [
         if ($util->tableExists('@blog_comment')) {
             $util->dropTable('@blog_comment');
         }
+
+        if ($util->tableExists('@blog_category')) {
+            $util->dropTable('@blog_category');
+        }
     },
 
     'updates' => [
@@ -73,7 +98,7 @@ return [
             $db = $app['db'];
             $util = $db->getUtility();
 
-            foreach (['@blog_post', '@blog_comment'] as $name) {
+            foreach (['@blog_post', '@blog_comment', '@blog_category'] as $name) {
                 $table = $util->getTable($name);
 
                 foreach ($table->getIndexes() as $name => $index) {
@@ -93,7 +118,6 @@ return [
 
             $util->migrate();
         }
-
     ]
 
 ];

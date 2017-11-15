@@ -1,14 +1,14 @@
 module.exports = {
 
-    name: 'post',
+    name: 'category',
 
-    el: '#post',
+    el: '#categories',
 
     data: function() {
         return _.merge({
-            posts: false,
+            categories: false,
             config: {
-                filter: this.$session.get('posts.filter', {order: 'date desc', limit:25})
+                filter: this.$session.get('categories.filter', {order: 'date desc', limit:25})
             },
             pages: 0,
             count: '',
@@ -18,8 +18,8 @@ module.exports = {
     },
 
     ready: function () {
-        this.resource = this.$resource('api/blog/post{/id}');
-        this.$watch('config.page', this.load, {immediate: true});    
+        this.resource = this.$resource('api/blog/category{/id}');
+        this.$watch('config.page', this.load, {immediate: true});
     },
 
     watch: {
@@ -32,7 +32,7 @@ module.exports = {
                     this.load();
                 }
 
-                this.$session.set('posts.filter', filter);
+                this.$session.set('categories.filter', filter);
             },
             deep: true
         }
@@ -62,28 +62,28 @@ module.exports = {
 
     methods: {
 
-        active: function (post) {
-            return this.selected.indexOf(post.id) != -1;
+        active: function (category) {
+            return this.selected.indexOf(category.id) != -1;
         },
 
-        save: function (post) {
-            this.resource.save({ id: post.id }, { post: post }).then(function () {
+        save: function (category) {
+            this.resource.save({ id: category.id }, { category: category }).then(function () {
                 this.load();
-                this.$notify('Post saved.');
+                this.$notify('Category saved.');
             });
         },
 
         status: function(status) {
 
-            var posts = this.getSelected();
+            var categories = this.getSelected();
 
-            posts.forEach(function(post) {
-                post.status = status;
+            categories.forEach(function(category) {
+                category.status = status;
             });
 
-            this.resource.save({ id: 'bulk' }, { posts: posts }).then(function () {
+            this.resource.save({ id: 'bulk' }, { categories: categories }).then(function () {
                 this.load();
-                this.$notify('Posts saved.');
+                this.$notify('Categories saved.');
             });
         },
 
@@ -91,32 +91,16 @@ module.exports = {
 
             this.resource.delete({ id: 'bulk' }, { ids: this.selected }).then(function () {
                 this.load();
-                this.$notify('Posts deleted.');
-            });
-        },
-
-        toggleStatus: function (post) {
-            post.status = post.status === 2 ? 3 : 2;
-            this.save(post);
-        },
-
-        copy: function() {
-
-            if (!this.selected.length) {
-                return;
-            }
-
-            this.resource.save({ id: 'copy' }, { ids: this.selected }).then(function () {
-                this.load();
-                this.$notify('Posts copied.');
+                this.$notify('Categories deleted.');
             });
         },
 
         load: function () {
             this.resource.query({ filter: this.config.filter, page: this.config.page }).then(function (res) {
+
                 var data = res.data;
 
-                this.$set('posts', data.posts);
+                this.$set('categories', data.categories);
                 this.$set('pages', data.pages);
                 this.$set('count', data.count);
                 this.$set('selected', []);
@@ -124,15 +108,13 @@ module.exports = {
         },
 
         getSelected: function() {
-            return this.posts.filter(function(post) { return this.selected.indexOf(post.id) !== -1; }, this);
+            return this.categories.filter(function(category) { return this.selected.indexOf(category.id) !== -1; }, this);
         },
 
-        getStatusText: function(post) {
-            return this.statuses[post.status];
+        getTypeText: function(category) {
+            return this.types[category.type];
         }
-
     }
-
 };
 
 Vue.ready(module.exports);

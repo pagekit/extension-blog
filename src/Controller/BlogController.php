@@ -6,6 +6,7 @@ use Pagekit\Application as App;
 use Pagekit\Blog\Model\Comment;
 use Pagekit\Blog\Model\Post;
 use Pagekit\User\Model\Role;
+use Pagekit\Blog\Model\Category;
 
 /**
  * @Access(admin=true)
@@ -21,18 +22,80 @@ class BlogController
         return [
             '$view' => [
                 'title' => __('Posts'),
-                'name'  => 'blog/admin/post-index.php'
+                'name' => 'blog/admin/post-index.php'
             ],
             '$data' => [
                 'statuses' => Post::getStatuses(),
-                'authors'  => Post::getAuthors(),
+                'authors' => Post::getAuthors(),
                 'canEditAll' => App::user()->hasAccess('blog: manage all posts'),
-                'config'   => [
-                    'filter' => (object) $filter,
-                    'page'   => $page
+                'config' => [
+                    'filter' => (object)$filter,
+                    'page' => $page
                 ]
             ]
         ];
+    }
+
+    /**
+     * @Access("blog: manage own posts || blog: manage all posts")
+     * @Request({"filter": "array", "page":"int"})
+     */
+    public function categoryAction($filter = null, $page = null)
+    {
+        return [
+            '$view' => [
+                'title' => __('Categories'),
+                'name' => 'blog/admin/category-index.php'
+            ],
+            '$data' => [
+                'types' => Category::getTypes(),
+                'canEditAll' => App::user()->hasAccess('blog: manage all categories'),
+                'config' => [
+                    'filter' => (object)$filter,
+                    'page' => $page
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @Route("/category/edit", name="category/edit")
+     * @Access("blog: manage all categories")
+     * @Request({"id": "int"})
+     */
+    public function editCategoryAction($id = 0)
+    {
+        try {
+            if (!$category = Category::where(compact('id'))->first()) {
+                if ($id) {
+                    App::abort(404, __('Invalid post id.'));
+                }
+
+                $category = new Category();
+            }
+
+            $user = App::user();
+            if (!$user->hasAccess('blog: manage all categories') && $post->user_id !== $user->id) {
+                App::abort(403, __('Insufficient User Rights.'));
+            }
+
+            return [
+                '$view' => [
+                    'title' => $id ? __('Edit Category') : __('Add Category'),
+                    'name' => 'blog/admin/category-edit.php'
+                ],
+                '$data' => [
+                    'category' => $category,
+                    'types' => Category::getTypes()
+                ],
+                'category' => $category
+            ];
+        } catch (\Exception $e) {
+
+            App::message()->error($e->getMessage());
+
+            return App::redirect('@blog/category');
+        }
     }
 
     /**
@@ -56,15 +119,17 @@ class BlogController
                     'user_id' => App::user()->id,
                     'status' => Post::STATUS_DRAFT,
                     'date' => new \DateTime(),
-                    'comment_status' => (bool) $module->config('posts.comments_enabled')
+                    'comment_status' => (bool)$module->config('posts.comments_enabled')
                 ]);
 
                 $post->set('title', $module->config('posts.show_title'));
                 $post->set('markdown', $module->config('posts.markdown_enabled'));
             }
 
+            $post->tags = implode($post->getTags(), ';');
+
             $user = App::user();
-            if(!$user->hasAccess('blog: manage all posts') && $post->user_id !== $user->id) {
+            if (!$user->hasAccess('blog: manage all posts') && $post->user_id !== $user->id) {
                 App::abort(403, __('Insufficient User Rights.'));
             }
 
@@ -81,17 +146,20 @@ class BlogController
                 ->execute('id, username')
                 ->fetchAll();
 
+            $categories = Category::query()->get();
+
             return [
                 '$view' => [
                     'title' => $id ? __('Edit Post') : __('Add Post'),
-                    'name'  => 'blog/admin/post-edit.php'
+                    'name' => 'blog/admin/post-edit.php'
                 ],
                 '$data' => [
-                    'post'     => $post,
+                    'post' => $post,
                     'statuses' => Post::getStatuses(),
-                    'roles'    => array_values(Role::findAll()),
+                    'roles' => array_values(Role::findAll()),
                     'canEditAll' => $user->hasAccess('blog: manage all posts'),
-                    'authors'  => $authors
+                    'authors' => $authors,
+                    'categories' => $categories
                 ],
                 'post' => $post
             ];
@@ -116,15 +184,15 @@ class BlogController
         return [
             '$view' => [
                 'title' => $post ? __('Comments on %title%', ['%title%' => $post->title]) : __('Comments'),
-                'name'  => 'blog/admin/comment-index.php'
+                'name' => 'blog/admin/comment-index.php'
             ],
-            '$data'   => [
+            '$data' => [
                 'statuses' => Comment::getStatuses(),
-                'config'   => [
-                    'filter' => (object) $filter,
-                    'page'   => $page,
-                    'post'   => $post,
-                    'limit'  => App::module('blog')->config('comments.comments_per_page')
+                'config' => [
+                    'filter' => (object)$filter,
+                    'page' => $page,
+                    'post' => $post,
+                    'limit' => App::module('blog')->config('comments.comments_per_page')
                 ]
             ]
         ];
@@ -138,7 +206,7 @@ class BlogController
         return [
             '$view' => [
                 'title' => __('Blog Settings'),
-                'name'  => 'blog/admin/settings.php'
+                'name' => 'blog/admin/settings.php'
             ],
             '$data' => [
                 'config' => App::module('blog')->config()

@@ -36,6 +36,21 @@
                     </div>
                 </div>
                 <div class="uk-form-row">
+                    <label for="form-category" class="uk-form-label">{{ 'Category' | trans }}</label>
+                    <div class="uk-form-controls">
+                        <select id="form-category" class="uk-width-1-1" v-model="post.category_id">
+                            <option v-for="category in data.categories" :value="category.id">{{category.title}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-form-row">
+                    <label for="form-tags" class="uk-form-label">{{ 'Tags' | trans }}</label>
+                    <div class="uk-form-controls">
+                        <input id="form-tags" class="uk-width-1-1" type="text" v-model="post.tags">
+                        <small>Separeted by semicolon ';'</small>
+                    </div>
+                </div>
+                <div class="uk-form-row">
                     <label for="form-status" class="uk-form-label">{{ 'Status' | trans }}</label>
                     <div class="uk-form-controls">
                         <select id="form-status" class="uk-width-1-1" v-model="post.status">
