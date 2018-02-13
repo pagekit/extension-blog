@@ -1,5 +1,10 @@
 # Changelog
 
+## WIP
+
+### Fixed
+- Fixed closing <li> tag in pagination
+
 ## 1.0.5 (August 31, 2017)
 
 ### Fixed
