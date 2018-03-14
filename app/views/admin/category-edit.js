@@ -1,11 +1,11 @@
-window.Post = {
+window.Category = {
 
-    el: '#post',
+    el: '#category',
 
     data: function () {
         return {
             data: window.$data,
-            post: window.$data.post,
+            category: window.$data.category,
             sections: []
         }
     },
@@ -26,7 +26,7 @@ window.Post = {
 
         this.$set('sections', _.sortBy(sections, 'priority'));
 
-        this.resource = this.$resource('api/blog/post{/id}');
+        this.resource = this.$resource('api/blog/category{/id}');
     },
 
     ready: function () {
@@ -36,21 +36,21 @@ window.Post = {
     methods: {
 
         save: function () {
-            var data = {post: this.post, id: this.post.id};
+            var data = {category: this.category, id: this.category.id};
 
             this.$broadcast('save', data);
 
-            this.resource.save({id: this.post.id}, data).then(function (res) {
+            this.resource.save({id: this.category.id}, data).then(function (res) {
 
                 var data = res.data;
 
-                if (!this.post.id) {
-                    window.history.replaceState({}, '', this.$url.route('admin/blog/post/edit', {id: data.post.id}))
+                if (!this.category.id) {
+                    window.history.replaceState({}, '', this.$url.route('admin/blog/category/edit', {id: data.category.id}))
                 }
 
-                this.$set('post', data.post);
+                this.$set('category', data.category);
 
-                this.$notify('Post saved.');
+                this.$notify('Category saved.');
 
             }, function (res) {
                 this.$notify(res.data, 'danger');
@@ -61,10 +61,10 @@ window.Post = {
 
     components: {
 
-        settings: require('../../components/post-settings.vue')
+        settings: require('../../components/category-settings.vue')
 
     }
 
 };
 
-Vue.ready(window.Post);
+Vue.ready(window.Category);

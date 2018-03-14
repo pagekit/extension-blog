@@ -2,7 +2,7 @@
     "name": "pagekit/blog",
     "type": "pagekit-extension",
     "version": "1.0.5",
-    "title": "Blog",
+    "title": "Blog with Categories and Tags",
     "description": "A blog extensions with a built-in comment system.",
     "license": "MIT",
     "authors": [

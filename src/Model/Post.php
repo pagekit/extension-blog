@@ -38,6 +38,9 @@ class Post implements \JsonSerializable
     /** @Column(type="integer") */
     public $user_id;
 
+    /** @Column(type="integer") */
+    public $category_id;
+
     /** @Column(type="datetime") */
     public $date;
 
@@ -60,6 +63,11 @@ class Post implements \JsonSerializable
     public $comment_count = 0;
 
     /**
+     * @BelongsTo(targetEntity="Pagekit\Blog\Model\Category", keyFrom="category_id")
+     */
+    public $category;
+
+    /**
      * @BelongsTo(targetEntity="Pagekit\User\Model\User", keyFrom="user_id")
      */
     public $user;
@@ -70,11 +78,88 @@ class Post implements \JsonSerializable
      */
     public $comments;
 
+    public $tags;
+
+    /** @Column(type="string") */
+    public $tag1;
+
+    /** @Column(type="string") */
+    public $tag2;
+
+    /** @Column(type="string") */
+    public $tag3;
+
+    /** @Column(type="string") */
+    public $tag4;
+
+    /** @Column(type="string") */
+    public $tag5;
+
+    /** @Column(type="string") */
+    public $tag6;
+
+    /** @Column(type="string") */
+    public $tag7;
+
+    /** @Column(type="string") */
+    public $tag8;
+
+    /** @Column(type="string") */
+    public $tag9;
+
+    /** @Column(type="string") */
+    public $tag10;
+
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        if ($category) {
+            $this->category_id = $category->id;
+        }
+    }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function getTags()
+    {
+        $list = array();
+
+        for ($i = 1; $i <= 10; $i++) {
+            $fieldName = 'tag' . $i;
+            if ($this->{$fieldName} != null) {
+                $list[] = $this->{$fieldName};
+            }
+        }
+
+        return $list;
+    }
+
+    public function setTags($tags = array())
+    {
+        $index = 1;
+        foreach ($tags as $tag) {
+            $fieldName = 'tag' . $index;
+            $this->{$fieldName} = trim($tag);
+            $index++;
+        }
+
+        for ($i = $index; $i <= 10; $i++) {
+            $fieldName = 'tag' . $i;
+            $this->{$fieldName} = null;
+        }
+    }
+
     /** @var array */
     protected static $properties = [
         'author' => 'getAuthor',
         'published' => 'isPublished',
-        'accessible' => 'isAccessible'
+        'accessible' => 'isAccessible',
+        'postcategory' => 'getCategory',
+        'posttags' => 'getTags'
     ];
 
     public static function getStatuses()

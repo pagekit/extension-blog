@@ -49,9 +49,8 @@
 
                 <p>{{{ comment.content }}}</p>
 
-                <p v-if="showReplyButton"><a href="#" @click.prevent="replyTo">{{ 'Reply' | trans }}</a></p>
-
             </div>
+            <p v-if="showReplyButton"><a href="#" @click.prevent="replyTo">{{ 'Reply' | trans }}</a></p>
 
             <div class="uk-alert" v-for="message in comment.messages">{{ message }}</div>
 
@@ -71,58 +70,72 @@
 
 <script id="comments-reply" type="text/template">
 
-    <div class="uk-margin-large-top js-comment-reply">
+    <div class="row">
+        <div class="col-sm-6">
 
-        <h2 class="uk-h4">{{ 'Leave a comment' | trans }}</h2>
 
-        <div class="uk-alert uk-alert-danger" v-show="error">{{ error }}</div>
+            <div class="uk-margin-large-top js-comment-reply">
 
-        <form class="uk-form uk-form-stacked" v-if="user.canComment" v-validator="form" @submit.prevent="save | valid">
+                <h2 class="uk-h4">{{ 'Leave a comment' | trans }}</h2>
 
-            <p v-if="user.isAuthenticated">{{ 'Logged in as %name%' | trans {name:user.name} }}</p>
+                <div class="uk-alert uk-alert-danger" v-show="error">{{ error }}</div>
 
-            <template v-else>
+                <form class="uk-form uk-form-stacked" v-if="user.canComment" v-validator="form"
+                      @submit.prevent="save | valid">
 
-                <div class="uk-form-row">
-                    <label for="form-name" class="uk-form-label">{{ 'Name' | trans }}</label>
-                    <div class="uk-form-controls">
-                        <input id="form-name" class="uk-form-width-large" type="text" name="author" v-model="author" v-validate:required>
+                    <p v-if="user.isAuthenticated">{{ 'Logged in as %name%' | trans {name:user.name} }}</p>
 
-                        <p class="uk-form-help-block uk-text-danger" v-show="form.author.invalid">{{ 'Name cannot be blank.' | trans }}</p>
+                    <template v-else>
+
+                        <div class="form-group">
+                            <label for="form-name">{{ 'Name' | trans }}</label>
+                            <input id="form-name" class="form-control" type="text" name="author" v-model="author"
+                                   v-validate:required>
+
+                            <p class="uk-form-help-block uk-text-danger" v-show="form.author.invalid">{{ 'Name cannot be
+                                blank.'
+                                | trans }}</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form-email" class="uk-form-label">{{ 'Email' | trans }}</label>
+                            <input id="form-email" class="form-control" type="email" name="email" v-model="email"
+                                   v-validate:email>
+
+                            <p class="uk-form-help-block uk-text-danger" v-show="form.email.invalid">{{ 'Email invalid.'
+                                |
+                                trans }}</p>
+                        </div>
+
+                    </template>
+
+                    <div class="form-group">
+                        <label for="form-comment" class="uk-form-label">{{ 'Comment' | trans }}</label>
+                        <textarea id="form-comment" class="form-control" name="content" rows="10" v-model="content"
+                                  v-validate:required></textarea>
+
+                        <p class="uk-form-help-block uk-text-danger" v-show="form.content.invalid">{{ 'Comment cannot be
+                            blank.' | trans }}</p>
                     </div>
-                </div>
 
-                <div class="uk-form-row">
-                    <label for="form-email" class="uk-form-label">{{ 'Email' | trans }}</label>
-                    <div class="uk-form-controls">
-                        <input id="form-email" class="uk-form-width-large" type="email" name="email" v-model="email" v-validate:email>
+                    <p>
+                        <button class="btn btn-primary" type="submit" accesskey="s">{{ 'Submit' | trans }}</button>
+                        <button class="btn btn-secondary" accesskey="c" v-if="parent" @click.prevent="cancel">{{
+                            'Cancel' |
+                            trans }}
+                        </button>
+                    </p>
 
-                        <p class="uk-form-help-block uk-text-danger" v-show="form.email.invalid">{{ 'Email invalid.' | trans }}</p>
-                    </div>
-                </div>
+                </form>
 
-            </template>
+                <template v-else>
+                    <p v-show="user.isAuthenticated">{{ 'You are not allowed to post comments.' | trans }}</p>
+                    <p v-else><a :href="login">{{ 'Please login to leave a comment.' | trans }}</a></p>
+                </template>
 
-            <div class="uk-form-row">
-                <label for="form-comment" class="uk-form-label">{{ 'Comment' | trans }}</label>
-                <div class="uk-form-controls">
-                    <textarea id="form-comment" class="uk-form-width-large" name="content" rows="10" v-model="content" v-validate:required></textarea>
-
-                    <p class="uk-form-help-block uk-text-danger" v-show="form.content.invalid">{{ 'Comment cannot be blank.' | trans }}</p>
-                </div>
             </div>
 
-            <p>
-                <button class="uk-button uk-button-primary" type="submit" accesskey="s">{{ 'Submit' | trans }}</button>
-                <button class="uk-button" accesskey="c" v-if="parent" @click.prevent="cancel">{{ 'Cancel' | trans }}</button>
-            </p>
-
-        </form>
-
-        <template v-else>
-            <p v-show="user.isAuthenticated">{{ 'You are not allowed to post comments.' | trans }}</p>
-            <p v-else><a :href="login">{{ 'Please login to leave a comment.' | trans }}</a></p>
-        </template>
+        </div>
 
     </div>
 

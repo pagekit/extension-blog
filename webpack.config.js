@@ -2,6 +2,8 @@ module.exports = [
 
     {
         entry: {
+            "category-index": "./app/views/admin/category-index",
+            "category-edit": "./app/views/admin/category-edit",
             "comment-index": "./app/views/admin/comment-index",
             "post-edit": "./app/views/admin/post-edit",
             "post-index": "./app/views/admin/post-index",
