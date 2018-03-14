@@ -53,6 +53,10 @@ CREATE TABLE pk_blog_category (
  }
 ```
 
+3. Go to /packages/pagekit/blog directory, and run below commands:
+- npm install
+- webpack
+
 In your administration panel you will see new Categories tab, with list of stored categories. 
 
 Edit category form:
