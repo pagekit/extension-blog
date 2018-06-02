@@ -23,6 +23,8 @@
             I agree to the terms and conditions.
         </label>
 
+        <div v-el:gdpr v-if="config.enabled"></div>
+
         <div v-el:reply v-if="config.enabled"></div>
 
         <p v-else>{{ 'Comments are closed.' | trans }}</p>
@@ -121,12 +123,12 @@
                 </div>
             </div>
 
-            <div class="uk-form-row">
+            <div class="uk-form-row" v-show="config.enabled>
                 <label for="form-gdpr" class="uk-form-label">{{ 'You accept the agreement' | trans }}</label>
                 <div class="uk-form-controls">
-                    <input id="form-gdpr" v-if="requiregdpr" type="checkbox" name="gdpr" v-model="gdpr" v-validate:required>
-
-                    <p class="uk-form-help-block uk-text-danger" v-show="form.gdpr.invalid">{{ 'Name cannot be blank.' | trans }}</p>
+                    <p><input id="form-gdpr" type="checkbox" name="gdpr" v-validate:required></p>
+                    <p v-if="showGdpr"><label><input type="checkbox" v-validate:required>{{ I agree to the terms. | trans }}<label></p>
+                    <p class="uk-form-help-block uk-text-danger" v-show="form.gdpr.invalid">{{ 'You don't agreed to the terms.' | trans }}</p>
                 </div>
             </div>
 

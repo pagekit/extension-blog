@@ -37,7 +37,6 @@ module.exports = {
                         UIkit.Utils.scrollToElement(anchor);
                     }
                 });
-
                 this.reply();
             });
         },

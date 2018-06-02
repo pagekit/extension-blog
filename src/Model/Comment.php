@@ -30,6 +30,9 @@ class Comment extends BaseComment implements \JsonSerializable
     /** @BelongsTo(targetEntity="Pagekit\User\Model\User", keyFrom="user_id") */
     public $user;
 
+    /** @Column(type="boolean") */
+    public $gdpr_status;
+
     public function setPost($post)
     {
         $this->post = $post;
