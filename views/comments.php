@@ -16,6 +16,8 @@
 
         <div class="uk-alert" v-for="message in messages">{{ message }}</div>
 
+        <div v-el:gdpr v-if="config.enabled"></div>
+
         <div v-el:reply v-if="config.enabled"></div>
 
         <p v-else>{{ 'Comments are closed.' | trans }}</p>
@@ -48,6 +50,8 @@
             <div class="uk-comment-body">
 
                 <p>{{{ comment.content }}}</p>
+
+                <p> <input type="checkbox" class="uk-form-controls-text" name="gdpr" v-model="gdpr" v-validate:required></p>
 
                 <p v-if="showReplyButton"><a href="#" @click.prevent="replyTo">{{ 'Reply' | trans }}</a></p>
 
@@ -115,7 +119,7 @@
             <div class="uk-form-row">
                 <label for="form-gdpr" class="uk-form-label">{{ 'You accept the agreement' | trans }}</label>
                 <div class="uk-form-controls">
-                    <input id="form-gdpr" class="uk-form-controls-text" type="checkbox" name="gdpr" v-model="gdpr" v-validate:required>
+                    <input v-if="requiregdpr" type="checkbox" name="gdpr" v-model="gdpr" v-validate:required>
 
                     <p class="uk-form-help-block uk-text-danger" v-show="form.gdpr.invalid">{{ 'Name cannot be blank.' | trans }}</p>
                 </div>

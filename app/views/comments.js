@@ -9,6 +9,7 @@ module.exports = {
             comments: [],
             messages: [],
             count: 0,
+            gdpr: true,
             replyForm: false
         }, window.$comments);
     },
@@ -87,6 +88,10 @@ module.exports = {
                     }
 
                     return depth;
+                },
+
+                showGdpr: function () {
+                    return this.config.enabled && !this.isLeaf && this.$root.replyForm.$parent !== this;
                 },
 
                 showReplyButton: function () {
