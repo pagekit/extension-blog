@@ -9,7 +9,7 @@ module.exports = {
             comments: [],
             messages: [],
             count: 0,
-            gdpr: true,
+            showGdpr: false,
             replyForm: false
         }, window.$comments);
     },
@@ -55,6 +55,21 @@ module.exports = {
                 parent: parent
             }).$mount().$appendTo(parent.$els.reply);
 
+        },
+
+        gdpr: function (parent) {
+
+            parent = parent || this;
+
+            if (this.showGdpr) {
+                this.showGdpr.$destroy(true);
+            }
+
+            this.showGdpr = new this.$options.components['gdpr']({
+                data: {config: this.config, parent: parent.comment && parent.comment.id || 0},
+                parent: parent
+            }).$mount().$appendTo(parent.$els.gdpr);
+
         }
 
     },
@@ -91,7 +106,7 @@ module.exports = {
                 },
 
                 showGdpr: function () {
-                    return this.config.enabled && !this.isLeaf && this.$root.replyForm.$parent !== this;
+                    return this.config.enabled && !this.isLeaf && this.$root.showGdpr.$parent !== this;
                 },
 
                 showReplyButton: function () {
