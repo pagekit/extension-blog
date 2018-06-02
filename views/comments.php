@@ -112,6 +112,15 @@
                 </div>
             </div>
 
+            <div class="uk-form-row">
+                <label for="form-gdpr" class="uk-form-label">{{ 'You accept the agreement' | trans }}</label>
+                <div class="uk-form-controls">
+                    <input id="form-gdpr" class="uk-form-controls-text" type="checkbox" name="gdpr" v-model="gdpr" v-validate:required>
+
+                    <p class="uk-form-help-block uk-text-danger" v-show="form.gdpr.invalid">{{ 'Name cannot be blank.' | trans }}</p>
+                </div>
+            </div>
+
             <p>
                 <button class="uk-button uk-button-primary" type="submit" accesskey="s">{{ 'Submit' | trans }}</button>
                 <button class="uk-button" accesskey="c" v-if="parent" @click.prevent="cancel">{{ 'Cancel' | trans }}</button>
