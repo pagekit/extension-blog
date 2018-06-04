@@ -88,9 +88,6 @@
                             <p class="uk-form-controls-condensed">
                                 <label><input type="checkbox" v-model="config.posts.comments_enabled"> {{ 'Enable Comments' | trans }}</label>
                             </p>
-                            <p class="uk-form-controls-condensed">
-                                <label><input type="checkbox" v-model="config.posts.term_enabled"> {{ 'Enable Agreement (GDPR)' | trans }}</label>
-                            </p>
                         </div>
                     </div>
 

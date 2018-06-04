@@ -128,7 +128,7 @@ return [
             'order' => 'ASC',
             'replymail' => true,
             'require_email' => true,
-            'require_gdpr' => true
+            'require_term' => true
 
         ],
 
