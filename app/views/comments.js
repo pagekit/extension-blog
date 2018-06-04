@@ -126,7 +126,7 @@ module.exports = {
                     content: '',
                     error: false,
                     form: false,
-                    term: true
+                    term: false
                 };
             },
 

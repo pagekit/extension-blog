@@ -112,12 +112,14 @@
                 </div>
             </div>
 
-            <div class="uk-form-row">
+          <div id="term">
+            <div class="uk-form-row v-show="config.enabled">
               <label class="checkbox">
-                <input v-model="term" type="checkbox">
+                <input id="form-term" type="checkbox" name="term" v-model="term" v-validate:required>
                 {{ 'I agree to the terms and conditions.' | trans }}
               </label>
             </div>
+          </div>
 
             <p>
                 <button class="uk-button uk-button-primary" :disabled="term === false" type="submit" accesskey="s">{{ 'Submit' | trans }}</button>
