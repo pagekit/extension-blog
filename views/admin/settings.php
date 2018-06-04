@@ -89,7 +89,7 @@
                                 <label><input type="checkbox" v-model="config.posts.comments_enabled"> {{ 'Enable Comments' | trans }}</label>
                             </p>
                             <p class="uk-form-controls-condensed">
-                                <label><input type="checkbox" v-model="config.posts.gdpr_enabled"> {{ 'Enable Agreement (GDPR)' | trans }}</label>
+                                <label><input type="checkbox" v-model="config.posts.term_enabled"> {{ 'Enable Agreement (GDPR)' | trans }}</label>
                             </p>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                                 <label><input type="checkbox" v-model="config.comments.require_email"> {{ 'Require e-mail.' | trans }}</label>
                             </p>
                             <p class="uk-form-controls-condensed">
-                                <label><input type="checkbox" v-model="config.comments.require_gdpr"> {{ 'Require Agreement.' | trans }}</label>
+                                <label><input type="checkbox" v-model="config.comments.require_term"> {{ 'Require Agreement.' | trans }}</label>
                             </p>
                             <p class="uk-form-controls-condensed">
                                 <input type="checkbox" v-model="config.comments.autoclose"> {{ 'Close comments on articles older than' | trans }}

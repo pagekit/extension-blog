@@ -16,15 +16,6 @@
 
         <div class="uk-alert" v-for="message in messages">{{ message }}</div>
 
-        <div v-el:gdpr v-if="config.enabled"></div>
-
-        <label class="checkbox">
-            <input name="" v-validate="'required'" type="checkbox">
-            I agree to the terms and conditions.
-        </label>
-
-        <div v-el:gdpr v-if="config.enabled"></div>
-
         <div v-el:reply v-if="config.enabled"></div>
 
         <p v-else>{{ 'Comments are closed.' | trans }}</p>
@@ -57,8 +48,6 @@
             <div class="uk-comment-body">
 
                 <p>{{{ comment.content }}}</p>
-
-                <p v-if="showGdpr"><label><input type="checkbox" v-validate:required>{{ I agree to the terms. | trans }}<label></p>
 
                 <p v-if="showReplyButton"><a href="#" @click.prevent="replyTo">{{ 'Reply' | trans }}</a></p>
 
@@ -123,17 +112,15 @@
                 </div>
             </div>
 
-            <div class="uk-form-row" v-show="config.enabled>
-                <label for="form-gdpr" class="uk-form-label">{{ 'You accept the agreement' | trans }}</label>
-                <div class="uk-form-controls">
-                    <p><input id="form-gdpr" type="checkbox" name="gdpr" v-validate:required></p>
-                    <p v-if="showGdpr"><label><input type="checkbox" v-validate:required>{{ I agree to the terms. | trans }}<label></p>
-                    <p class="uk-form-help-block uk-text-danger" v-show="form.gdpr.invalid">{{ 'You don't agreed to the terms.' | trans }}</p>
-                </div>
+            <div class="uk-form-row">
+              <label class="checkbox">
+                <input v-model="term" type="checkbox">
+                {{ 'I agree to the terms and conditions.' | trans }}
+              </label>
             </div>
 
             <p>
-                <button class="uk-button uk-button-primary" type="submit" accesskey="s">{{ 'Submit' | trans }}</button>
+                <button class="uk-button uk-button-primary" :disabled="term === false" type="submit" accesskey="s">{{ 'Submit' | trans }}</button>
                 <button class="uk-button" accesskey="c" v-if="parent" @click.prevent="cancel">{{ 'Cancel' | trans }}</button>
             </p>
 
