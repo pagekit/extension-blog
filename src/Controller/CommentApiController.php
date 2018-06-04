@@ -130,7 +130,7 @@ class CommentApiController
                 $data['url'] = $this->user->url;
             } elseif ($this->blog->config('comments.require_email') && (!@$data['author'] || !@$data['email'])){
                 App::abort(400, __('Please provide valid name and email.'));
-                $data['gdpr'] = $this->blog->config('comments.require_gdpr');
+                $data['term'] = $this->blog->config('comments.require_term');
             }
 
             $comment->user_id = $this->user->isAuthenticated() ? (int) $this->user->id : 0;

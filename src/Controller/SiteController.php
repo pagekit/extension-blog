@@ -147,7 +147,7 @@ class SiteController
                     'post' => $post->id,
                     'enabled' => $post->isCommentable(),
                     'requireinfo' => $this->blog->config('comments.require_email'),
-                    'requiregdpr' => $this->blog->config('comments.require_gdpr'),
+                    'term' => $this->blog->config('comments.require_term'),
                     'max_depth' => $this->blog->config('comments.max_depth'),
                     'user' => [
                         'name' => $user->name,
