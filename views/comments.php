@@ -112,14 +112,16 @@
                 </div>
             </div>
 
-          <div id="term">
-            <div class="uk-form-row" v-if="config.requireterm">
-              <label class="checkbox">
-              <p><input id="form-term" type="checkbox" name="term" v-model="term" v-validate:required>{{ ' I agree to the terms and conditions.' | trans }}</p>
-              </label>
+            <div id="term">
+              <p>
+                <div class="uk-form-row" v-if="config.requireterm">
+                  <label class="checkbox">
+                    <input id="term" type="checkbox" name="term" v-model="term" v-validate:required>{{ ' I agree to the terms and conditions.' | trans }}
+                  </label>
+                </div>
+              </p>
             </div>
-          </div>
-
+            
             <p>
                 <button class="uk-button uk-button-primary" :disabled="term === false" type="submit" accesskey="s">{{ 'Submit' | trans }}</button>
                 <button class="uk-button" accesskey="c" v-if="parent" @click.prevent="cancel">{{ 'Cancel' | trans }}</button>
