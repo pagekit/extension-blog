@@ -108,7 +108,7 @@ class Post implements \JsonSerializable
     public function isEnabled()
     {
       $termenabled = $blog->config('config.posts.term_enabled');
-      return $this->post_status && (!$termenabled);
+      return $termenabled;
     }
 
     public function getAuthor()

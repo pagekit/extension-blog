@@ -74,9 +74,6 @@
                     <div class="uk-form-controls">
                         <label><input type="checkbox" v-model="post.comment_status" value="1"> {{ 'Enable Comments' | trans }}</label>
                     </div>
-                    <div class="uk-form-controls">
-                        <label><input type="checkbox" v-model="post.gdpr_status" value="1"> {{ 'Enable GDPR Agreement' | trans }}</label>
-                    </div>
                 </div>
 
             </div>

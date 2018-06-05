@@ -106,17 +106,16 @@
             <div class="uk-form-row">
                 <label for="form-comment" class="uk-form-label">{{ 'Comment' | trans }}</label>
                 <div class="uk-form-controls">
-                    <textarea id="form-comment" class="uk-form-width-large" name="content" rows="10" v-model="content" v-validate:required></textarea>
+                    <textarea id="form-comment" class="uk-form-width-large" name="content" rows="10" v-model="content" v-validate:required></textarea><br>
 
                     <p class="uk-form-help-block uk-text-danger" v-show="form.content.invalid">{{ 'Comment cannot be blank.' | trans }}</p>
                 </div>
             </div>
 
           <div id="term">
-            <div class="uk-form-row>
+            <div class="uk-form-row" v-if="config.requireterm">
               <label class="checkbox">
-                <input id="form-term" type="checkbox" name="term" v-model="term" v-validate:required>
-                {{ 'I agree to the terms and conditions.' | trans }}
+              <p><input id="form-term" type="checkbox" name="term" v-model="term" v-validate:required>{{ ' I agree to the terms and conditions.' | trans }}</p>
               </label>
             </div>
           </div>

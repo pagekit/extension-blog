@@ -121,7 +121,6 @@ class CommentApiController
             if (!$this->user->hasAccess('blog: post comments')){
                 App::abort(403, __('Insufficient User Rights.'));
             }
-            $data['term'] = ($this->blog->config('comments.require_term'));
             $comment = Comment::create();
 
             if ($this->user->isAuthenticated()) {
