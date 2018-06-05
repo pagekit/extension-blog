@@ -56,11 +56,13 @@ class BlogController
                     'user_id' => App::user()->id,
                     'status' => Post::STATUS_DRAFT,
                     'date' => new \DateTime(),
-                    'comment_status' => (bool) $module->config('posts.comments_enabled')
+                    'comment_status' => (bool) $module->config('posts.comments_enabled'),
+                    'term_status' => (bool) $module->config('posts.term_enabled')
                 ]);
 
                 $post->set('title', $module->config('posts.show_title'));
                 $post->set('markdown', $module->config('posts.markdown_enabled'));
+                $post->set('term', $module->config('posts.term_enabled'));
             }
 
             $user = App::user();
@@ -124,7 +126,8 @@ class BlogController
                     'filter' => (object) $filter,
                     'page'   => $page,
                     'post'   => $post,
-                    'limit'  => App::module('blog')->config('comments.comments_per_page')
+                    'limit'  => App::module('blog')->config('comments.comments_per_page'),
+                    'termrequired'  => App::module('blog')->config('config.comments.require_term')
                 ]
             ]
         ];

@@ -19,6 +19,7 @@ return [
                 $table->addColumn('excerpt', 'text');
                 $table->addColumn('comment_status', 'boolean', ['default' => false]);
                 $table->addColumn('comment_count', 'integer', ['default' => 0]);
+                $table->addColumn('term_status', 'boolean', ['default' => false]);
                 $table->addColumn('data', 'json_array', ['notnull' => false]);
                 $table->addColumn('roles', 'simple_array', ['notnull' => false]);
                 $table->setPrimaryKey(['id']);
