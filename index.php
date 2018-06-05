@@ -127,8 +127,7 @@ return [
             'notifications' => 'always',
             'order' => 'ASC',
             'replymail' => true,
-            'require_email' => true,
-            'require_term' => false
+            'require_email' => true
 
 
         ],
@@ -138,7 +137,6 @@ return [
             'posts_per_page' => 20,
             'comments_enabled' => true,
             'markdown_enabled' => true,
-            'term_enabled' => true
 
         ],
 

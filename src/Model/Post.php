@@ -56,9 +56,6 @@ class Post implements \JsonSerializable
     /** @Column(type="boolean") */
     public $comment_status;
 
-    /** @Column(type="boolean") */
-    public $term_status;
-
     /** @Column(type="integer") */
     public $comment_count = 0;
 
@@ -103,12 +100,6 @@ class Post implements \JsonSerializable
         $autoclose = $blog->config('comments.autoclose') ? $blog->config('comments.autoclose_days') : 0;
 
         return $this->comment_status && (!$autoclose or $this->date >= new \DateTime("-{$autoclose} day"));
-    }
-
-    public function isEnabled()
-    {
-      $termenabled = $blog->config('config.posts.term_enabled');
-      return $termenabled;
     }
 
     public function getAuthor()

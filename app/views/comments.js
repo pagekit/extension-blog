@@ -125,7 +125,8 @@ module.exports = {
                     email: '',
                     content: '',
                     error: false,
-                    form: false
+                    form: false,
+                    term: false
                 };
             },
 
