@@ -136,7 +136,7 @@ return [
 
             'posts_per_page' => 20,
             'comments_enabled' => true,
-            'markdown_enabled' => true,
+            'markdown_enabled' => true
 
         ],
 
