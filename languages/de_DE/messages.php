@@ -94,4 +94,5 @@
   'View' => 'Ansicht',
   'Numeric' => 'Numerisch',
   'Name' => 'Name',
+  ' I agree to the terms and conditions.' => ' Ich stimme den Nutzungsbedinungen laut Datenschutzerklärung zu.'
 );
