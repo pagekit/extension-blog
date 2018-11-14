@@ -108,6 +108,8 @@ class SiteController
 
     /**
      * @Route("/{id}", name="id")
+     * @Captcha(route="@blog/api/comment/save")
+     * @Captcha(route="@blog/api/comment/save_1")
      */
     public function postAction($id = 0)
     {

@@ -2,6 +2,9 @@
 
 ## WIP
 
+### Added
+- Added reCAPTCHA for comments
+
 ### Fixed
 - Fixed closing <li> tag in pagination
 
