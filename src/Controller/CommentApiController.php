@@ -113,6 +113,7 @@ class CommentApiController
      * @Route("/", methods="POST")
      * @Route("/{id}", methods="POST", requirements={"id"="\d+"})
      * @Request({"comment": "array", "id": "int"}, csrf=true)
+     * @Captcha(verify="true")
      */
     public function saveAction($data, $id = 0)
     {

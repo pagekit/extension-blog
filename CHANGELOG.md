@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.6 (November 14, 2018)
+
+### Added
+- Added reCAPTCHA for comments
+
+### Fixed
+- Fixed closing <li> tag in pagination
+
 ## 1.0.5 (August 31, 2017)
 
 ### Fixed
