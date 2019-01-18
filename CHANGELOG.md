@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 1.0.6 (November 14, 2018)
 
 ### Added
 - Added reCAPTCHA for comments
