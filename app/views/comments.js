@@ -36,7 +36,6 @@ module.exports = {
                         UIkit.Utils.scrollToElement(anchor);
                     }
                 });
-
                 this.reply();
             });
         },
@@ -55,7 +54,6 @@ module.exports = {
             }).$mount().$appendTo(parent.$els.reply);
 
         }
-
     },
 
     components: {
@@ -127,7 +125,8 @@ module.exports = {
                     email: '',
                     content: '',
                     error: false,
-                    form: false
+                    form: false,
+                    term: false
                 };
             },
 

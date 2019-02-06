@@ -129,6 +129,7 @@ return [
             'replymail' => true,
             'require_email' => true
 
+
         ],
 
         'posts' => [

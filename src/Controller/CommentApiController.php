@@ -119,17 +119,16 @@ class CommentApiController
     {
         if (!$id) {
 
-            if (!$this->user->hasAccess('blog: post comments')) {
+            if (!$this->user->hasAccess('blog: post comments')){
                 App::abort(403, __('Insufficient User Rights.'));
             }
-
             $comment = Comment::create();
 
             if ($this->user->isAuthenticated()) {
                 $data['author'] = $this->user->name;
                 $data['email'] = $this->user->email;
                 $data['url'] = $this->user->url;
-            } elseif ($this->blog->config('comments.require_email') && (!@$data['author'] || !@$data['email'])) {
+            } elseif ($this->blog->config('comments.require_email') && (!@$data['author'] || !@$data['email'])){
                 App::abort(400, __('Please provide valid name and email.'));
             }
 
@@ -173,6 +172,7 @@ class CommentApiController
         if (!@$data['post_id'] || !$post = Post::where(['id' => $data['post_id']])->first() or !($this->user->hasAccess('blog: manage comments') || $post->isCommentable() && $post->isPublished())) {
             App::abort(404, __('Post not found.'));
         }
+
 
         $approved_once = (boolean) Comment::where(['user_id' => $this->user->id, 'status' => Comment::STATUS_APPROVED])->first();
         $comment->status = $this->user->hasAccess('blog: skip comment approval') ? Comment::STATUS_APPROVED : $this->user->hasAccess('blog: comment approval required once') && $approved_once ? Comment::STATUS_APPROVED : Comment::STATUS_PENDING;

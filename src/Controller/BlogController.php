@@ -56,7 +56,6 @@ class BlogController
                     'user_id' => App::user()->id,
                     'status' => Post::STATUS_DRAFT,
                     'date' => new \DateTime(),
-                    'comment_status' => (bool) $module->config('posts.comments_enabled')
                 ]);
 
                 $post->set('title', $module->config('posts.show_title'));
@@ -124,7 +123,7 @@ class BlogController
                     'filter' => (object) $filter,
                     'page'   => $page,
                     'post'   => $post,
-                    'limit'  => App::module('blog')->config('comments.comments_per_page')
+                    'limit'  => App::module('blog')->config('comments.comments_per_page'),
                 ]
             ]
         ];
