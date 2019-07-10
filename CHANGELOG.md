@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.7 (July 10, 2019)
+
+### Added
+- Added new translations
+
 ## 1.0.6 (November 14, 2018)
 
 ### Added
@@ -26,7 +31,7 @@
 ## 1.0.2 (June 29, 2016)
 
 ### Fixed
-- Fixed access check for settings screen 
+- Fixed access check for settings screen
 
 ### Removed
 - Removed manual access check from controller actions
